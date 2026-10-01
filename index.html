@@ -83,7 +83,7 @@
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#projects" class="nav-link">Projects</a></li>
           <li><a href="#stack" class="nav-link">Tech Stack</a></li>
-          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="#blog" class="nav-link">Blog</a></li>
         </ul>
       </nav>
 
@@ -118,9 +118,6 @@
     <div class="container about-grid">
       <div class="about-text-col">
         <span class="section-tag">About &amp; Engineering Ethos</span>
-        <h1 class="hero-title" style="margin-bottom: 1rem;">
-          Architecting <span class="gradient-text">Intelligent AI Systems</span> &amp; Modern Applications.
-        </h1>
         <p class="about-intro">
           I'm <strong class="hero-highlight">George Moussa</strong>, a Software Engineer based in London, Ontario.
           I view software engineering through two complementary lenses: <strong>rigorous architectural precision</strong> 
@@ -383,6 +380,113 @@
             <span class="skill-pill">Cursor &amp; Antigravity</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Blog Reference Section
+       ========================================================================== -->
+  <section id="blog" class="section">
+    <div class="container">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;">
+        <div>
+          <span class="section-tag">Writing &amp; Architecture Notes</span>
+          <h2 class="section-title">Technical Deep Dives</h2>
+          <p class="section-desc">
+            Candid write-ups documenting real-world implementation challenges, performance trade-offs, and lessons learned.
+          </p>
+        </div>
+        <a href="blog.html" class="btn btn-secondary btn-sm" style="margin-bottom: 1.5rem;">
+          <span>Explore All Articles</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="featured-blog-grid">
+        <a href="blog.html#why-ast-parsing-beats-regex" class="featured-blog-card">
+          <div class="blog-meta-row">
+            <span class="badge badge-purple">TypeScript</span>
+            <span>•</span>
+            <span>March 2026</span>
+            <span>•</span>
+            <span>7 min read</span>
+          </div>
+          <h3 class="featured-blog-title">Why I stopped using regex to understand TypeScript codebases</h3>
+          <p class="featured-blog-desc">
+            What building DocuMind taught me about architectural drift, ts-morph compiler APIs, and the limits of token heuristics in large codebases.
+          </p>
+          <div class="featured-blog-footer">
+            <div class="tech-tag-group" style="margin-bottom: 0;">
+              <span class="tech-tag">ts-morph</span>
+              <span class="tech-tag">Compiler API</span>
+              <span class="tech-tag">AST</span>
+            </div>
+            <span class="read-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="blog.html#running-local-llms-on-windows" class="featured-blog-card">
+          <div class="blog-meta-row">
+            <span class="badge badge-emerald">Python</span>
+            <span>•</span>
+            <span>January 2026</span>
+            <span>•</span>
+            <span>6 min read</span>
+          </div>
+          <h3 class="featured-blog-title">Running a local AI agent on Windows without cloud telemetry</h3>
+          <p class="featured-blog-desc">
+            How I built Desktop Local Agent using Ollama, Python, and PowerShell without sending sensitive terminal data or filesystem tokens to remote clouds.
+          </p>
+          <div class="featured-blog-footer">
+            <div class="tech-tag-group" style="margin-bottom: 0;">
+              <span class="tech-tag">Ollama</span>
+              <span class="tech-tag">PowerShell</span>
+              <span class="tech-tag">Local AI</span>
+            </div>
+            <span class="read-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="blog.html#engineering-calm-technology" class="featured-blog-card">
+          <div class="blog-meta-row">
+            <span class="badge badge-amber">React Native</span>
+            <span>•</span>
+            <span>November 2025</span>
+            <span>•</span>
+            <span>5 min read</span>
+          </div>
+          <h3 class="featured-blog-title">The engineering behind 'Calm Tech': Building Inner Compass</h3>
+          <p class="featured-blog-desc">
+            Why streak counters and notification badges induce anxiety, and how we engineered an encrypted offline-first reflection mobile app in Expo.
+          </p>
+          <div class="featured-blog-footer">
+            <div class="tech-tag-group" style="margin-bottom: 0;">
+              <span class="tech-tag">Expo</span>
+              <span class="tech-tag">Calm Tech</span>
+              <span class="tech-tag">UX</span>
+            </div>
+            <span class="read-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </span>
+          </div>
+        </a>
       </div>
     </div>
   </section>

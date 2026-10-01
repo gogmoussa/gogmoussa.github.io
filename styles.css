@@ -1171,6 +1171,67 @@ button {
 }
 
 /* ==========================================================================
+   Featured Blog Reference Section
+   ========================================================================== */
+.featured-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.featured-blog-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.featured-blog-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card), 0 0 25px rgba(56, 189, 248, 0.12);
+}
+
+.featured-blog-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.015em;
+  transition: color var(--transition-fast);
+}
+
+.featured-blog-card:hover .featured-blog-title {
+  color: var(--accent-cyan);
+}
+
+.featured-blog-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.featured-blog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ==========================================================================
    Contact / Connect Section
    ========================================================================== */
 .contact-card {
@@ -1432,6 +1493,9 @@ button {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+  .featured-blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1458,6 +1522,9 @@ button {
     grid-template-columns: 1fr;
   }
   .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+  .featured-blog-grid {
     grid-template-columns: 1fr;
   }
   .filter-container {
