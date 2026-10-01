@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTerminal();
   initTelemetry();
   initProjects();
+  initBlogSection();
   initFilters();
   initModal();
   initMobileNav();
@@ -407,6 +408,115 @@ function showProjectModal(p) {
 }
 
 /* ==========================================================================
+   Technical Blog Section Rendering & In-Page Reading Modal
+   ========================================================================== */
+function initBlogSection() {
+  const container = document.getElementById('home-blog-grid');
+  if (!container || typeof blogPosts === 'undefined') return;
+
+  const badgeColorMap = {
+    'TypeScript': 'badge-purple',
+    'Local AI': 'badge-emerald',
+    'Calm Tech': 'badge-amber',
+    'Generative AI': 'badge-purple',
+    'Machine Learning': 'badge-amber'
+  };
+
+  container.innerHTML = blogPosts.map(post => {
+    const primaryBadge = post.tags[0] || 'Technical';
+    const badgeClass = badgeColorMap[primaryBadge] || 'badge-purple';
+
+    return `
+      <article class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-top">
+          <div class="card-header-row">
+            <span class="badge ${badgeClass}">${primaryBadge}</span>
+            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">${post.readTime}</span>
+          </div>
+          <h3 class="project-card-title">${post.title}</h3>
+          <p class="project-card-subtitle" style="font-size: 0.88rem; color: var(--accent-cyan); margin-bottom: 0.75rem;">${post.subtitle}</p>
+          <p class="project-card-desc">${post.summary}</p>
+          <div class="tech-tag-group" style="margin-top: 1rem; margin-bottom: 0.5rem;">
+            ${post.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="card-footer-row" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-muted);">${post.date}</span>
+          <button class="details-btn read-article-btn" data-article-id="${post.id}">
+            <span>Read Deep Dive</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  initArticleModal();
+}
+
+function initArticleModal() {
+  const backdrop = document.getElementById('article-modal');
+  const closeBtn = document.getElementById('article-modal-close-btn');
+
+  if (!backdrop) return;
+
+  function closeArticleModal() {
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeArticleModal);
+  }
+
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closeArticleModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+      closeArticleModal();
+    }
+  });
+
+  // Attach handlers for read article buttons
+  const readBtns = document.querySelectorAll('.read-article-btn');
+  readBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const articleId = btn.getAttribute('data-article-id');
+      const post = blogPosts.find(p => p.id === articleId);
+      if (post) {
+        showArticleModal(post);
+      }
+    });
+  });
+}
+
+function showArticleModal(post) {
+  const backdrop = document.getElementById('article-modal');
+  const titleEl = document.getElementById('article-modal-title');
+  const subtitleEl = document.getElementById('article-modal-subtitle');
+  const timeEl = document.getElementById('article-modal-time');
+  const dateEl = document.getElementById('article-modal-date');
+  const badgeEl = document.getElementById('article-modal-badge');
+  const bodyEl = document.getElementById('article-modal-body');
+
+  if (!backdrop) return;
+
+  if (titleEl) titleEl.textContent = post.title;
+  if (subtitleEl) subtitleEl.textContent = post.subtitle;
+  if (timeEl) timeEl.textContent = post.readTime;
+  if (dateEl) dateEl.textContent = post.date;
+  if (badgeEl) badgeEl.textContent = post.tags[0] || 'Technical';
+  if (bodyEl) bodyEl.innerHTML = post.content;
+
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+/* ==========================================================================
    Mobile Nav & Smooth Scrolling
    ========================================================================== */
 function initMobileNav() {
@@ -435,11 +545,11 @@ function initMobileNav() {
 
     sections.forEach(current => {
       const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
+      const sectionTop = current.offsetTop - 140;
       const sectionId = current.getAttribute('id');
-      const activeLink = document.querySelector(`.nav-link[href*="${sectionId}"]`);
+      const activeLink = document.querySelector(`.nav-link[href*="#${sectionId}"]`);
 
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
         links.forEach(l => l.classList.remove('active'));
         if (activeLink) activeLink.classList.add('active');
       }
