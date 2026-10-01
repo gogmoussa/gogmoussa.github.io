@@ -1123,8 +1123,8 @@ button {
 
 .profile-avatar-wrapper {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 1.5rem;
 }
 
@@ -1133,8 +1133,15 @@ button {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
   border: 3px solid var(--accent-cyan);
   box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.profile-avatar:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.55);
 }
 
 .profile-status {
