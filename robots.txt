@@ -1,0 +1,21 @@
+# robots.txt for gogmoussa.github.io
+User-agent: *
+Allow: /
+
+# Explicitly welcome AI and standard search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://gogmoussa.github.io/sitemap.xml
