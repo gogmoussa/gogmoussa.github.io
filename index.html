@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>George Moussa — Software Engineer & AI Systems Builder</title>
+  <meta name="description" content="Portfolio of George Moussa, Software Engineer based in London, Ontario, Canada. Specializing in AI systems, AST static analysis, full-stack web, and calm technology.">
+  <meta name="author" content="George Moussa">
+
+  <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:title" content="George Moussa — Software Engineer & AI Systems Builder">
+  <meta property="og:description" content="Explore flagship projects including DocuMind (AST code intelligence), Inner Compass, Desktop Local Agent, and Local AI companion.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gogmoussa.github.io/">
+  <meta property="og:image" content="assets/avatar.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       Navigation Bar
+       ========================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-badge">GM</span>
+        <div class="brand-text">
+          <span class="brand-name">George Moussa</span>
+          <span class="brand-title">Software Engineer</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#featured" class="nav-link">Flagship Work</a></li>
+          <li><a href="#projects" class="nav-link">All Projects</a></li>
+          <li><a href="#stack" class="nav-link">Tech Matrix</a></li>
+          <li><a href="#about" class="nav-link">Philosophy</a></li>
+          <li><a href="#contact" class="nav-link">Connect</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="GitHub Profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" title="LinkedIn Profile">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+
+        <button class="mobile-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       Hero Section
+       ========================================================================== -->
+  <section id="hero" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text-col">
+        <div class="hero-status-pill">
+          <span class="status-dot"></span>
+          <span>Open to Software Engineering &amp; AI Opportunities</span>
+        </div>
+
+        <h1 class="hero-title">
+          Architecting <span class="gradient-text">Intelligent AI Systems</span> &amp; Modern Applications.
+        </h1>
+
+        <p class="hero-subtitle">
+          I'm <span class="hero-highlight">George Moussa</span>, a Software Engineer based in London, Ontario. 
+          I build production-grade AI agents, AST-native static analysis tools, and calm-technology applications across 
+          <span class="hero-highlight">TypeScript</span>, <span class="hero-highlight">Python</span>, and <span class="hero-highlight">C#</span>.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#featured" class="btn btn-primary">
+            <span>Explore Flagship Work</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            <span>Get in Touch</span>
+          </a>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <span>github.com/gogmoussa</span>
+          </a>
+          <span>•</span>
+          <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <span>linkedin.com/in/gogmoussa</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Hero Terminal Window -->
+      <div class="hero-terminal-col">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <span class="terminal-title">bash — george@workstation</span>
+            <span class="terminal-badge">LIVE REPL</span>
+          </div>
+
+          <div class="terminal-tabs">
+            <button class="terminal-tab-btn active" data-tab="whoami">whoami</button>
+            <button class="terminal-tab-btn" data-tab="documind">documind.ts</button>
+            <button class="terminal-tab-btn" data-tab="agent">local_agent.py</button>
+            <button class="terminal-tab-btn" data-tab="stats">stats.sh</button>
+          </div>
+
+          <div class="terminal-body" id="terminal-body">
+            <!-- Dynamically populated via script.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Telemetry / Quick Metrics Bar
+       ========================================================================== -->
+  <section class="telemetry-section">
+    <div class="container">
+      <div class="telemetry-grid">
+        <div class="telemetry-card">
+          <div class="telemetry-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="telemetry-info">
+            <span class="telemetry-val" id="stat-repos-count">20+</span>
+            <span class="telemetry-label">Public Repositories</span>
+          </div>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telemetry-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div class="telemetry-info">
+            <span class="telemetry-val">AST &amp; Local AI</span>
+            <span class="telemetry-label">Core Architecture</span>
+          </div>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telemetry-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="telemetry-info">
+            <span class="telemetry-val">Full-Stack &amp; Mobile</span>
+            <span class="telemetry-label">Engineering Scope</span>
+          </div>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telemetry-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="telemetry-info">
+            <span class="telemetry-val">Ontario, Canada</span>
+            <span class="telemetry-label">Current Location</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Flagship Showcase Section
+       ========================================================================== -->
+  <section id="featured" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Flagship Systems</span>
+        <h2 class="section-title">Deep Architectural Spotlights</h2>
+        <p class="section-desc">
+          Featured engineering systems demonstrating AST static analysis, automated logic mapping, 
+          calm mobile application design, and local AI orchestration.
+        </p>
+      </div>
+
+      <div class="flagship-grid" id="flagship-container">
+        <!-- Rendered dynamically via script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       All Projects Section (Filterable & Searchable)
+       ========================================================================== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio Index</span>
+        <h2 class="section-title">Engineered Projects &amp; Explorations</h2>
+        <p class="section-desc">
+          A comprehensive catalog of applications, machine learning experiments, distributed prototypes, and developer tooling.
+        </p>
+      </div>
+
+      <div class="filter-container">
+        <div class="filter-pills">
+          <button class="filter-btn active" data-filter="all">All Systems</button>
+          <button class="filter-btn" data-filter="ai">AI &amp; Agents</button>
+          <button class="filter-btn" data-filter="web">Full-Stack &amp; Web</button>
+          <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+          <button class="filter-btn" data-filter="data">Data &amp; ML</button>
+          <button class="filter-btn" data-filter="systems">Distributed Systems</button>
+        </div>
+
+        <div class="search-input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="project-search" class="search-input" placeholder="Search by tech or keyword (e.g. PyTorch, AST, Ollama)...">
+        </div>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <!-- Rendered dynamically via script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Technical Matrix & Capabilities
+       ========================================================================== -->
+  <section id="stack" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Technical Matrix</span>
+        <h2 class="section-title">Core Competencies &amp; Tooling</h2>
+        <p class="section-desc">
+          Tools, languages, and frameworks used in building high-performance architectures, machine learning workflows, and client applications.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                <path d="M12 12L2.1 12.5"></path>
+                <path d="M16 16l4.5 4.5"></path>
+              </svg>
+            </div>
+            <h3 class="skill-cat-title">AI &amp; Machine Learning</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">Local LLM Orchestration</span>
+            <span class="skill-pill">Ollama</span>
+            <span class="skill-pill">PyTorch &amp; LSTMs</span>
+            <span class="skill-pill">AST Static Analysis</span>
+            <span class="skill-pill">ts-morph</span>
+            <span class="skill-pill">ChromaDB Vector Store</span>
+            <span class="skill-pill">BERTopic NLP</span>
+            <span class="skill-pill">Stable Diffusion (SD-Turbo)</span>
+            <span class="skill-pill">Diffusers &amp; CUDA</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <h3 class="skill-cat-title">Programming Languages</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">TypeScript</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">C# / .NET</span>
+            <span class="skill-pill">JavaScript (ES6+)</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">Kotlin</span>
+            <span class="skill-pill">HTML5 / Modern CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="skill-cat-title">Full-Stack &amp; Client</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">React</span>
+            <span class="skill-pill">React Native / Expo</span>
+            <span class="skill-pill">Vite</span>
+            <span class="skill-pill">FastAPI</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Flask</span>
+            <span class="skill-pill">Tailwind CSS</span>
+            <span class="skill-pill">RESTful APIs</span>
+            <span class="skill-pill">SSE &amp; WebSockets</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </div>
+            <h3 class="skill-cat-title">Systems &amp; Workflows</h3>
+          </div>
+          <div class="skill-pills">
+            <span class="skill-pill">Git &amp; GitHub</span>
+            <span class="skill-pill">PowerShell &amp; Bash</span>
+            <span class="skill-pill">Linux &amp; Windows</span>
+            <span class="skill-pill">Concurrency &amp; Sockets</span>
+            <span class="skill-pill">OOP &amp; Design Patterns</span>
+            <span class="skill-pill">Apify Web Scraping</span>
+            <span class="skill-pill">Cursor &amp; Antigravity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       About & Engineering Philosophy
+       ========================================================================== -->
+  <section id="about" class="section">
+    <div class="container about-grid">
+      <div class="about-card-col">
+        <div class="profile-card">
+          <div class="profile-avatar-wrapper">
+            <img src="assets/avatar.jpg" alt="George Moussa" class="profile-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/46631798?v=4'">
+            <div class="profile-status" title="Active builder"></div>
+          </div>
+          <h3 class="profile-name">George Moussa</h3>
+          <p class="profile-role">Software Engineer</p>
+          <div class="profile-location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>London, Ontario, Canada</span>
+          </div>
+          <p class="profile-bio">
+            "I’m a Software Engineer showcasing personal projects and learning from other great builders!"
+          </p>
+
+          <div style="display: flex; justify-content: center; gap: 0.75rem;">
+            <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text-col">
+        <span class="section-tag">Engineering Ethos</span>
+        <h2 class="section-title">How I Approach Software</h2>
+        <p>
+          I view software engineering through two complementary lenses: <strong>rigorous architectural precision</strong> 
+          and <strong>human-centered clarity</strong>. Whether developing an AST parser to eliminate architectural drift in large codebases 
+          or building a local LLM agent to automate system workflows without cloud latency, I emphasize privacy, performance, and maintainability.
+        </p>
+
+        <div class="philosophy-grid">
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Local-First &amp; Privacy</span>
+            </h4>
+            <p class="philosophy-desc">
+              Designing systems where user data stays sovereign. Minimizing unnecessary cloud roundtrips with offline storage and on-device neural inference.
+            </p>
+          </div>
+
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+              <span>Zero-Drift Architecture</span>
+            </h4>
+            <p class="philosophy-desc">
+              Treating source code as the absolute source of truth. Leveraging AST static analysis to maintain living, auto-updating system blueprints.
+            </p>
+          </div>
+
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Calm Technology</span>
+            </h4>
+            <p class="philosophy-desc">
+              Eliminating guilt triggers, red notification badges, and artificial engagement loops in favor of deliberate focus and clarity.
+            </p>
+          </div>
+
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span>Continuous Execution</span>
+            </h4>
+            <p class="philosophy-desc">
+              Iterating rapidly from prototype to production. Validating architectures early with running mock servers and automated test loops.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Contact & Bridge Section
+       ========================================================================== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-card">
+        <span class="section-tag" style="justify-content: center; margin-bottom: 1rem;">Let's Build Together</span>
+        <h2 class="contact-title">Interested in Collaborating?</h2>
+        <p class="contact-subtitle">
+          I'm actively interested in full-stack engineering, AI developer tooling, and distributed systems roles. 
+          Reach out directly via LinkedIn or explore my work on GitHub.
+        </p>
+
+        <div class="contact-button-row">
+          <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <span>Connect on LinkedIn</span>
+          </a>
+
+          <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <span>Explore GitHub Repos</span>
+          </a>
+
+          <button class="btn btn-outline" data-copy="https://www.linkedin.com/in/gogmoussa/">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy LinkedIn Link</span>
+          </button>
+        </div>
+
+        <div class="contact-links-row">
+          <span class="contact-link-pill">
+            <span class="status-dot"></span>
+            <span>London, ON, Canada (EST)</span>
+          </span>
+          <span class="contact-link-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 14 14"></polyline>
+            </svg>
+            <span>Fast Response via LinkedIn</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Project Deep-Dive Modal
+       ========================================================================== -->
+  <div class="modal-backdrop" id="project-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="modal-badge-row">
+        <span class="badge" id="modal-badge">Category</span>
+      </div>
+
+      <h3 class="modal-title" id="modal-title">Project Title</h3>
+      <p class="modal-tagline" id="modal-tagline">Project Tagline</p>
+
+      <div class="modal-body-section">
+        <h4 class="modal-section-title">System Overview</h4>
+        <p class="modal-desc" id="modal-desc"></p>
+      </div>
+
+      <div class="modal-body-section">
+        <h4 class="modal-section-title">Key Engineering Highlights</h4>
+        <ul id="modal-highlights" style="list-style: none; padding: 0;"></ul>
+      </div>
+
+      <div class="modal-body-section">
+        <h4 class="modal-section-title">Architecture &amp; Data Pipeline</h4>
+        <div class="modal-arch-diagram" id="modal-arch"></div>
+      </div>
+
+      <div class="modal-body-section">
+        <h4 class="modal-section-title">Technologies &amp; Libraries</h4>
+        <div class="tech-tag-group" id="modal-tech"></div>
+      </div>
+
+      <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+        <a id="modal-github-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          <span>View Source Code on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ==========================================================================
+       Footer
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <span class="brand-badge" style="width: 1.8rem; height: 1.8rem; font-size: 0.8rem;">GM</span>
+        <span>&copy; <span id="current-year">2026</span> George Moussa. Built for high performance &amp; zero bloat.</span>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
+        <a href="#hero" class="social-link">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="projects-data.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
