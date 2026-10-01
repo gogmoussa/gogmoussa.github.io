@@ -584,70 +584,6 @@ button {
 }
 
 /* ==========================================================================
-   Telemetry & Metrics Bar
-   ========================================================================== */
-.telemetry-section {
-  padding: 1.5rem 0 3.5rem;
-}
-
-.telemetry-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-}
-
-.telemetry-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  backdrop-filter: blur(12px);
-  transition: all var(--transition-normal);
-}
-
-.telemetry-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-}
-
-.telemetry-icon {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius-sm);
-  background: rgba(56, 189, 248, 0.1);
-  color: var(--accent-cyan);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.telemetry-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.telemetry-val {
-  font-size: 1.5rem;
-  font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-
-.telemetry-label {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* ==========================================================================
    Section Headers
    ========================================================================== */
 .section {
@@ -1519,9 +1455,6 @@ button {
     display: flex;
   }
   .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  .telemetry-grid {
     grid-template-columns: 1fr;
   }
   .philosophy-grid {

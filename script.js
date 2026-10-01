@@ -3,7 +3,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTerminal();
-  initTelemetry();
   initProjects();
   initFilters();
   initModal();
@@ -82,36 +81,6 @@ function initTerminal() {
       }
     });
   });
-}
-
-/* ==========================================================================
-   Telemetry & Live GitHub Stats
-   ========================================================================== */
-async function initTelemetry() {
-  const reposCountEl = document.getElementById('stat-repos-count');
-  const starsCountEl = document.getElementById('stat-stars-count');
-  const commitsCountEl = document.getElementById('stat-commits-count');
-
-  // Realistic verified baseline metrics
-  let repoCount = 20;
-  let followerCount = 8;
-  
-  try {
-    const res = await fetch('https://api.github.com/users/gogmoussa', {
-      headers: { 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.public_repos) repoCount = data.public_repos;
-      if (data.followers) followerCount = data.followers;
-    }
-  } catch (err) {
-    console.log('Using baseline GitHub telemetry cache');
-  }
-
-  if (reposCountEl) reposCountEl.textContent = `${repoCount}+`;
-  if (starsCountEl) starsCountEl.textContent = '100%';
-  if (commitsCountEl) commitsCountEl.textContent = '20+';
 }
 
 /* ==========================================================================
