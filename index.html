@@ -45,6 +45,7 @@
           <li><a href="#featured" class="nav-link">Flagship Work</a></li>
           <li><a href="#projects" class="nav-link">All Projects</a></li>
           <li><a href="#stack" class="nav-link">Tech Matrix</a></li>
+          <li><a href="blog.html" class="nav-link">Blog &amp; Notes</a></li>
           <li><a href="#about" class="nav-link">Philosophy</a></li>
           <li><a href="#contact" class="nav-link">Connect</a></li>
         </ul>
@@ -492,6 +493,110 @@
   </section>
 
   <!-- ==========================================================================
+       Technical Blog & Notes Preview Section
+       ========================================================================== -->
+  <section id="blog-preview" class="section">
+    <div class="container">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;">
+        <div>
+          <span class="section-tag">Engineering Retrospectives</span>
+          <h2 class="section-title">Technical Writing &amp; Architecture Notes</h2>
+          <p class="section-desc">
+            Candid post-mortems and architecture breakdowns from building my projects. Real lessons, code patterns, and trade-offs.
+          </p>
+        </div>
+        <a href="blog.html" class="btn btn-outline">
+          <span>Read All Articles</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="projects-grid" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));">
+        <article class="project-card">
+          <div class="card-top">
+            <div class="card-header-row">
+              <span class="badge badge-purple">TypeScript &bull; Compiler API</span>
+              <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">7 min read</span>
+            </div>
+            <h3 class="project-card-title">Why I stopped using regex to understand TypeScript codebases</h3>
+            <p class="project-card-desc">
+              What building DocuMind taught me about architectural drift, why naive grep breaks on barrel files and type imports, and how ts-morph compiler AST solved it.
+            </p>
+            <div class="tech-tag-group">
+              <span class="tech-tag">ts-morph</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">AST</span>
+            </div>
+          </div>
+          <div class="card-footer-row">
+            <a href="blog.html#why-ast-parsing-beats-regex" class="details-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-top">
+            <div class="card-header-row">
+              <span class="badge badge-emerald">Local AI &bull; Security</span>
+              <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">6 min read</span>
+            </div>
+            <h3 class="project-card-title">Running a local AI agent on Windows without cloud telemetry</h3>
+            <p class="project-card-desc">
+              Building Desktop Local Agent using Ollama, Python, and PowerShell. Trapping destructive commands and preserving execution context locally.
+            </p>
+            <div class="tech-tag-group">
+              <span class="tech-tag">Ollama</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">PowerShell</span>
+            </div>
+          </div>
+          <div class="card-footer-row">
+            <a href="blog.html#running-local-llms-on-windows" class="details-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="card-top">
+            <div class="card-header-row">
+              <span class="badge badge-amber">Calm Tech &bull; React Native</span>
+              <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">5 min read</span>
+            </div>
+            <h3 class="project-card-title">The engineering behind "Calm Tech": Building Inner Compass</h3>
+            <p class="project-card-desc">
+              Why streak counters and notification badges create anxiety, and how we engineered an offline-first journaling app in React Native and Expo.
+            </p>
+            <div class="tech-tag-group">
+              <span class="tech-tag">React Native</span>
+              <span class="tech-tag">Expo</span>
+              <span class="tech-tag">Offline-First</span>
+            </div>
+          </div>
+          <div class="card-footer-row">
+            <a href="blog.html#engineering-calm-technology" class="details-btn">
+              <span>Read Deep Dive</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
        Contact & Bridge Section
        ========================================================================== -->
   <section id="contact" class="section">
@@ -610,6 +715,7 @@
         <span>&copy; <span id="current-year">2026</span> George Moussa. Built for high performance &amp; zero bloat.</span>
       </div>
       <div class="footer-right">
+        <a href="blog.html" class="social-link">Technical Blog</a>
         <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
         <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
         <a href="#hero" class="social-link">Back to Top ↑</a>
