@@ -64,7 +64,7 @@
        ========================================================================== -->
   <header class="navbar">
     <div class="container nav-container">
-      <a href="#hero" class="nav-brand" aria-label="George Moussa Portfolio Home">
+      <a href="#about" class="nav-brand" aria-label="George Moussa Portfolio Home">
         <span class="brand-badge" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -80,10 +80,10 @@
 
       <nav>
         <ul class="nav-links">
+          <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#projects" class="nav-link">Projects</a></li>
           <li><a href="#stack" class="nav-link">Tech Stack</a></li>
           <li><a href="blog.html" class="nav-link">Blog</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
         </ul>
       </nav>
 
@@ -112,75 +112,110 @@
   </header>
 
   <!-- ==========================================================================
-       Hero Section
+       About & Hero Section
        ========================================================================== -->
-  <section id="hero" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-text-col">
-        <h1 class="hero-title">
-          Architecting <span class="gradient-text">Intelligent AI Systems</span> &amp; Modern Applications.
-        </h1>
-
-        <p class="hero-subtitle">
-          I'm <span class="hero-highlight">George Moussa</span>, a Software Engineer based in London, Ontario. 
-          I build production-grade AI agents, AST-native static analysis tools, and calm-technology applications across 
-          <span class="hero-highlight">TypeScript</span>, <span class="hero-highlight">Python</span>, and <span class="hero-highlight">C#</span>.
-        </p>
-
-        <div class="hero-cta-group">
-          <a href="#featured" class="btn btn-primary">
-            <span>Explore Flagship Work</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-          <a href="#contact" class="btn btn-secondary">
-            <span>Get in Touch</span>
-          </a>
-        </div>
-
-        <div class="hero-socials">
-          <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="social-link">
+  <section id="about" class="hero about-hero">
+    <div class="container about-grid">
+      <div class="about-card-col">
+        <div class="profile-card">
+          <div class="profile-avatar-wrapper">
+            <img src="assets/IMG_3672.JPG" alt="George Moussa" class="profile-avatar" loading="lazy" decoding="async">
+            <div class="profile-status" title="Active builder"></div>
+          </div>
+          <h3 class="profile-name">George Moussa</h3>
+          <p class="profile-role">Software Engineer</p>
+          <div class="profile-location">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            <span>github.com/gogmoussa</span>
-          </a>
-          <span>•</span>
-          <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="social-link">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect x="2" y="9" width="4" height="12"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-            <span>linkedin.com/in/gogmoussa</span>
-          </a>
+            <span>London, Ontario, Canada</span>
+          </div>
+          <p class="profile-bio">
+            "I’m a Software Engineer showcasing personal projects and learning from other great builders!"
+          </p>
+
+          <div style="display: flex; justify-content: center; gap: 0.75rem;">
+            <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Interactive Hero Terminal Window -->
-      <div class="hero-terminal-col">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <span class="terminal-dot dot-red"></span>
-              <span class="terminal-dot dot-yellow"></span>
-              <span class="terminal-dot dot-green"></span>
-            </div>
-            <span class="terminal-title">bash — george@workstation</span>
-            <span class="terminal-badge">LIVE REPL</span>
+      <div class="about-text-col">
+        <span class="section-tag">About &amp; Engineering Ethos</span>
+        <h1 class="hero-title" style="margin-bottom: 1rem;">
+          Architecting <span class="gradient-text">Intelligent AI Systems</span> &amp; Modern Applications.
+        </h1>
+        <p class="about-intro">
+          I'm <strong class="hero-highlight">George Moussa</strong>, a Software Engineer based in London, Ontario.
+          I view software engineering through two complementary lenses: <strong>rigorous architectural precision</strong> 
+          and <strong>human-centered clarity</strong>. Whether developing an AST parser to eliminate architectural drift in large codebases 
+          or building local AI agents to automate system workflows without cloud latency, I emphasize privacy, performance, and maintainability across 
+          <span class="hero-highlight">TypeScript</span>, <span class="hero-highlight">Python</span>, and <span class="hero-highlight">C#</span>.
+        </p>
+
+        <div class="philosophy-grid">
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Local-First &amp; Privacy</span>
+            </h4>
+            <p class="philosophy-desc">
+              Designing systems where user data stays sovereign. Minimizing unnecessary cloud roundtrips with offline storage and on-device neural inference.
+            </p>
           </div>
 
-          <div class="terminal-tabs">
-            <button class="terminal-tab-btn active" data-tab="whoami">whoami</button>
-            <button class="terminal-tab-btn" data-tab="documind">documind.ts</button>
-            <button class="terminal-tab-btn" data-tab="agent">local_agent.py</button>
-            <button class="terminal-tab-btn" data-tab="stats">stats.sh</button>
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+              <span>Zero-Drift Architecture</span>
+            </h4>
+            <p class="philosophy-desc">
+              Treating source code as the absolute source of truth. Leveraging AST static analysis to maintain living, auto-updating system blueprints.
+            </p>
           </div>
 
-          <div class="terminal-body" id="terminal-body">
-            <!-- Dynamically populated via script.js -->
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Calm Technology</span>
+            </h4>
+            <p class="philosophy-desc">
+              Eliminating guilt triggers, red notification badges, and artificial engagement loops in favor of deliberate focus and clarity.
+            </p>
+          </div>
+
+          <div class="philosophy-box">
+            <h4 class="philosophy-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span>Continuous Execution</span>
+            </h4>
+            <p class="philosophy-desc">
+              Iterating rapidly from prototype to production. Validating architectures early with running mock servers and automated test loops.
+            </p>
           </div>
         </div>
       </div>
@@ -353,113 +388,6 @@
   </section>
 
   <!-- ==========================================================================
-       About & Engineering Philosophy
-       ========================================================================== -->
-  <section id="about" class="section">
-    <div class="container about-grid">
-      <div class="about-card-col">
-        <div class="profile-card">
-          <div class="profile-avatar-wrapper">
-            <img src="assets/IMG_3672.JPG" alt="George Moussa" class="profile-avatar" loading="lazy" decoding="async">
-            <div class="profile-status" title="Active builder"></div>
-          </div>
-          <h3 class="profile-name">George Moussa</h3>
-          <p class="profile-role">Software Engineer</p>
-          <div class="profile-location">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <span>London, Ontario, Canada</span>
-          </div>
-          <p class="profile-bio">
-            "I’m a Software Engineer showcasing personal projects and learning from other great builders!"
-          </p>
-
-          <div style="display: flex; justify-content: center; gap: 0.75rem;">
-            <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-              <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-              <span>LinkedIn</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-text-col">
-        <span class="section-tag">Engineering Ethos</span>
-        <h2 class="section-title">How I Approach Software</h2>
-        <p>
-          I view software engineering through two complementary lenses: <strong>rigorous architectural precision</strong> 
-          and <strong>human-centered clarity</strong>. Whether developing an AST parser to eliminate architectural drift in large codebases 
-          or building a local LLM agent to automate system workflows without cloud latency, I emphasize privacy, performance, and maintainability.
-        </p>
-
-        <div class="philosophy-grid">
-          <div class="philosophy-box">
-            <h4 class="philosophy-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <span>Local-First &amp; Privacy</span>
-            </h4>
-            <p class="philosophy-desc">
-              Designing systems where user data stays sovereign. Minimizing unnecessary cloud roundtrips with offline storage and on-device neural inference.
-            </p>
-          </div>
-
-          <div class="philosophy-box">
-            <h4 class="philosophy-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-              </svg>
-              <span>Zero-Drift Architecture</span>
-            </h4>
-            <p class="philosophy-desc">
-              Treating source code as the absolute source of truth. Leveraging AST static analysis to maintain living, auto-updating system blueprints.
-            </p>
-          </div>
-
-          <div class="philosophy-box">
-            <h4 class="philosophy-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <span>Calm Technology</span>
-            </h4>
-            <p class="philosophy-desc">
-              Eliminating guilt triggers, red notification badges, and artificial engagement loops in favor of deliberate focus and clarity.
-            </p>
-          </div>
-
-          <div class="philosophy-box">
-            <h4 class="philosophy-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-              </svg>
-              <span>Continuous Execution</span>
-            </h4>
-            <p class="philosophy-desc">
-              Iterating rapidly from prototype to production. Validating architectures early with running mock servers and automated test loops.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
        Contact & Bridge Section
        ========================================================================== -->
   <section id="contact" class="section">
@@ -587,7 +515,7 @@
         <a href="blog.html" class="social-link">Technical Blog</a>
         <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
         <a href="https://www.linkedin.com/in/gogmoussa/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
-        <a href="#hero" class="social-link">Back to Top ↑</a>
+        <a href="#about" class="social-link">Back to Top ↑</a>
       </div>
     </div>
   </footer>
