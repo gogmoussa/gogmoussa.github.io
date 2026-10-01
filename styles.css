@@ -140,15 +140,26 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  background: linear-gradient(135deg, #0284c7, #6366f1);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(2, 132, 199, 0.4);
+  width: 2.35rem;
+  height: 2.35rem;
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.15), rgba(99, 102, 241, 0.15));
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-md);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+}
+
+.nav-brand:hover .brand-badge {
+  border-color: var(--accent-cyan);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(99, 102, 241, 0.25));
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+}
+
+.brand-badge svg {
+  display: block;
 }
 
 .brand-text {
