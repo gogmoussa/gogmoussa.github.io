@@ -398,14 +398,16 @@ function initMobileNav() {
   });
 
   // Smart hide-on-scroll navbar for mobile
-  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+  let scrollUpDistance = 0;
   const navbar = document.querySelector('.navbar');
-  const scrollThreshold = 8;
+  const downThreshold = 8;
+  const upThreshold = 25;
   let ticking = false;
 
   // Active section spy and smart navbar hide on scroll
   window.addEventListener('scroll', () => {
-    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
 
     const sections = document.querySelectorAll('section[id]');
     sections.forEach(current => {
@@ -423,12 +425,21 @@ function initMobileNav() {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         if (navbar && (!navLinks || !navLinks.classList.contains('open'))) {
-          if (currentScrollY <= 40) {
+          const scrollDelta = currentScrollY - lastScrollY;
+
+          if (currentScrollY <= 50) {
             navbar.classList.remove('nav-hidden');
-          } else if (currentScrollY > lastScrollY + scrollThreshold) {
+            scrollUpDistance = 0;
+          } else if (scrollDelta > downThreshold) {
             navbar.classList.add('nav-hidden');
-          } else if (currentScrollY < lastScrollY - scrollThreshold) {
-            navbar.classList.remove('nav-hidden');
+            scrollUpDistance = 0;
+          } else if (scrollDelta < 0) {
+            scrollUpDistance += Math.abs(scrollDelta);
+            if (scrollUpDistance >= upThreshold) {
+              navbar.classList.remove('nav-hidden');
+            }
+          } else {
+            scrollUpDistance = 0;
           }
         }
         lastScrollY = Math.max(0, currentScrollY);
