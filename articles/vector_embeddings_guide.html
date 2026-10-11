@@ -37,6 +37,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
   <style>
     :root {
       --bg: #0a0e17;
@@ -359,18 +360,26 @@
 </head>
 <body>
 
-  <header>
-    <a href="../index.html" class="brand" style="text-decoration: none;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M2 17L12 22L22 17" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M2 12L12 17L22 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-      </svg>
-      <span>George Moussa // Explorable Articles</span>
-    </a>
-    <div style="display: flex; gap: 1.25rem; align-items: center;">
-      <a href="../blog.html" class="back-link">&larr; Back to Articles</a>
-      <a href="../index.html" class="back-link">Home</a>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-brand" aria-label="George Moussa Portfolio Home">
+        <span class="brand-badge" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span class="brand-name">George Moussa</span>
+          <span class="brand-title">Software Engineer</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 1.25rem; align-items: center;">
+        <a href="../blog.html" class="btn btn-secondary btn-sm">&larr; Back to Articles</a>
+        <a href="../index.html" class="btn btn-outline btn-sm">Home</a>
+      </div>
     </div>
   </header>
 
