@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizing Vector Embeddings: From Zero to Intuition — George Moussa</title>
+  <meta name="description" content="A hands-on, first-principles explorable explainer with 3 live interactive simulators showing how machines turn messy human ideas into coordinates, why angles beat rulers, and how semantic vector arithmetic works.">
+  <meta name="author" content="George Moussa">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Visualizing Vector Embeddings: From Zero to Intuition — George Moussa">
+  <meta property="og:description" content="Explore live interactive simulators: Trait Sliders, Cosine Projections, and Vector Arithmetic on HTML5 canvas.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gogmoussa.github.io/articles/vector_embeddings_guide.html">
+  <meta property="og:image" content="../assets/IMG_3672.JPG">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --card-bg: #111827;
+      --border: #1f293d;
+      --accent-cyan: #38bdf8;
+      --accent-violet: #818cf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', Menlo, Consolas, Monaco, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .back-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent-cyan); }
+    .back-link:hover { color: var(--text-main); }
+
+    .article-container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 8rem 1.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+    .author-meta strong { color: var(--text-main); }
+
+    p {
+      font-size: 1.12rem;
+      color: #cbd5e1;
+      margin-bottom: 1.5rem;
+    }
+
+    .lead-quote {
+      font-size: 1.22rem;
+      color: #f8fafc;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+
+    h2 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 4rem 0 1.25rem 0;
+      color: var(--text-main);
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .callout {
+      background: rgba(17, 24, 39, 0.75);
+      border-left: 4px solid var(--accent-cyan);
+      border-radius: 0 12px 12px 0;
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .callout p { margin-bottom: 0.5rem; font-size: 1.05rem; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* Interactive Toy Card */
+    .widget-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 2.5rem 0 3.5rem 0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .widget-header {
+      background: #162032;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .widget-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .widget-instructions {
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      font-weight: 500;
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 390px;
+      background: radial-gradient(circle at center, #131c2e 0%, #0b101b 100%);
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .widget-controls {
+      padding: 1.5rem;
+      background: #0f1624;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .widget-controls { grid-template-columns: 1fr; }
+      .canvas-wrapper { height: 330px; }
+    }
+
+    .slider-row {
+      margin-bottom: 1rem;
+    }
+    .slider-row:last-child { margin-bottom: 0; }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+    .slider-header strong { color: var(--text-main); font-family: var(--font-mono); }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-cyan);
+      cursor: pointer;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    button.btn {
+      background: #1e293b;
+      color: var(--text-main);
+      border: 1px solid #334155;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    button.btn:hover {
+      background: #334155;
+      border-color: var(--accent-cyan);
+    }
+    button.btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .readout-card {
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .readout-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .readout-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .readout-label { color: var(--text-dim); }
+    .readout-val { color: var(--accent-emerald); font-weight: 600; }
+    .readout-val.cyan { color: var(--accent-cyan); }
+    .readout-val.rose { color: var(--accent-rose); }
+    .readout-val.amber { color: var(--accent-amber); }
+
+    pre {
+      background: #0d131f;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin: 2rem 0;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent-cyan);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 5rem;
+      padding-top: 2rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html" class="brand" style="text-decoration: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 12L12 17L22 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+      </svg>
+      <span>George Moussa // Explorable Articles</span>
+    </a>
+    <div style="display: flex; gap: 1.25rem; align-items: center;">
+      <a href="../blog.html" class="back-link">&larr; Back to Articles</a>
+      <a href="../index.html" class="back-link">Home</a>
+    </div>
+  </header>
+
+  <main class="article-container">
+    <div class="badge">First-Principles Interactive Guide</div>
+    <h1>Visualizing Vector Embeddings: From Zero to Intuition</h1>
+    <p class="subtitle">How machines turn messy human ideas into map coordinates, why angles beat rulers, and how modern AI searches meaning in milliseconds.</p>
+
+    <div class="author-meta">
+      <div>By <strong>George Moussa</strong></div>
+      <div>&bull;</div>
+      <div>8 min interactive read</div>
+      <div>&bull;</div>
+      <div>3 Live Simulators</div>
+    </div>
+
+    <!-- NEW 3-BEAT HUMAN HOOK (Everyday Magic + Honest Friction + Visual Promise) -->
+    <p class="lead-quote">
+      Pull out your phone right now, open your Photos app, and search for <code>"dog sleeping on the couch"</code> or <code>"sunset at the beach"</code>.
+    </p>
+
+    <p>
+      Stop and think about what happens next. You never named those image files. You never typed keyword tags onto them. Your camera only saved a raw grid of colored pixels. Yet in a fraction of a second, your phone pulls up the exact photo you took three summers ago.
+    </p>
+
+    <p>
+      How does a machine look at a grid of pixels—or a messy human sentence—and actually know what it <em>means</em>?
+    </p>
+
+    <p>
+      For a long time, every time I asked how AI search or memory worked, people threw the same buzzword at me: <strong>"Vector Embeddings."</strong> And whenever I tried to look it up, I got hit with walls of linear algebra formulas and arrays of 1,536 numbers. I didn't want a math textbook—I wanted to actually <em>see</em> how it works in my head.
+    </p>
+
+    <div class="callout">
+      <p><strong>The Core Secret (Zero Jargon):</strong></p>
+      <p>Computers still don't understand words or feelings. What they <em>do</em> understand is geometry. An <strong>embedding</strong> is simply a trick that turns any idea—a word, a paragraph, a song, or a photo—into a <strong>GPS coordinate on a map</strong> where similar meanings live in the same neighborhood.</p>
+    </div>
+
+    <!-- SECTION 1: THE FLAVOR SLIDERS -->
+    <h2>1. Building the Map: The Trait Sliders</h2>
+
+    <p>
+      How do you turn a concept into a map coordinate? Imagine you work at a restaurant and want a computer to understand your menu using just <strong>two trait sliders</strong> rated from <code>0</code> to <code>10</code>:
+    </p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+      <li><strong>Slider 1 (Horizontal X-Axis): Sweetness</strong> (0 = Savory, 10 = Pure Sugar)</li>
+      <li><strong>Slider 2 (Vertical Y-Axis): Crunchiness</strong> (0 = Soft/Liquid, 10 = Super Crunchy)</li>
+    </ul>
+
+    <p>
+      If we rate an <strong>Apple</strong>, we give it Sweetness = <code>8</code> and Crunchiness = <code>9</code>. That gives us a two-number coordinate: <code>[8, 9]</code>.
+      A <strong>Pear</strong> gets <code>[7, 7]</code>. A <strong>Steak</strong> gets <code>[1, 2]</code>.
+    </p>
+
+    <p>
+      <strong>Try it below:</strong> Drag the two sliders for your Mystery Food and watch how the computer automatically knows which food is most similar to yours just by checking who sits closest on the map.
+    </p>
+
+    <!-- TOY 1: TRAIT SLIDER SANDBOX -->
+    <div class="widget-container">
+      <div class="widget-header">
+        <div class="widget-title">Interactive Toy #1: The 2D Trait Map</div>
+        <div class="widget-instructions">Move the sliders to place your food on the map</div>
+      </div>
+
+      <div class="canvas-wrapper" id="box1-container">
+        <canvas id="canvas-toy1"></canvas>
+      </div>
+
+      <div class="widget-controls">
+        <div>
+          <div class="slider-row">
+            <div class="slider-header">
+              <span>Slider 1 (X-Axis): <strong>Sweetness</strong></span>
+              <strong id="val-sweet">7.5</strong>
+            </div>
+            <input type="range" id="slider-sweet" min="0" max="10" step="0.1" value="7.5">
+          </div>
+          <div class="slider-row">
+            <div class="slider-header">
+              <span>Slider 2 (Y-Axis): <strong>Crunchiness</strong></span>
+              <strong id="val-crunch">8.0</strong>
+            </div>
+            <input type="range" id="slider-crunch" min="0" max="10" step="0.1" value="8.0">
+          </div>
+        </div>
+
+        <div class="readout-card">
+          <div class="readout-row">
+            <span class="readout-label">Your Embedding:</span>
+            <span class="readout-val cyan" id="toy1-coord">[7.5, 8.0]</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Closest Match:</span>
+            <span class="readout-val" id="toy1-nearest">Apple [8.0, 9.0]</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Distance to Match:</span>
+            <span class="readout-val amber" id="toy1-dist">1.12 units</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <strong>That coordinate <code>[7.5, 8.0]</code> IS an embedding.</strong> And why do engineers call it a <strong>vector</strong>? Because in geometry, when you draw an arrow from the bottom-left corner <code>[0, 0]</code> out to your coordinate <code>[7.5, 8.0]</code>, that arrow is called a vector.
+    </p>
+
+    <!-- SECTION 2: COSINE VS EUCLIDEAN -->
+    <h2>2. Why We Measure the Angle Between Arrows (Not Ruler Distance)</h2>
+
+    <p>
+      In Toy #1, we found the closest match by measuring the <strong>straight-line ruler distance</strong> (called <em>Euclidean Distance</em>) between the tips of the arrows.
+    </p>
+
+    <p>
+      But when we embed real text documents, ruler distance has a fatal flaw: <strong>longer documents create longer arrows.</strong>
+    </p>
+
+    <p>
+      Imagine comparing a <strong>Short Tweet</strong> about heart health (<code>[3.0, 2.0]</code>) against a <strong>500-Page Medical Book</strong> on the exact same topic. Because the book has 100x more words, its arrow shoots way out across the graph.
+      <br><strong>Drag the "Book Length" slider below</strong> and watch what happens to the red Ruler Distance vs. the yellow Angle Wedge (&theta;):
+    </p>
+
+    <!-- TOY 2: TWEET VS TEXTBOOK (COSINE VS EUCLIDEAN) -->
+    <div class="widget-container">
+      <div class="widget-header">
+        <div class="widget-title">Interactive Toy #2: Yellow Angle Wedge (Cosine) vs. Red Ruler (Euclidean)</div>
+        <div class="widget-instructions">Drag "Book Length" &mdash; notice the yellow angle never changes!</div>
+      </div>
+
+      <div class="canvas-wrapper" id="box2-container">
+        <canvas id="canvas-toy2"></canvas>
+      </div>
+
+      <div class="widget-controls">
+        <div>
+          <div class="slider-row">
+            <div class="slider-header">
+              <span>1. <strong>Book Length</strong> (Stretches Purple Arrow)</span>
+              <strong id="val-scale">2.5x</strong>
+            </div>
+            <input type="range" id="slider-scale" min="1" max="3.2" step="0.1" value="2.5">
+          </div>
+          <div class="slider-row">
+            <div class="slider-header">
+              <span>2. <strong>Topic Angle (&theta;)</strong> (Rotates Book's Topic)</span>
+              <strong id="val-drift">18&deg;</strong>
+            </div>
+            <input type="range" id="slider-drift" min="0" max="75" step="1" value="18">
+          </div>
+        </div>
+
+        <div class="readout-card">
+          <div class="readout-row">
+            <span class="readout-label">Yellow Angle (&theta;):</span>
+            <span class="readout-val amber" id="toy2-angle">18.0&deg;</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Cosine Similarity:</span>
+            <span class="readout-val" id="toy2-cosine">0.951 (Strong Match)</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Red Ruler Distance:</span>
+            <span class="readout-val rose" id="toy2-euclid">5.58 units</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Look at what just happened in Toy #2:</strong></p>
+      <p>
+        1. When you drag <strong>Book Length</strong> back and forth, the purple arrow stretches, making the <strong>Red Ruler Distance</strong> change wildly—even though the book's topic didn't change at all!<br>
+        2. Meanwhile, look at the <strong>Yellow Angle Wedge (&theta;)</strong> tucked between the two arrows: <strong>stretching the arrow doesn't change the angle by a single degree.</strong> That is why AI databases use <strong>Cosine Similarity</strong>—it measures pure direction, ignoring document length.
+      </p>
+    </div>
+
+    <!-- SECTION 3: VECTOR MATH -->
+    <h2>3. Doing Math With Meaning: <code>King - Man + Woman = Queen</code></h2>
+
+    <p>
+      Because every concept lives at a specific coordinate of traits, researchers discovered something wild: <strong>you can add and subtract words like numbers.</strong>
+    </p>
+
+    <p>
+      Let's plot four words on a clean 2D map where:
+    </p>
+    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+      <li><strong>Horizontal X-Axis (Gender):</strong> Left is Masculine (<code>-5</code>), Center is Gender-Neutral (<code>0</code>), Right is Feminine (<code>+5</code>).</li>
+      <li><strong>Vertical Y-Axis (Status):</strong> Bottom is Commoner (<code>1</code>), Top is Royal Monarch (<code>9</code>).</li>
+    </ul>
+
+    <p>
+      Click through the 3 steps below to watch the geometry unfold:
+    </p>
+
+    <!-- TOY 3: KING - MAN + WOMAN -->
+    <div class="widget-container">
+      <div class="widget-header">
+        <div class="widget-title">Interactive Toy #3: Step-by-Step Vector Arithmetic</div>
+        <div class="widget-instructions">Click Step 1 &rarr; Step 2 &rarr; Step 3</div>
+      </div>
+
+      <div class="canvas-wrapper" id="box3-container">
+        <canvas id="canvas-toy3"></canvas>
+      </div>
+
+      <div class="widget-controls">
+        <div>
+          <label style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.6rem;">Walk Through The Equation</label>
+          <div class="btn-row">
+            <button class="btn active" id="step-1">1. Start: King [-5, 9]</button>
+            <button class="btn" id="step-2">2. Subtract Man [-5, 1]</button>
+            <button class="btn" id="step-3">3. Add Woman [+5, 1]</button>
+          </div>
+        </div>
+
+        <div class="readout-card">
+          <div class="readout-row">
+            <span class="readout-label">Current Step:</span>
+            <span class="readout-val cyan" id="toy3-eq">King</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Coordinate Math:</span>
+            <span class="readout-val amber" id="toy3-calc">[-5, 9]</span>
+          </div>
+          <div class="readout-row">
+            <span class="readout-label">Resulting Concept:</span>
+            <span class="readout-val" id="toy3-meaning">Masculine (-5) + Monarch (9)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      Look at <strong>Step 2</strong>: when you take <code>King [-5, 9]</code> and subtract <code>Man [-5, 1]</code>, the horizontal Gender scores cancel out completely: <code>-5 - (-5) = 0</code>. That puts you right on the center neutral line at <code>[0, 8]</code>—a pure, genderless concept of Royalty.
+    </p>
+    <p>
+      Then in <strong>Step 3</strong>, adding <code>Woman [+5, 1]</code> pushes the coordinate to the feminine side at <code>[+5, 9]</code>—landing dead-on <strong>Queen</strong>.
+    </p>
+
+    <!-- SECTION 4: SCALING TO REAL AI -->
+    <h2>4. From 2 Sliders to 1,536 Sliders</h2>
+
+    <p>
+      In our three toys above, we only used <strong>2 sliders</strong> (X and Y) so we could draw them on a flat screen.
+    </p>
+
+    <p>
+      To map all of human language—every nuance of law, medicine, code, sarcasm, and photography—two sliders aren't enough. When you call OpenAI's embedding API, its neural network scores your input across <strong>1,536 sliders simultaneously</strong>:
+    </p>
+
+    <pre><code>// Calling OpenAI returns 1,536 trait scores for your sentence:
+const response = await openai.embeddings.create({
+  model: "text-embedding-3-small",
+  input: "dog sleeping on the couch"
+});
+
+// Output: [-0.014, 0.038, -0.009, ... 1,533 more slider scores]</code></pre>
+
+    <p>
+      Even though no human can visualize a 1,536-dimensional room, <strong>the computer runs the exact same angle math from Toy #2</strong>. Whether you're searching your iPhone photos, getting song recommendations on Spotify, or giving an AI assistant long-term memory with <strong>Supabase</strong> or <strong>Pinecone</strong>, it all comes down to one simple geometric trick:
+    </p>
+
+    <p class="lead-quote" style="color: var(--accent-cyan); margin-top: 1.5rem;">
+      Don't match the letters. Measure the angle between the thoughts.
+    </p>
+
+    <footer>
+      <div>Part of George Moussa's <strong>Explorable Engineering</strong> Series.</div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="../blog.html" style="color: var(--accent-cyan); text-decoration: none;">All Articles</a>
+        <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">Portfolio Home</a>
+        <a href="https://github.com/gogmoussa" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none;">GitHub</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // =========================================================================
+    // TOY #1: THE 2D TRAIT SLIDER MAP (FOODS)
+    // =========================================================================
+    (function() {
+      const canvas = document.getElementById('canvas-toy1');
+      const ctx = canvas.getContext('2d');
+      const container = document.getElementById('box1-container');
+      const sSweet = document.getElementById('slider-sweet');
+      const sCrunch = document.getElementById('slider-crunch');
+
+      const foods = [
+        { name: 'Apple', x: 8.0, y: 9.0, color: '#f43f5e' },
+        { name: 'Pear', x: 7.0, y: 7.0, color: '#34d399' },
+        { name: 'Ice Cream', x: 9.0, y: 1.0, color: '#fbbf24' },
+        { name: 'Potato Chip', x: 1.5, y: 9.5, color: '#a855f7' },
+        { name: 'Steak', x: 1.0, y: 2.0, color: '#fb7185' }
+      ];
+
+      let width = 0, height = 0, padL = 65, padR = 40, padT = 35, padB = 50;
+
+      function toScreen(x, y) {
+        const plotW = width - padL - padR;
+        const plotH = height - padT - padB;
+        return {
+          sx: padL + (x / 10) * plotW,
+          sy: (height - padB) - (y / 10) * plotH
+        };
+      }
+
+      function render() {
+        const rect = container.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+        ctx.clearRect(0, 0, width, height);
+
+        const userX = parseFloat(sSweet.value);
+        const userY = parseFloat(sCrunch.value);
+
+        // Draw Grid (0 to 10)
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 10; i += 2) {
+          const p = toScreen(i, i);
+          ctx.beginPath(); ctx.moveTo(p.sx, padT); ctx.lineTo(p.sx, height - padB); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(padL, p.sy); ctx.lineTo(width - padR, p.sy); ctx.stroke();
+
+          ctx.fillStyle = '#64748b';
+          ctx.font = '11px var(--font-mono)';
+          ctx.fillText(i, p.sx - 4, height - padB + 18);
+          ctx.fillText(i, padL - 22, p.sy + 4);
+        }
+
+        // Axes
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(padL, padT);
+        ctx.lineTo(padL, height - padB);
+        ctx.lineTo(width - padR, height - padB);
+        ctx.stroke();
+
+        // Axis Titles
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 12px var(--font-sans)';
+        ctx.fillText('Sweetness (Slider 1) \u2192', width / 2 - 60, height - 12);
+        ctx.save();
+        ctx.translate(20, height / 2 + 50);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText('Crunchiness (Slider 2) \u2192', 0, 0);
+        ctx.restore();
+
+        // Find closest food
+        let closest = foods[0];
+        let minDist = Infinity;
+        foods.forEach(f => {
+          const d = Math.hypot(f.x - userX, f.y - userY);
+          if (d < minDist) { minDist = d; closest = f; }
+        });
+
+        const origin = toScreen(0, 0);
+        const userPos = toScreen(userX, userY);
+        const closePos = toScreen(closest.x, closest.y);
+
+        // Dashed line to closest neighbor
+        ctx.beginPath();
+        ctx.moveTo(userPos.sx, userPos.sy);
+        ctx.lineTo(closePos.sx, closePos.sy);
+        ctx.strokeStyle = '#fbbf24';
+        ctx.setLineDash([5, 5]);
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Draw fixed foods
+        foods.forEach(f => {
+          const p = toScreen(f.x, f.y);
+          const isClosest = f.name === closest.name;
+          if (isClosest) {
+            ctx.beginPath();
+            ctx.arc(p.sx, p.sy, 13, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(251, 191, 36, 0.2)';
+            ctx.fill();
+          }
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, 6, 0, Math.PI * 2);
+          ctx.fillStyle = f.color;
+          ctx.fill();
+
+          ctx.fillStyle = isClosest ? '#ffffff' : '#94a3b8';
+          ctx.font = isClosest ? 'bold 12px var(--font-sans)' : '12px var(--font-sans)';
+          ctx.fillText(`${f.name} [${f.x}, ${f.y}]`, p.sx + 10, p.sy + 4);
+        });
+
+        // Draw User Vector Arrow from [0,0]
+        ctx.beginPath();
+        ctx.moveTo(origin.sx, origin.sy);
+        ctx.lineTo(userPos.sx, userPos.sy);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Draw User Node
+        ctx.beginPath();
+        ctx.arc(userPos.sx, userPos.sy, 9, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 13px var(--font-sans)';
+        ctx.fillText(`YOUR FOOD [${userX.toFixed(1)}, ${userY.toFixed(1)}]`, userPos.sx + 14, userPos.sy - 8);
+
+        document.getElementById('val-sweet').textContent = userX.toFixed(1);
+        document.getElementById('val-crunch').textContent = userY.toFixed(1);
+        document.getElementById('toy1-coord').textContent = `[${userX.toFixed(1)}, ${userY.toFixed(1)}]`;
+        document.getElementById('toy1-nearest').textContent = `${closest.name} [${closest.x.toFixed(1)}, ${closest.y.toFixed(1)}]`;
+        document.getElementById('toy1-dist').textContent = `${minDist.toFixed(2)} units`;
+      }
+
+      sSweet.addEventListener('input', render);
+      sCrunch.addEventListener('input', render);
+      window.addEventListener('resize', render);
+      setTimeout(render, 20);
+    })();
+
+    // =========================================================================
+    // TOY #2: ANGLE (COSINE) VS RULER (EUCLIDEAN) — ISOTROPIC 1:1 GEOMETRY
+    // =========================================================================
+    (function() {
+      const canvas = document.getElementById('canvas-toy2');
+      const ctx = canvas.getContext('2d');
+      const container = document.getElementById('box2-container');
+      const sScale = document.getElementById('slider-scale');
+      const sDrift = document.getElementById('slider-drift');
+
+      let width = 0, height = 0;
+
+      function render() {
+        const rect = container.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.clearRect(0, 0, width, height);
+
+        // Use a true 1:1 isotropic scale (1 unit X == 1 unit Y in pixels!)
+        // so that visual angles on screen match mathematical angles 100%!
+        const originX = 75;
+        const originY = height - 48;
+        const maxUnitsY = 9.5;
+        const unitPx = (height - 80) / maxUnitsY;
+        const maxUnitsX = Math.floor((width - originX - 40) / unitPx);
+
+        function toScreen(x, y) {
+          return {
+            sx: originX + x * unitPx,
+            sy: originY - y * unitPx
+          };
+        }
+
+        const scaleMult = parseFloat(sScale.value);
+        const driftDeg = parseFloat(sDrift.value);
+
+        // Base Tweet vector: [3.2, 1.4] (~23.6 deg from horizontal)
+        const tweetX = 3.2;
+        const tweetY = 1.4;
+        const baseAngle = Math.atan2(tweetY, tweetX);
+        const baseMag = Math.hypot(tweetX, tweetY);
+
+        // Book vector: rotated counter-clockwise by driftDeg + scaled by scaleMult
+        const bookAngle = baseAngle + (driftDeg * Math.PI / 180);
+        const bookMag = baseMag * scaleMult;
+        const bookX = Math.cos(bookAngle) * bookMag;
+        const bookY = Math.sin(bookAngle) * bookMag;
+
+        // 1. Draw Square Isotropic Grid
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+        for (let gx = 0; gx <= maxUnitsX; gx += 2) {
+          const p = toScreen(gx, 0);
+          ctx.beginPath(); ctx.moveTo(p.sx, 25); ctx.lineTo(p.sx, originY); ctx.stroke();
+          ctx.fillStyle = '#64748b';
+          ctx.font = '10px var(--font-mono)';
+          ctx.fillText(gx, p.sx - 3, originY + 16);
+        }
+        for (let gy = 0; gy <= 9; gy += 2) {
+          const p = toScreen(0, gy);
+          ctx.beginPath(); ctx.moveTo(originX, p.sy); ctx.lineTo(width - 35, p.sy); ctx.stroke();
+          ctx.fillStyle = '#64748b';
+          ctx.font = '10px var(--font-mono)';
+          ctx.fillText(gy, originX - 20, p.sy + 4);
+        }
+
+        // Axes
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(originX, 25);
+        ctx.lineTo(originX, originY);
+        ctx.lineTo(width - 35, originY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 12px var(--font-sans)';
+        ctx.fillText('Keyword Count: "Heart" \u2192', width / 2 - 60, height - 10);
+        ctx.save();
+        ctx.translate(22, height / 2 + 55);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText('Keyword Count: "Health" \u2192', 0, 0);
+        ctx.restore();
+
+        const origin = toScreen(0, 0);
+        const pTweet = toScreen(tweetX, tweetY);
+        const pBook = toScreen(bookX, bookY);
+
+        // 2. Draw Glowing Yellow Angle Wedge (Pie Sector) directly between the two screen rays!
+        // Calculate exact screen-space angles so the yellow wedge hugs both vectors with pixel precision
+        const screenAngTweet = Math.atan2(pTweet.sy - origin.sy, pTweet.sx - origin.sx);
+        const screenAngBook = Math.atan2(pBook.sy - origin.sy, pBook.sx - origin.sx);
+        const wedgeRadius = Math.min(92, Math.hypot(pTweet.sx - origin.sx, pTweet.sy - origin.sy) * 0.78);
+
+        if (driftDeg > 0.5) {
+          // Filled yellow wedge
+          ctx.beginPath();
+          ctx.moveTo(origin.sx, origin.sy);
+          ctx.arc(origin.sx, origin.sy, wedgeRadius, screenAngTweet, screenAngBook, true);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.22)';
+          ctx.fill();
+
+          // Crisp yellow outer arc
+          ctx.beginPath();
+          ctx.arc(origin.sx, origin.sy, wedgeRadius, screenAngTweet, screenAngBook, true);
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          // Angle label right outside the middle of the yellow wedge
+          const midScreenAng = (screenAngTweet + screenAngBook) / 2;
+          const labelR = wedgeRadius + 28;
+          const lx = origin.sx + Math.cos(midScreenAng) * labelR;
+          const ly = origin.sy + Math.sin(midScreenAng) * labelR;
+          ctx.fillStyle = '#fbbf24';
+          ctx.font = 'bold 13px var(--font-mono)';
+          ctx.fillText(`\u03B8 = ${driftDeg}\u00B0`, lx - 18, ly + 4);
+        } else {
+          // 0 degree badge
+          ctx.fillStyle = '#fbbf24';
+          ctx.font = 'bold 12px var(--font-mono)';
+          ctx.fillText(`\u03B8 = 0\u00B0 (Arrows Overlap — Exact Same Direction!)`, origin.sx + 40, origin.sy - 80);
+        }
+
+        // 3. Draw Red Ruler Distance Line (Euclidean) between the two tips
+        ctx.beginPath();
+        ctx.moveTo(pTweet.sx, pTweet.sy);
+        ctx.lineTo(pBook.sx, pBook.sy);
+        ctx.strokeStyle = '#f43f5e';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([6, 5]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const euclidDist = Math.hypot(bookX - tweetX, bookY - tweetY);
+        const midRx = (pTweet.sx + pBook.sx) / 2;
+        const midRy = (pTweet.sy + pBook.sy) / 2;
+        ctx.fillStyle = '#f43f5e';
+        ctx.font = 'bold 12px var(--font-mono)';
+        ctx.fillText(`Ruler Dist = ${euclidDist.toFixed(2)}`, midRx + 14, midRy + 6);
+
+        // 4. Draw Book Vector (Purple)
+        ctx.beginPath();
+        ctx.moveTo(origin.sx, origin.sy);
+        ctx.lineTo(pBook.sx, pBook.sy);
+        ctx.strokeStyle = '#818cf8';
+        ctx.lineWidth = 3.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(pBook.sx, pBook.sy, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#818cf8';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#c7d2fe';
+        ctx.font = 'bold 12px var(--font-sans)';
+        ctx.fillText(`Medical Book [${bookX.toFixed(1)}, ${bookY.toFixed(1)}]`, pBook.sx + 12, pBook.sy - 8);
+
+        // 5. Draw Tweet Vector (Cyan)
+        ctx.beginPath();
+        ctx.moveTo(origin.sx, origin.sy);
+        ctx.lineTo(pTweet.sx, pTweet.sy);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(pTweet.sx, pTweet.sy, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 12px var(--font-sans)';
+        ctx.fillText(`Short Tweet [${tweetX.toFixed(1)}, ${tweetY.toFixed(1)}]`, pTweet.sx + 12, pTweet.sy + 16);
+
+        // Update Readout
+        const cosine = Math.cos(driftDeg * Math.PI / 180);
+        document.getElementById('val-scale').textContent = `${scaleMult.toFixed(1)}x`;
+        document.getElementById('val-drift').textContent = `${driftDeg}\u00B0`;
+        document.getElementById('toy2-angle').textContent = `${driftDeg.toFixed(1)}\u00B0`;
+
+        let matchLabel = 'Strong Match';
+        if (cosine > 0.99) matchLabel = '100% Same Topic!';
+        else if (cosine > 0.90) matchLabel = 'Strong Match';
+        else if (cosine > 0.65) matchLabel = 'Moderate Match';
+        else matchLabel = 'Different Topic';
+
+        document.getElementById('toy2-cosine').textContent = `${cosine.toFixed(3)} (${matchLabel})`;
+        document.getElementById('toy2-euclid').textContent = `${euclidDist.toFixed(2)} units`;
+      }
+
+      sScale.addEventListener('input', render);
+      sDrift.addEventListener('input', render);
+      window.addEventListener('resize', render);
+      setTimeout(render, 20);
+    })();
+
+    // =========================================================================
+    // TOY #3: VECTOR ARITHMETIC (KING - MAN + WOMAN = QUEEN)
+    // =========================================================================
+    (function() {
+      const canvas = document.getElementById('canvas-toy3');
+      const ctx = canvas.getContext('2d');
+      const container = document.getElementById('box3-container');
+      let currentStep = 1;
+
+      const pts = {
+        King:    { x: -5, y: 9, color: '#38bdf8', label: 'King [-5, 9]' },
+        Man:     { x: -5, y: 1, color: '#94a3b8', label: 'Man [-5, 1]' },
+        Neutral: { x:  0, y: 8, color: '#fbbf24', label: 'King - Man = [0, 8] (Pure Monarch)' },
+        Woman:   { x:  5, y: 1, color: '#94a3b8', label: 'Woman [+5, 1]' },
+        Queen:   { x:  5, y: 9, color: '#34d399', label: 'Queen [+5, 9]' }
+      };
+
+      let width = 0, height = 0;
+
+      function toScreen(x, y) {
+        const centerX = width / 2;
+        const bottomY = height - 45;
+        const scaleX = (width - 140) / 14;
+        const scaleY = (height - 90) / 11;
+        return {
+          sx: centerX + x * scaleX,
+          sy: bottomY - y * scaleY
+        };
+      }
+
+      function render() {
+        const rect = container.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.clearRect(0, 0, width, height);
+
+        const origin = toScreen(0, 0);
+
+        // Background Grid
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+        for (let gx = -6; gx <= 6; gx += 2) {
+          const p = toScreen(gx, 0);
+          ctx.beginPath(); ctx.moveTo(p.sx, 20); ctx.lineTo(p.sx, height - 45); ctx.stroke();
+        }
+        for (let gy = 0; gy <= 10; gy += 2) {
+          const p = toScreen(0, gy);
+          ctx.beginPath(); ctx.moveTo(40, p.sy); ctx.lineTo(width - 40, p.sy); ctx.stroke();
+        }
+
+        // Center Neutral Y-Axis (x = 0)
+        ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(origin.sx, 20);
+        ctx.lineTo(origin.sx, height - 45);
+        ctx.stroke();
+
+        // Bottom X-Axis (y = 0)
+        ctx.beginPath();
+        ctx.moveTo(40, origin.sy);
+        ctx.lineTo(width - 40, origin.sy);
+        ctx.stroke();
+
+        // Axis Labels
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 12px var(--font-sans)';
+        ctx.fillText('\u2190 Masculine (-X)', 50, height - 15);
+        ctx.fillText('Neutral (0)', origin.sx - 32, height - 15);
+        ctx.fillText('Feminine (+X) \u2192', width - 155, height - 15);
+        ctx.fillText('\u2191 Royal Status (+Y)', origin.sx + 10, 32);
+
+        // Base reference nodes
+        ['King', 'Man', 'Woman', 'Queen'].forEach(key => {
+          const pt = pts[key];
+          const p = toScreen(pt.x, pt.y);
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, 6, 0, Math.PI * 2);
+          ctx.fillStyle = pt.color;
+          ctx.fill();
+
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '600 12px var(--font-sans)';
+          const offsetX = pt.x < 0 ? -95 : 12;
+          ctx.fillText(pt.label, p.sx + offsetX, p.sy + 4);
+        });
+
+        const pKing = toScreen(pts.King.x, pts.King.y);
+        const pNeutral = toScreen(pts.Neutral.x, pts.Neutral.y);
+        const pQueen = toScreen(pts.Queen.x, pts.Queen.y);
+
+        // STEP 1: Highlight King
+        ctx.beginPath();
+        ctx.moveTo(origin.sx, origin.sy);
+        ctx.lineTo(pKing.sx, pKing.sy);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(pKing.sx, pKing.sy, 10, 0, Math.PI * 2);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // STEP 2: Subtract Man -> Moves to Neutral [0, 8]
+        if (currentStep >= 2) {
+          ctx.beginPath();
+          ctx.moveTo(pKing.sx, pKing.sy);
+          ctx.lineTo(pNeutral.sx, pNeutral.sy);
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 3;
+          ctx.setLineDash([6, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.beginPath();
+          ctx.arc(pNeutral.sx, pNeutral.sy, 8, 0, Math.PI * 2);
+          ctx.fillStyle = '#fbbf24';
+          ctx.fill();
+
+          ctx.fillStyle = '#fbbf24';
+          ctx.font = 'bold 12px var(--font-mono)';
+          ctx.fillText('Step 2: [0, 8] Gender Cancelled!', pNeutral.sx - 95, pNeutral.sy - 14);
+        }
+
+        // STEP 3: Add Woman -> Lands on Queen [+5, 9]
+        if (currentStep >= 3) {
+          ctx.beginPath();
+          ctx.moveTo(pNeutral.sx, pNeutral.sy);
+          ctx.lineTo(pQueen.sx, pQueen.sy);
+          ctx.strokeStyle = '#34d399';
+          ctx.lineWidth = 3;
+          ctx.setLineDash([6, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.beginPath();
+          ctx.arc(pQueen.sx, pQueen.sy, 12, 0, Math.PI * 2);
+          ctx.strokeStyle = '#34d399';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          ctx.fillStyle = '#34d399';
+          ctx.font = 'bold 13px var(--font-mono)';
+          ctx.fillText('\u2713 Lands on Queen!', pQueen.sx - 45, pQueen.sy - 18);
+        }
+      }
+
+      function setStep(step) {
+        currentStep = step;
+        ['step-1', 'step-2', 'step-3'].forEach((id, idx) => {
+          document.getElementById(id).classList.toggle('active', idx + 1 === step);
+        });
+
+        if (step === 1) {
+          document.getElementById('toy3-eq').textContent = 'King';
+          document.getElementById('toy3-calc').textContent = '[-5, 9]';
+          document.getElementById('toy3-meaning').textContent = 'Masculine (-5) + Monarch (9)';
+        } else if (step === 2) {
+          document.getElementById('toy3-eq').textContent = 'King - Man';
+          document.getElementById('toy3-calc').textContent = '[-5 - (-5), 9 - 1] = [0, 8]';
+          document.getElementById('toy3-meaning').textContent = 'Gender stripped to 0 (Pure Royalty)';
+        } else if (step === 3) {
+          document.getElementById('toy3-eq').textContent = 'King - Man + Woman';
+          document.getElementById('toy3-calc').textContent = '[0 + 5, 8 + 1] = [+5, 9]';
+          document.getElementById('toy3-meaning').textContent = 'Matches Queen [+5, 9]!';
+        }
+        render();
+      }
+
+      document.getElementById('step-1').addEventListener('click', () => setStep(1));
+      document.getElementById('step-2').addEventListener('click', () => setStep(2));
+      document.getElementById('step-3').addEventListener('click', () => setStep(3));
+      window.addEventListener('resize', render);
+      setTimeout(render, 20);
+    })();
+  </script>
+</body>
+</html>

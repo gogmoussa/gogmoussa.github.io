@@ -3,6 +3,68 @@
 
 const blogPosts = [
   {
+    id: "visualizing-vector-embeddings",
+    title: "Visualizing Vector Embeddings: From Zero to Intuition",
+    subtitle: "How machines turn messy human ideas into map coordinates, why angles beat rulers, and how modern AI searches meaning in milliseconds.",
+    date: "April 2026",
+    readTime: "8 min interactive read",
+    tags: ["Interactive", "Vector Search", "Embeddings", "AI", "Math"],
+    summary: "A hands-on, first-principles explorable explainer with 3 live interactive simulators. Drag trait sliders to position embeddings, visualize cosine angle similarity, and execute real-time King – Man + Woman vector arithmetic directly on the canvas.",
+    interactiveUrl: "articles/vector_embeddings_guide.html",
+    content: `
+      <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 12px; padding: 1.5rem; margin-bottom: 2.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h4 style="color: #38bdf8; margin-bottom: 0.35rem; font-size: 1.15rem; font-weight: 700;">⚡ Flagship Interactive Explorable Guide</h4>
+          <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 0;">This guide is engineered with 3 live HTML5 canvas sandboxes: 2D Trait Sliders, Cosine Projections, and Vector Arithmetic.</p>
+        </div>
+        <a href="articles/vector_embeddings_guide.html" class="btn btn-primary btn-sm" style="text-decoration: none; font-weight: 600; padding: 0.65rem 1.25rem; white-space: nowrap;">
+          <span>Launch Full Interactive Simulators &rarr;</span>
+        </a>
+      </div>
+
+      <p>Pull out your phone right now, open your Photos app, and search for <code>"dog sleeping on the couch"</code> or <code>"sunset at the beach"</code>.</p>
+
+      <p>Stop and think about what happens next. You never named those image files. You never typed keyword tags onto them. Your camera only saved a raw grid of colored pixels. Yet in a fraction of a second, your phone pulls up the exact photo you took three summers ago.</p>
+
+      <p>How does a machine look at a grid of pixels—or a messy human sentence—and actually know what it <em>means</em>?</p>
+
+      <p>For a long time, every time I asked how AI search or semantic retrieval worked, people threw the same buzzword at me: <strong>"Vector Embeddings."</strong> And whenever I looked it up, I got hit with walls of linear algebra formulas and arrays of 1,536 numbers. I didn't want a math textbook—I wanted to actually <em>see</em> how it works in my head.</p>
+
+      <h3>The Core Intuition: Turning Ideas into GPS Coordinates</h3>
+      <p>Computers still don't understand words or feelings. What they <em>do</em> understand is geometry. An <strong>embedding</strong> is simply a mathematical function that converts any unstructured concept—a word, a document, an audio waveform, or an image—into a <strong>coordinate vector in a multi-dimensional space</strong> where semantic similarity corresponds to spatial proximity.</p>
+
+      <h3>1. The 2D Trait Map (Why Coordinates Equal Meaning)</h3>
+      <p>Imagine teaching a machine to understand food using two simple dimensions: <code>Sweetness</code> (X-axis) and <code>Crunchiness</code> (Y-axis), each rated from 0 to 10.</p>
+      <ul>
+        <li>An <strong>Apple</strong> maps to <code>[8, 9]</code></li>
+        <li>A <strong>Pear</strong> maps to <code>[7, 7]</code></li>
+        <li>A <strong>Steak</strong> maps to <code>[1, 2]</code></li>
+      </ul>
+      <p>By representing items as coordinates (vectors from the origin), searching for the most similar food is no longer a fuzzy linguistic puzzle; it's a basic geometry calculation: measure who lives in the same neighborhood.</p>
+
+      <h3>2. Why Angles Beat Rulers (Cosine Similarity vs. Euclidean Distance)</h3>
+      <p>When embedding real text documents, straight-line ruler distance (Euclidean distance) breaks down because longer documents create longer arrows simply by repeating words. A one-sentence summary of climate change and a 50-page IPCC research report might have identical semantic directions, but their tips sit miles apart.</p>
+
+      <p>That's why modern vector search measures the <strong>cosine angle between arrows</strong> rather than ruler distance. Two vectors pointing in the exact same direction have an angle of <code>0&deg;</code> and a cosine similarity of <code>1.0</code>, regardless of length.</p>
+
+      <pre><code>// Cosine Similarity Formula
+cos(&theta;) = (A &bull; B) / (||A|| &times; ||B||)</code></pre>
+
+      <h3>3. The Magic of Vector Arithmetic (King - Man + Woman = Queen)</h3>
+      <p>When neural networks train on massive corpora, they don't just cluster synonyms—they encode conceptual directions as linear geometric relationships. Subtracting the direction <code>[Man]</code> from <code>[King]</code> isolates the abstract concept of royalty; adding <code>[Woman]</code> navigates directly to the coordinate neighborhood of <code>[Queen]</code>.</p>
+
+      <div style="text-align: center; margin: 3rem 0;">
+        <a href="articles/vector_embeddings_guide.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.75rem; font-size: 1.05rem; text-decoration: none;">
+          <span>Explore the 3 Live Interactive Sandboxes Now</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    `
+  },
+  {
     id: "why-ast-parsing-beats-regex",
     title: "Why I stopped using regex to understand TypeScript codebases",
     subtitle: "What building DocuMind taught me about architectural drift, ts-morph, and the limits of token search.",

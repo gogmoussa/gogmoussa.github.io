@@ -275,6 +275,7 @@
         <div style="margin-top: 2rem;" class="filter-container">
           <div class="filter-pills" id="tag-filter-pills">
             <button class="filter-btn active" data-tag="all">All Topics</button>
+            <button class="filter-btn" data-tag="Interactive">Interactive Guides</button>
             <button class="filter-btn" data-tag="TypeScript">TypeScript</button>
             <button class="filter-btn" data-tag="Local AI">Local AI</button>
             <button class="filter-btn" data-tag="React Native">React Native</button>
@@ -390,6 +391,7 @@
               <span>${post.date}</span>
               <span>•</span>
               <span>${post.readTime}</span>
+              ${post.interactiveUrl ? '<span class="badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">✨ Interactive Simulators</span>' : ''}
             </div>
             <h2 class="blog-card-title">${post.title}</h2>
             <p class="blog-card-subtitle">${post.subtitle}</p>
@@ -399,12 +401,19 @@
               <div class="tech-tag-group" style="margin-bottom: 0;">
                 ${post.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}
               </div>
-              <span class="read-btn">
-                <span>Read Full Article</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </span>
+              <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                ${post.interactiveUrl ? `
+                  <a href="${post.interactiveUrl}" class="btn btn-primary btn-sm" style="text-decoration: none; padding: 0.4rem 0.85rem;" onclick="event.stopPropagation();">
+                    <span>Launch Live Simulators &rarr;</span>
+                  </a>
+                ` : ''}
+                <span class="read-btn">
+                  <span>${post.interactiveUrl ? 'Read Article' : 'Read Full Article'}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
           </article>
         `).join('');
