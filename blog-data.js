@@ -11,6 +11,7 @@ const blogPosts = [
     tags: ["Interactive", "Vector Search", "Embeddings", "AI", "Math"],
     summary: "A hands-on, first-principles explorable explainer with 3 live interactive simulators. Drag trait sliders to position embeddings, visualize cosine angle similarity, and execute real-time King – Man + Woman vector arithmetic directly on the canvas.",
     interactiveUrl: "articles/vector_embeddings_guide.html",
+    standaloneUrl: "articles/vector_embeddings_guide.html",
     content: `
       <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 12px; padding: 1.5rem; margin-bottom: 2.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
         <div>
@@ -72,6 +73,7 @@ cos(&theta;) = (A &bull; B) / (||A|| &times; ||B||)</code></pre>
     readTime: "7 min read",
     tags: ["TypeScript", "Compiler API", "ts-morph", "Architecture"],
     summary: "When codebases grow past 50,000 lines, documentation drifts almost immediately. I tried using grep and regex to map out module relationships, hit wall after wall with re-exports and barrel files, and ended up rewriting the pipeline around the TypeScript AST.",
+    standaloneUrl: "articles/why-ast-parsing-beats-regex.html",
     content: `
       <p>A few months ago, I was looking through a mid-sized codebase and trying to answer a deceptively simple question: <em>if I change this authentication hook, what services actually care?</em></p>
 
@@ -137,6 +139,7 @@ for (const file of sourceFiles) {
     readTime: "6 min read",
     tags: ["Python", "Ollama", "PowerShell", "Local AI", "Security"],
     summary: "Cloud-hosted AI coding assistants are great, but handing over your local file system and execution tokens to a remote server isn't always acceptable. Here is how I built an autonomous local terminal agent using Ollama and Python.",
+    standaloneUrl: "articles/running-local-llms-on-windows.html",
     content: `
       <p>I use terminal tools constantly, and while cloud-based AI tools are capable, there are plenty of times where I want complete privacy. I don't want my directory structure, internal script names, or environment variable keys uploaded to a third-party server.</p>
 
@@ -198,6 +201,7 @@ def execute_powershell(command: str) -> tuple[int, str, str]:
     readTime: "5 min read",
     tags: ["React Native", "Expo", "Calm Tech", "TypeScript", "UX"],
     summary: "Most modern mobile apps are designed to optimize daily active metrics through guilt and red badges. When building Inner Compass, we set out to build the exact opposite: an app grounded in Self-Determination Theory that respects user attention.",
+    standaloneUrl: "articles/engineering-calm-technology.html",
     content: `
       <p>If you open almost any modern journaling or habit tracking app, you're immediately hit with the same playbook: a flaming streak badge warning you that your 14-day record is at risk, red notification dots, and push notifications guilt-tripping you at 9:00 PM.</p>
 
@@ -249,6 +253,7 @@ const animatedStyle = useAnimatedStyle(() => {
     readTime: "8 min read",
     tags: ["Generative AI", "Python", "diffusers", "CUDA", "MoviePy"],
     summary: "Cloud video generation APIs charge per second of footage. I wanted to see if I could automate a full script-to-video pipeline locally on a single consumer graphics card without running out of memory.",
+    standaloneUrl: "articles/local-video-generation-pipeline.html",
     content: `
       <p>Generating videos with AI usually means signing up for third-party cloud APIs that quickly burn through credits. I wanted to see how far I could push a local machine running Python, CUDA, and open-source models.</p>
 
@@ -314,6 +319,7 @@ video_clip = video_clip.set_audio(audio_clip)</code></pre>
     readTime: "5 min read",
     tags: ["PyTorch", "Deep Learning", "Time Series", "Python", "Data Science"],
     summary: "Forecasting continuous power consumption sounds straightforward until you hit temporal leakage, normalization pitfalls, and hyperparameter instability. Here is what I learned building an LSTM forecasting pipeline from scratch.",
+    standaloneUrl: "articles/energy-forecasting-lstm-lessons.html",
     content: `
       <p>Time-series forecasting is one of those machine learning subfields that looks easy in theory and constantly surprises you in practice. Unlike typical classification problems where you can shuffle data randomly into train and test sets, chronological data has strict time causality.</p>
 
