@@ -388,7 +388,7 @@
         }
 
         postsContainer.innerHTML = posts.map(post => `
-          <article class="blog-card" onclick="openArticle('${post.id}')">
+          <article class="blog-card" onclick="${post.interactiveUrl ? `window.location.href='${post.interactiveUrl}'` : `openArticle('${post.id}')`}">
             <div class="blog-meta-row">
               <span class="badge badge-purple">${post.tags[0]}</span>
               <span>•</span>
@@ -408,15 +408,16 @@
               <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
                 ${post.interactiveUrl ? `
                   <a href="${post.interactiveUrl}" class="btn btn-primary btn-sm" style="text-decoration: none; padding: 0.4rem 0.85rem;" onclick="event.stopPropagation();">
-                    <span>Launch Live Simulators &rarr;</span>
+                    <span>Launch Live Guide &rarr;</span>
                   </a>
-                ` : ''}
-                <span class="read-btn">
-                  <span>${post.interactiveUrl ? 'Read Article' : 'Read Full Article'}</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </span>
+                ` : `
+                  <span class="read-btn">
+                    <span>Read Full Article</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </span>
+                `}
                 ${post.standaloneUrl ? `
                   <a href="${post.standaloneUrl}" class="btn-icon" title="Direct article permalink" onclick="event.stopPropagation();" style="width: 30px; height: 30px; border-radius: 6px;">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -471,6 +472,11 @@
       window.openArticle = function(id) {
         const post = blogPosts.find(p => p.id === id);
         if (!post) return;
+
+        if (post.interactiveUrl) {
+          window.location.href = post.interactiveUrl;
+          return;
+        }
 
         window.location.hash = post.id;
 
