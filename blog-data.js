@@ -4,7 +4,7 @@
 const blogPosts = [
   {
     id: "visualizing-vector-embeddings",
-    title: "Visualizing Vector Embeddings: From Zero to Intuition",
+    title: "Why LLMs Think in Geometry: Visualizing Vector Embeddings from First Principles",
     subtitle: "How machines turn messy human ideas into map coordinates, why angles beat rulers, and how modern AI searches meaning in milliseconds.",
     date: "April 2026",
     readTime: "8 min interactive read",
