@@ -456,7 +456,7 @@
         <div>
           <div class="slider-row">
             <div class="slider-header">
-              <span>1. <strong>Book Length</strong> (Stretches Purple Arrow)</span>
+              <span>1. <strong>Book Length</strong> (Stretches Emerald Arrow)</span>
               <strong id="val-scale">2.5x</strong>
             </div>
             <input type="range" id="slider-scale" min="1" max="3.2" step="0.1" value="2.5">
@@ -939,23 +939,23 @@ const response = await openai.embeddings.create({
         ctx.fillText(`Ruler Dist = ${euclidDist.toFixed(2)}`, midRx + nx, midRy + ny);
         ctx.restore();
 
-        // 4. Draw Book Vector (Violet)
+        // 4. Draw Book Vector (Emerald)
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pBook.sx, pBook.sy);
-        ctx.strokeStyle = '#c084fc';
+        ctx.strokeStyle = '#34d399';
         ctx.lineWidth = 3.5;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pBook.sx, pBook.sy, 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#c084fc';
+        ctx.fillStyle = '#34d399';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.fillStyle = '#e9d5ff';
+        ctx.fillStyle = '#6ee7b7';
         ctx.font = 'bold 12px var(--font-sans)';
         ctx.fillText(`Medical Book [${bookX.toFixed(1)}, ${bookY.toFixed(1)}]`, pBook.sx + 14, pBook.sy - 4);
 
