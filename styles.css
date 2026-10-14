@@ -1262,6 +1262,224 @@ p { text-wrap: pretty; }
 }
 
 /* ==========================================================================
+   Experience & Proven Impact
+   ========================================================================== */
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.experience-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.experience-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.exp-role-title {
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.exp-company-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.exp-company {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.exp-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.exp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.85rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.exp-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.exp-metric-num {
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent-cyan);
+}
+
+.exp-metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.exp-bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.exp-bullet-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.exp-bullet-item svg {
+  margin-top: 0.3rem;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.exp-bullet-item strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Dual Moat / Education Grid */
+.experience-dual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.edu-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.edu-institution {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.edu-degree {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--accent-cyan);
+  margin-bottom: 0.75rem;
+}
+
+.edu-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.community-strip {
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.community-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-emerald);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.community-items {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.community-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.community-item strong {
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
    Flagship projects
    ========================================================================== */
 .flagship-grid {
@@ -2534,6 +2752,14 @@ p { text-wrap: pretty; }
   line-height: 1.85;
 }
 
+.article-content h2 {
+  font-size: clamp(1.65rem, 3.2vw, 2.15rem);
+  font-weight: 600 !important;
+  color: var(--text-primary);
+  margin: 3.5rem 0 1.25rem;
+  letter-spacing: -0.03em;
+}
+
 .article-content h3 {
   font-size: 1.45rem;
   font-weight: 600 !important;
@@ -2712,6 +2938,9 @@ p { text-wrap: pretty; }
   .float-chip.c2 { right: -4%; }
   .float-chip.c3 { left: -2%; }
   .post-row { padding: 1.35rem; }
+  .experience-dual-grid { grid-template-columns: 1fr; }
+  .experience-card, .edu-card { padding: 1.75rem 1.25rem; }
+  .exp-metrics-grid { grid-template-columns: repeat(2, 1fr); padding: 1rem; }
   .nav-actions .btn-primary span,
   .nav-actions .btn-primary .label { display: none; }
   .nav-actions .btn-primary { padding: 0; width: 2.4rem; height: 2.4rem; }
@@ -2728,6 +2957,8 @@ p { text-wrap: pretty; }
   .stat { padding-right: 0.75rem; }
   .stat + .stat { padding-left: 0.75rem; }
   .stat:nth-child(3) { padding-left: 0; }
+  .exp-metrics-grid { grid-template-columns: 1fr; }
+  .exp-header { flex-direction: column; align-items: flex-start; }
   .nav-article-actions .btn-sm { padding: 0.5rem 0.8rem; font-size: 0.76rem; }
 }
 

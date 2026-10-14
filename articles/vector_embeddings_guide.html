@@ -39,132 +39,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
-    :root {
-      --bg: #05060a;
-      --card-bg: rgba(13, 17, 28, 0.72);
-      --border: rgba(255, 255, 255, 0.08);
-      --accent-cyan: #38bdf8;
-      --accent-violet: #818cf8;
-      --accent-emerald: #34d399;
-      --accent-amber: #fbbf24;
-      --accent-rose: #f43f5e;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-      --font-serif: 'Instrument Serif', Georgia, serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: #05060a;
-      background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.12), transparent 70%),
-        radial-gradient(ellipse 60% 40% at 100% 60%, rgba(129, 140, 248, 0.08), transparent 60%),
-        radial-gradient(ellipse 50% 30% at 0% 40%, rgba(52, 211, 153, 0.06), transparent 50%);
-      background-attachment: fixed;
-      color: #cbd5e1;
-      font-family: var(--font-sans);
-      line-height: 1.85;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .article-container {
-      max-width: 840px;
-      margin: 0 auto;
-      padding: 3.5rem 1.5rem 8rem 1.5rem;
-    }
-
-    .article-title {
-      font-family: var(--font-sans);
-      font-size: clamp(2rem, 4vw, 2.85rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      color: var(--text-primary);
-      margin-bottom: 0.9rem;
-    }
-
-    .article-subtitle {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(1.2rem, 2.2vw, 1.45rem);
-      color: var(--accent-cyan);
-      margin-bottom: 1.5rem;
-      line-height: 1.55;
-    }
-
-    p {
-      font-size: 1.08rem;
-      color: #cbd5e1;
-      margin-bottom: 1.5rem;
-      line-height: 1.85;
-    }
-
-    .lead-quote {
-      font-size: 1.25rem;
-      color: #f8fafc;
-      font-weight: 500;
-      line-height: 1.65;
-      border-left: 3px solid var(--accent-cyan);
-      padding: 1rem 1.25rem;
-      margin: 2.25rem 0;
-      background: rgba(56, 189, 248, 0.04);
-      border-radius: 0 10px 10px 0;
-    }
-
-    h2 {
-      font-family: var(--font-sans);
-      font-size: 1.7rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 4rem 0 1.25rem 0;
-      color: var(--text-primary);
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .callout {
-      background: rgba(56, 189, 248, 0.04);
-      border: 1px solid rgba(56, 189, 248, 0.18);
-      border-left: 4px solid var(--accent-cyan);
-      border-radius: 0 14px 14px 0;
-      padding: 1.5rem 1.75rem;
-      margin: 2.25rem 0;
-      backdrop-filter: blur(8px);
-    }
-    .callout p { margin-bottom: 0.5rem; font-size: 1.04rem; }
-    .callout p:last-child { margin-bottom: 0; }
-
-    /* Interactive Toy Cards with Aurora Glass */
+    /* ==========================================================================
+       Interactive Simulators — Aurora Noir Design System
+       ========================================================================== */
     .widget-container {
-      background: rgba(13, 17, 28, 0.72);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
       overflow: hidden;
-      margin: 2.75rem 0 3.75rem 0;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      margin: 2.75rem 0 3.5rem 0;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
     }
 
     .widget-header {
-      background: rgba(18, 24, 38, 0.9);
-      padding: 1.1rem 1.5rem;
+      background: rgba(14, 15, 24, 0.75);
+      padding: 1.1rem 1.6rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .widget-title {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent-cyan);
@@ -174,21 +78,22 @@
     }
 
     .widget-instructions {
-      font-family: var(--font-sans);
-      font-size: 0.8rem;
-      color: #fde047;
-      background: rgba(253, 224, 71, 0.08);
-      border: 1px solid rgba(253, 224, 71, 0.22);
-      padding: 0.2rem 0.65rem;
-      border-radius: 9999px;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--accent-amber);
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.22);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-weight: 500;
     }
 
     .canvas-wrapper {
       position: relative;
       width: 100%;
       height: 390px;
-      background: radial-gradient(circle at center, rgba(20, 30, 48, 0.6) 0%, rgba(5, 6, 10, 0.95) 100%);
+      background: #080911;
+      background-image: radial-gradient(circle at 50% 30%, rgba(167, 139, 250, 0.07), transparent 70%);
     }
 
     canvas {
@@ -198,18 +103,18 @@
     }
 
     .widget-controls {
-      padding: 1.5rem;
-      background: rgba(9, 13, 22, 0.85);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.6rem;
+      background: rgba(10, 11, 18, 0.9);
+      border-top: 1px solid var(--border-subtle);
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 1.5rem;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 1.75rem;
       align-items: center;
     }
 
     @media (max-width: 720px) {
       .widget-controls { grid-template-columns: 1fr; }
-      .canvas-wrapper { height: 330px; }
+      .canvas-wrapper { height: 320px; }
     }
 
     .slider-row {
@@ -221,18 +126,21 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.85rem;
-      margin-bottom: 0.35rem;
-      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      color: var(--text-secondary);
     }
-    .slider-header strong { color: var(--text-main); font-family: var(--font-mono); }
+    .slider-header strong {
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+    }
 
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
       outline: none;
       cursor: pointer;
     }
@@ -242,53 +150,52 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #38bdf8;
+      background: var(--gradient-btn);
       border: 2px solid #ffffff;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+      box-shadow: 0 0 12px rgba(103, 232, 249, 0.55);
       cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.15);
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 18px rgba(167, 139, 250, 0.85);
     }
 
     .btn-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     button.btn {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.6rem 1.1rem;
-      border-radius: 9px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border: 1px solid var(--border-card);
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all var(--transition-fast);
       font-family: var(--font-sans);
     }
     button.btn:hover {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: rgba(56, 189, 248, 0.4);
-      color: var(--text-main);
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
     }
     button.btn.active {
-      background: rgba(56, 189, 248, 0.18);
+      background: rgba(103, 232, 249, 0.12);
       border-color: var(--accent-cyan);
       color: var(--accent-cyan);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 20px -5px rgba(103, 232, 249, 0.35);
     }
 
     .readout-card {
-      background: rgba(5, 7, 12, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 1.1rem 1.25rem;
+      background: rgba(8, 9, 15, 0.85);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.3rem;
       font-family: var(--font-mono);
       font-size: 0.85rem;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
@@ -298,76 +205,44 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--border-subtle);
     }
     .readout-row:last-child {
       margin-bottom: 0;
       padding-bottom: 0;
       border-bottom: none;
     }
-    .readout-label { color: var(--text-dim); }
+    .readout-label { color: var(--text-muted); font-size: 0.82rem; }
     .readout-val { color: var(--accent-emerald); font-weight: 600; }
     .readout-val.cyan { color: var(--accent-cyan); }
     .readout-val.rose { color: var(--accent-rose); }
     .readout-val.amber { color: var(--accent-amber); }
 
-    .verdict-tag {
-      display: inline-block;
-      padding: 0.15rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-left: 0.4rem;
-      vertical-align: middle;
-    }
-    .verdict-match {
-      background: rgba(52, 211, 153, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(52, 211, 153, 0.3);
-    }
-    .verdict-mismatch {
-      background: rgba(244, 63, 94, 0.15);
-      color: #f43f5e;
-      border: 1px solid rgba(244, 63, 94, 0.3);
-    }
-    .verdict-warn {
-      background: rgba(251, 191, 36, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(251, 191, 36, 0.3);
-    }
-
-    pre {
-      background: rgba(11, 16, 27, 0.95);
-      border: 1px solid rgba(56, 189, 248, 0.18);
-      border-radius: 14px;
+    .callout {
+      background: radial-gradient(400px circle at 0% 0%, rgba(103, 232, 249, 0.08), transparent 60%), rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-card);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
       padding: 1.4rem 1.6rem;
-      overflow-x: auto;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: #e2e8f0;
-      margin: 2rem 0;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin: 2.25rem 0;
+      backdrop-filter: blur(8px);
     }
+    .callout p { margin-bottom: 0.5rem; font-size: 1.02rem; }
+    .callout p:last-child { margin-bottom: 0; }
 
-    code {
-      font-family: var(--font-mono);
-      font-size: 0.88em;
-      background: rgba(56, 189, 248, 0.08);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.15);
-      padding: 0.15rem 0.45rem;
-      border-radius: 5px;
-    }
-    pre code {
-      background: transparent;
-      border: none;
-      padding: 0;
-      color: inherit;
+    .lead-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.35rem;
+      line-height: 1.55;
+      color: var(--text-primary);
+      border-left: 2px solid var(--accent-purple);
+      padding: 0.8rem 1.4rem;
+      margin: 2.25rem 0;
+      background: rgba(167, 139, 250, 0.04);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
     }
   </style>
 
@@ -384,9 +259,9 @@
       <a href="../index.html" class="nav-brand" aria-label="George Moussa Portfolio Home">
         <span class="brand-badge" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#67e8f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 17L12 22L22 17" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 17L22 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+            <path d="M2 12L12 17L22 12" stroke="#67e8f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
           </svg>
         </span>
         <div class="brand-text">
@@ -403,32 +278,36 @@
     </div>
   </header>
 
-  <main class="article-container">
+  <main class="article-wrap">
     <a href="../blog.html" class="back-nav">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>Back to all engineering articles</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to All Articles</span>
     </a>
 
-    <div class="article-header" style="margin-bottom: 2.75rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
-      <div style="display: flex; gap: 0.6rem; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap;">
-        <span class="badge badge-cyan">Interactive Explorable</span>
-        <span class="badge badge-purple">3 Live Simulators</span>
-        <span class="badge badge-emerald">First-Principles Guide</span>
+    <header class="article-header">
+      <div class="blog-meta-row">
+        <span class="badge badge-purple">Interactive Explorable</span>
+        <span>•</span>
+        <span>April 2026</span>
+        <span>•</span>
+        <span>8 min read</span>
+        <span>•</span>
+        <span>By George Moussa</span>
       </div>
       <h1 class="article-title">Why LLMs Think in Geometry: Visualizing Vector Embeddings from First Principles</h1>
       <p class="article-subtitle">How machines turn messy human ideas into map coordinates, why angles beat rulers, and how modern AI searches meaning in milliseconds.</p>
-
-      <div class="article-meta">
-        <span class="meta-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          8 min interactive read
-        </span>
-        <span class="meta-dot">&bull;</span>
-        <span class="meta-item">Published by George Moussa</span>
-        <span class="meta-dot">&bull;</span>
-        <span class="meta-item" style="color: var(--accent-emerald);">Interactive Canvas Lab</span>
+      <div class="tech-tag-group">
+        <span class="tech-tag">Vector Search</span>
+        <span class="tech-tag">Cosine Similarity</span>
+        <span class="tech-tag">Linear Algebra</span>
+        <span class="tech-tag">3 Live Simulators</span>
       </div>
-    </div>
+    </header>
+
+    <div class="article-content">
 
     <!-- NEW 3-BEAT HUMAN HOOK (Everyday Magic + Honest Friction + Visual Promise) -->
     <p class="lead-quote">
@@ -458,7 +337,7 @@
     <p>
       How do you turn a concept into a map coordinate? Imagine you work at a restaurant and want a computer to understand your menu using just <strong>two trait sliders</strong> rated from <code>0</code> to <code>10</code>:
     </p>
-    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+    <ul>
       <li><strong>Slider 1 (Horizontal X-Axis): Sweetness</strong> (0 = Savory, 10 = Pure Sugar)</li>
       <li><strong>Slider 2 (Vertical Y-Axis): Crunchiness</strong> (0 = Soft/Liquid, 10 = Super Crunchy)</li>
     </ul>
@@ -537,7 +416,7 @@
       Imagine comparing a <strong>short tweet</strong> about heart health against a <strong>500-page medical textbook</strong> on the exact same topic:
     </p>
 
-    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+    <ul>
       <li>The <strong>tweet</strong> only has a few dozen words. Its arrow stays short and close to the origin.</li>
       <li>The <strong>textbook</strong> has 200,000 words. Because it mentions medical terms hundreds of times, its arrow shoots way out across the graph.</li>
     </ul>
@@ -625,7 +504,7 @@
     <p>
       Let's plot four words on a clean 2D map where:
     </p>
-    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+    <ul>
       <li><strong>Horizontal X-Axis (Gender):</strong> Left is Masculine (<code>-5</code>), Center is Gender-Neutral (<code>0</code>), Right is Feminine (<code>+5</code>).</li>
       <li><strong>Vertical Y-Axis (Status):</strong> Bottom is Commoner (<code>1</code>), Top is Royal Monarch (<code>9</code>).</li>
     </ul>
@@ -702,9 +581,10 @@ const response = await openai.embeddings.create({
       Even though no human can visualize a 1,536-dimensional room, <strong>the computer runs the exact same angle math from Toy #2</strong>. Whether you're searching your iPhone photos, getting song recommendations on Spotify, or giving an AI assistant long-term memory with <strong>Supabase</strong> or <strong>Pinecone</strong>, it all comes down to one simple geometric trick:
     </p>
 
-    <p class="lead-quote" style="color: var(--accent-cyan); margin-top: 1.5rem;">
+    <p class="lead-quote" style="margin-top: 1.5rem;">
       Don't match the letters. Measure the angle between the thoughts.
     </p>
+    </div>
 
     <!-- Related Notes -->
     <h3 style="margin-top: 4rem; margin-bottom: 1.25rem; font-size: 1.45rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em;">Related Engineering Notes</h3>
@@ -766,10 +646,10 @@ const response = await openai.embeddings.create({
       const sCrunch = document.getElementById('slider-crunch');
 
       const foods = [
-        { name: 'Apple', x: 8.0, y: 9.0, color: '#f43f5e' },
+        { name: 'Apple', x: 8.0, y: 9.0, color: '#f0abfc' },
         { name: 'Pear', x: 7.0, y: 7.0, color: '#34d399' },
         { name: 'Ice Cream', x: 9.0, y: 1.0, color: '#fbbf24' },
-        { name: 'Potato Chip', x: 1.5, y: 9.5, color: '#a855f7' },
+        { name: 'Potato Chip', x: 1.5, y: 9.5, color: '#818cf8' },
         { name: 'Steak', x: 1.0, y: 2.0, color: '#fb7185' }
       ];
 
@@ -798,21 +678,21 @@ const response = await openai.embeddings.create({
         const userY = parseFloat(sCrunch.value);
 
         // Draw Grid (0 to 10)
-        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
         ctx.lineWidth = 1;
         for (let i = 0; i <= 10; i += 2) {
           const p = toScreen(i, i);
           ctx.beginPath(); ctx.moveTo(p.sx, padT); ctx.lineTo(p.sx, height - padB); ctx.stroke();
           ctx.beginPath(); ctx.moveTo(padL, p.sy); ctx.lineTo(width - padR, p.sy); ctx.stroke();
 
-          ctx.fillStyle = '#64748b';
+          ctx.fillStyle = '#7a7a91';
           ctx.font = '11px var(--font-mono)';
           ctx.fillText(i, p.sx - 4, height - padB + 18);
           ctx.fillText(i, padL - 22, p.sy + 4);
         }
 
         // Axes
-        ctx.strokeStyle = '#475569';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(padL, padT);
@@ -821,7 +701,7 @@ const response = await openai.embeddings.create({
         ctx.stroke();
 
         // Axis Titles
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#a6a6bb';
         ctx.font = '600 12px var(--font-sans)';
         ctx.fillText('Sweetness (Slider 1) \u2192', width / 2 - 60, height - 12);
         ctx.save();
@@ -867,7 +747,7 @@ const response = await openai.embeddings.create({
           ctx.fillStyle = f.color;
           ctx.fill();
 
-          ctx.fillStyle = isClosest ? '#ffffff' : '#94a3b8';
+          ctx.fillStyle = isClosest ? '#f5f5f7' : '#a6a6bb';
           ctx.font = isClosest ? 'bold 12px var(--font-sans)' : '12px var(--font-sans)';
           ctx.fillText(`${f.name} [${f.x}, ${f.y}]`, p.sx + 10, p.sy + 4);
         });
@@ -876,20 +756,20 @@ const response = await openai.embeddings.create({
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(userPos.sx, userPos.sy);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
         // Draw User Node
         ctx.beginPath();
         ctx.arc(userPos.sx, userPos.sy, 9, 0, Math.PI * 2);
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#67e8f9';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#67e8f9';
         ctx.font = 'bold 13px var(--font-sans)';
         ctx.fillText(`YOUR FOOD [${userX.toFixed(1)}, ${userY.toFixed(1)}]`, userPos.sx + 14, userPos.sy - 8);
 
@@ -962,20 +842,20 @@ const response = await openai.embeddings.create({
         for (let gx = 0; gx <= maxUnitsX; gx += 2) {
           const p = toScreen(gx, 0);
           ctx.beginPath(); ctx.moveTo(p.sx, 25); ctx.lineTo(p.sx, originY); ctx.stroke();
-          ctx.fillStyle = '#64748b';
+          ctx.fillStyle = '#7a7a91';
           ctx.font = '10px var(--font-mono)';
           ctx.fillText(gx, p.sx - 3, originY + 16);
         }
         for (let gy = 0; gy <= 9; gy += 2) {
           const p = toScreen(0, gy);
           ctx.beginPath(); ctx.moveTo(originX, p.sy); ctx.lineTo(width - 35, p.sy); ctx.stroke();
-          ctx.fillStyle = '#64748b';
+          ctx.fillStyle = '#7a7a91';
           ctx.font = '10px var(--font-mono)';
           ctx.fillText(gy, originX - 20, p.sy + 4);
         }
 
         // Axes
-        ctx.strokeStyle = '#475569';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(originX, 25);
@@ -983,7 +863,7 @@ const response = await openai.embeddings.create({
         ctx.lineTo(width - 35, originY);
         ctx.stroke();
 
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#a6a6bb';
         ctx.font = '600 12px var(--font-sans)';
         ctx.fillText('Keyword Count: "Heart" \u2192', width / 2 - 60, height - 10);
         ctx.save();
@@ -1006,7 +886,7 @@ const response = await openai.embeddings.create({
           ctx.moveTo(origin.sx, origin.sy);
           ctx.arc(origin.sx, origin.sy, wedgeRadius, screenAngTweet, screenAngBook, true);
           ctx.closePath();
-          ctx.fillStyle = 'rgba(251, 191, 36, 0.22)';
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.18)';
           ctx.fill();
 
           ctx.beginPath();
@@ -1029,12 +909,12 @@ const response = await openai.embeddings.create({
           ctx.fillText(`\u03B8 = 0\u00B0 (Arrows Overlap \u2014 100% Same Direction!)`, origin.sx + 15, 48);
         }
 
-        // 3. Draw Red Ruler Distance Line (Euclidean) between Tweet and Book tips
+        // 3. Draw Rose Ruler Distance Line (Euclidean) between Tweet and Book tips
         const euclidDist = Math.hypot(bookX - tweetX, bookY - tweetY);
         ctx.beginPath();
         ctx.moveTo(pTweet.sx, pTweet.sy);
         ctx.lineTo(pBook.sx, pBook.sy);
-        ctx.strokeStyle = '#f43f5e';
+        ctx.strokeStyle = '#fb7185';
         ctx.lineWidth = 2.5;
         ctx.setLineDash([6, 5]);
         ctx.stroke();
@@ -1052,7 +932,7 @@ const response = await openai.embeddings.create({
         const ny = lineLen > 0 ? (-dx / lineLen) * offsetPx : -offsetPx;
 
         ctx.save();
-        ctx.fillStyle = '#f43f5e';
+        ctx.fillStyle = '#fb7185';
         ctx.font = 'bold 12px var(--font-mono)';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -1083,19 +963,19 @@ const response = await openai.embeddings.create({
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pTweet.sx, pTweet.sy);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 3.5;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pTweet.sx, pTweet.sy, 7, 0, Math.PI * 2);
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#67e8f9';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#67e8f9';
         ctx.font = 'bold 12px var(--font-sans)';
         ctx.fillText(`Short Tweet [${tweetX.toFixed(1)}, ${tweetY.toFixed(1)}]`, pTweet.sx + 12, pTweet.sy + 22);
 
@@ -1130,10 +1010,10 @@ const response = await openai.embeddings.create({
       let currentStep = 1;
 
       const pts = {
-        King:    { x: -5, y: 9, color: '#38bdf8', label: 'King [-5, 9]' },
-        Man:     { x: -5, y: 1, color: '#94a3b8', label: 'Man [-5, 1]' },
+        King:    { x: -5, y: 9, color: '#67e8f9', label: 'King [-5, 9]' },
+        Man:     { x: -5, y: 1, color: '#7a7a91', label: 'Man [-5, 1]' },
         Neutral: { x:  0, y: 8, color: '#fbbf24', label: 'King - Man = [0, 8] (Pure Monarch)' },
-        Woman:   { x:  5, y: 1, color: '#94a3b8', label: 'Woman [+5, 1]' },
+        Woman:   { x:  5, y: 1, color: '#a6a6bb', label: 'Woman [+5, 1]' },
         Queen:   { x:  5, y: 9, color: '#34d399', label: 'Queen [+5, 9]' }
       };
 
@@ -1188,7 +1068,7 @@ const response = await openai.embeddings.create({
         ctx.stroke();
 
         // Axis Labels
-        ctx.fillStyle = '#94a3b8';
+        ctx.fillStyle = '#a6a6bb';
         ctx.font = '600 12px var(--font-sans)';
         ctx.fillText('\u2190 Masculine (-X)', 50, height - 15);
         ctx.fillText('Neutral (0)', origin.sx - 32, height - 15);
@@ -1204,7 +1084,7 @@ const response = await openai.embeddings.create({
           ctx.fillStyle = pt.color;
           ctx.fill();
 
-          ctx.fillStyle = '#cbd5e1';
+          ctx.fillStyle = '#f5f5f7';
           ctx.font = '600 12px var(--font-sans)';
           const offsetX = pt.x < 0 ? -95 : 12;
           ctx.fillText(pt.label, p.sx + offsetX, p.sy + 4);
@@ -1218,13 +1098,13 @@ const response = await openai.embeddings.create({
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pKing.sx, pKing.sy);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 3;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pKing.sx, pKing.sy, 10, 0, Math.PI * 2);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 2;
         ctx.stroke();
 

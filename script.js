@@ -650,14 +650,16 @@ function initCounters() {
   if (!els.length) return;
 
   const run = (el) => {
-    const target = parseInt(el.dataset.count, 10) || 0;
-    if (prefersReducedMotion || target === 0) { el.textContent = target; return; }
+    const rawVal = el.dataset.count;
+    const isFloat = rawVal.includes('.');
+    const target = isFloat ? parseFloat(rawVal) : (parseInt(rawVal, 10) || 0);
+    if (prefersReducedMotion || target === 0) { el.textContent = rawVal; return; }
     const start = performance.now();
     const dur = 1400;
     const frame = (now) => {
       const t = Math.min(1, (now - start) / dur);
       const eased = 1 - Math.pow(1 - t, 4);
-      el.textContent = Math.round(target * eased);
+      el.textContent = isFloat ? (target * eased).toFixed(2) : Math.round(target * eased);
       if (t < 1) requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
