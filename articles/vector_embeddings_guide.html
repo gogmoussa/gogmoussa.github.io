@@ -323,6 +323,33 @@
     .readout-val.rose { color: var(--accent-rose); }
     .readout-val.amber { color: var(--accent-amber); }
 
+    .verdict-tag {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .verdict-match {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+    .verdict-mismatch {
+      background: rgba(244, 63, 94, 0.15);
+      color: #f43f5e;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+    .verdict-warn {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
     pre {
       background: #0d131f;
       border: 1px solid var(--border);
@@ -494,19 +521,43 @@
     </p>
 
     <!-- SECTION 2: COSINE VS EUCLIDEAN -->
-    <h2>2. Why We Measure the Angle Between Arrows (Not Ruler Distance)</h2>
+    <h2>2. Why We Measure Angles, Not Rulers</h2>
 
     <p>
-      In Toy #1, we found the closest match by measuring the <strong>straight-line ruler distance</strong> (called <em>Euclidean Distance</em>) between the tips of the arrows.
+      In Toy #1, we found the closest food using a regular ruler—measuring the straight-line distance between two points (what mathematicians call <em>Euclidean Distance</em>).
     </p>
 
     <p>
-      But when we embed real text documents, ruler distance has a fatal flaw: <strong>longer documents create longer arrows.</strong>
+      That worked because every food was rated on the same 0 to 10 scale. But when an AI reads real-world documents, rulers break down immediately because of one simple problem: <strong>document length</strong>.
     </p>
 
     <p>
-      Imagine comparing a <strong>Short Tweet</strong> about heart health (<code>[3.0, 2.0]</code>) against a <strong>500-Page Medical Book</strong> on the exact same topic. Because the book has 100x more words, its arrow shoots way out across the graph.
-      <br><strong>Drag the "Book Length" slider below</strong> and watch what happens to the red Ruler Distance vs. the yellow Angle Wedge (&theta;):
+      Imagine comparing a <strong>short tweet</strong> about heart health against a <strong>500-page medical textbook</strong> on the exact same topic:
+    </p>
+
+    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1;">
+      <li>The <strong>tweet</strong> only has a few dozen words. Its arrow stays short and close to the origin.</li>
+      <li>The <strong>textbook</strong> has 200,000 words. Because it mentions medical terms hundreds of times, its arrow shoots way out across the graph.</li>
+    </ul>
+
+    <p>
+      If you measure the distance between their arrowtips with a ruler, they look light-years apart—<strong>purely because the textbook has more words</strong>.
+    </p>
+
+    <p>
+      The fix is wonderfully simple: <strong>stop using a ruler, and start using a compass.</strong>
+    </p>
+
+    <p>
+      Because both documents are about heart health, their arrows point in the <strong>exact same direction</strong>. Instead of measuring how far apart their tips land, the computer measures the <strong>angle (&theta;) between the arrows</strong>.
+    </p>
+
+    <p>
+      That angle measurement is what engineers call <strong>Cosine Similarity</strong>.
+    </p>
+
+    <p>
+      <strong>Try it in Toy #2 below:</strong> Drag <strong>Book Length</strong> and watch what happens. The red ruler distance changes wildly, but the yellow angle never moves a single degree—they stay locked at <strong>0&deg;</strong> (a 100% match).
     </p>
 
     <!-- TOY 2: TWEET VS TEXTBOOK (COSINE VS EUCLIDEAN) -->
@@ -532,34 +583,33 @@
           <div class="slider-row">
             <div class="slider-header">
               <span>2. <strong>Topic Angle (&theta;)</strong> (Rotates Book's Topic)</span>
-              <strong id="val-drift">18&deg;</strong>
+              <strong id="val-drift">0&deg;</strong>
             </div>
-            <input type="range" id="slider-drift" min="0" max="75" step="1" value="18">
+            <input type="range" id="slider-drift" min="0" max="75" step="1" value="0">
           </div>
         </div>
 
         <div class="readout-card">
           <div class="readout-row">
             <span class="readout-label">Yellow Angle (&theta;):</span>
-            <span class="readout-val amber" id="toy2-angle">18.0&deg;</span>
+            <span class="readout-val amber" id="toy2-angle">0.0&deg;</span>
           </div>
           <div class="readout-row">
             <span class="readout-label">Cosine Similarity:</span>
-            <span class="readout-val" id="toy2-cosine">0.951 (Strong Match)</span>
+            <span class="readout-val" id="toy2-cosine">1.000 (100% Match!)</span>
           </div>
           <div class="readout-row">
             <span class="readout-label">Red Ruler Distance:</span>
-            <span class="readout-val rose" id="toy2-euclid">5.58 units</span>
+            <span class="readout-val rose" id="toy2-euclid">5.41 units</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="callout">
-      <p><strong>Look at what just happened in Toy #2:</strong></p>
+      <p><strong>The One Thing to Remember:</strong></p>
       <p>
-        1. When you drag <strong>Book Length</strong> back and forth, the purple arrow stretches, making the <strong>Red Ruler Distance</strong> change wildly—even though the book's topic didn't change at all!<br>
-        2. Meanwhile, look at the <strong>Yellow Angle Wedge (&theta;)</strong> tucked between the two arrows: <strong>stretching the arrow doesn't change the angle by a single degree.</strong> That is why AI databases use <strong>Cosine Similarity</strong>—it measures pure direction, ignoring document length.
+        Whenever you hear the phrase <strong>Cosine Similarity</strong>, don't think of scary math formulas. Just think of a <strong>compass</strong>. It only cares about what direction an arrow points, completely ignoring whether it's a 10-word tweet or a 500-page book.
       </p>
     </div>
 
@@ -837,8 +887,7 @@ const response = await openai.embeddings.create({
         ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
         ctx.clearRect(0, 0, width, height);
 
-        // Use a true 1:1 isotropic scale (1 unit X == 1 unit Y in pixels!)
-        // so that visual angles on screen match mathematical angles 100%!
+        // 1:1 isotropic scale (1 unit X == 1 unit Y in pixels!)
         const originX = 75;
         const originY = height - 48;
         const maxUnitsY = 9.5;
@@ -907,14 +956,12 @@ const response = await openai.embeddings.create({
         const pTweet = toScreen(tweetX, tweetY);
         const pBook = toScreen(bookX, bookY);
 
-        // 2. Draw Glowing Yellow Angle Wedge (Pie Sector) directly between the two screen rays!
-        // Calculate exact screen-space angles so the yellow wedge hugs both vectors with pixel precision
+        // 2. Draw Glowing Yellow Angle Wedge directly between the two rays!
         const screenAngTweet = Math.atan2(pTweet.sy - origin.sy, pTweet.sx - origin.sx);
         const screenAngBook = Math.atan2(pBook.sy - origin.sy, pBook.sx - origin.sx);
         const wedgeRadius = Math.min(92, Math.hypot(pTweet.sx - origin.sx, pTweet.sy - origin.sy) * 0.78);
 
         if (driftDeg > 0.5) {
-          // Filled yellow wedge
           ctx.beginPath();
           ctx.moveTo(origin.sx, origin.sy);
           ctx.arc(origin.sx, origin.sy, wedgeRadius, screenAngTweet, screenAngBook, true);
@@ -922,29 +969,28 @@ const response = await openai.embeddings.create({
           ctx.fillStyle = 'rgba(251, 191, 36, 0.22)';
           ctx.fill();
 
-          // Crisp yellow outer arc
           ctx.beginPath();
           ctx.arc(origin.sx, origin.sy, wedgeRadius, screenAngTweet, screenAngBook, true);
           ctx.strokeStyle = '#fbbf24';
           ctx.lineWidth = 3;
           ctx.stroke();
 
-          // Angle label right outside the middle of the yellow wedge
           const midScreenAng = (screenAngTweet + screenAngBook) / 2;
           const labelR = wedgeRadius + 28;
           const lx = origin.sx + Math.cos(midScreenAng) * labelR;
           const ly = origin.sy + Math.sin(midScreenAng) * labelR;
           ctx.fillStyle = '#fbbf24';
           ctx.font = 'bold 13px var(--font-mono)';
-          ctx.fillText(`\u03B8 = ${driftDeg}\u00B0`, lx - 18, ly + 4);
+          ctx.fillText(`\u03B8 = ${driftDeg.toFixed(0)}\u00B0`, lx - 18, ly + 4);
         } else {
-          // 0 degree badge
+          // Clean top-left status badge so it never collides with the vector line or ruler text!
           ctx.fillStyle = '#fbbf24';
           ctx.font = 'bold 12px var(--font-mono)';
-          ctx.fillText(`\u03B8 = 0\u00B0 (Arrows Overlap — Exact Same Direction!)`, origin.sx + 40, origin.sy - 80);
+          ctx.fillText(`\u03B8 = 0\u00B0 (Arrows Overlap \u2014 100% Same Direction!)`, origin.sx + 15, 48);
         }
 
-        // 3. Draw Red Ruler Distance Line (Euclidean) between the two tips
+        // 3. Draw Red Ruler Distance Line (Euclidean) between Tweet and Book tips
+        const euclidDist = Math.hypot(bookX - tweetX, bookY - tweetY);
         ctx.beginPath();
         ctx.moveTo(pTweet.sx, pTweet.sy);
         ctx.lineTo(pBook.sx, pBook.sy);
@@ -954,12 +1000,24 @@ const response = await openai.embeddings.create({
         ctx.stroke();
         ctx.setLineDash([]);
 
-        const euclidDist = Math.hypot(bookX - tweetX, bookY - tweetY);
+        const dx = pBook.sx - pTweet.sx;
+        const dy = pBook.sy - pTweet.sy;
+        const lineLen = Math.hypot(dx, dy);
         const midRx = (pTweet.sx + pBook.sx) / 2;
         const midRy = (pTweet.sy + pBook.sy) / 2;
+
+        // Shift perpendicular ABOVE the line so it never touches the blue/purple vector or labels
+        const offsetPx = 18;
+        const nx = lineLen > 0 ? (dy / lineLen) * offsetPx : 0;
+        const ny = lineLen > 0 ? (-dx / lineLen) * offsetPx : -offsetPx;
+
+        ctx.save();
         ctx.fillStyle = '#f43f5e';
         ctx.font = 'bold 12px var(--font-mono)';
-        ctx.fillText(`Ruler Dist = ${euclidDist.toFixed(2)}`, midRx + 14, midRy + 6);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(`Ruler Dist = ${euclidDist.toFixed(2)}`, midRx + nx, midRy + ny);
+        ctx.restore();
 
         // 4. Draw Book Vector (Purple)
         ctx.beginPath();
@@ -979,7 +1037,7 @@ const response = await openai.embeddings.create({
 
         ctx.fillStyle = '#c7d2fe';
         ctx.font = 'bold 12px var(--font-sans)';
-        ctx.fillText(`Medical Book [${bookX.toFixed(1)}, ${bookY.toFixed(1)}]`, pBook.sx + 12, pBook.sy - 8);
+        ctx.fillText(`Medical Book [${bookX.toFixed(1)}, ${bookY.toFixed(1)}]`, pBook.sx + 14, pBook.sy - 4);
 
         // 5. Draw Tweet Vector (Cyan)
         ctx.beginPath();
@@ -999,19 +1057,18 @@ const response = await openai.embeddings.create({
 
         ctx.fillStyle = '#38bdf8';
         ctx.font = 'bold 12px var(--font-sans)';
-        ctx.fillText(`Short Tweet [${tweetX.toFixed(1)}, ${tweetY.toFixed(1)}]`, pTweet.sx + 12, pTweet.sy + 16);
+        ctx.fillText(`Short Tweet [${tweetX.toFixed(1)}, ${tweetY.toFixed(1)}]`, pTweet.sx + 12, pTweet.sy + 22);
 
-        // Update Readout
+        // 6. Update Readout
         const cosine = Math.cos(driftDeg * Math.PI / 180);
         document.getElementById('val-scale').textContent = `${scaleMult.toFixed(1)}x`;
-        document.getElementById('val-drift').textContent = `${driftDeg}\u00B0`;
+        document.getElementById('val-drift').textContent = `${driftDeg.toFixed(0)}\u00B0`;
         document.getElementById('toy2-angle').textContent = `${driftDeg.toFixed(1)}\u00B0`;
 
-        let matchLabel = 'Strong Match';
-        if (cosine > 0.99) matchLabel = '100% Same Topic!';
-        else if (cosine > 0.90) matchLabel = 'Strong Match';
-        else if (cosine > 0.65) matchLabel = 'Moderate Match';
-        else matchLabel = 'Different Topic';
+        let matchLabel = '100% Match!';
+        if (cosine < 0.65) matchLabel = 'Different Topic';
+        else if (cosine < 0.95) matchLabel = 'Moderate Match';
+        else if (cosine < 0.99) matchLabel = 'Strong Match';
 
         document.getElementById('toy2-cosine').textContent = `${cosine.toFixed(3)} (${matchLabel})`;
         document.getElementById('toy2-euclid').textContent = `${euclidDist.toFixed(2)} units`;
