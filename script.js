@@ -1,124 +1,96 @@
 // Portfolio Application Logic for George Moussa
-// Handles Project Rendering, Filtering, Terminal Interactions, Telemetry, and Modals
+// Handles: project rendering, filtering, modal inspector, navigation,
+// hero constellation canvas, scroll reveals, spotlight cards, and small delights.
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTerminal();
   initProjects();
   initFilters();
   initModal();
   initMobileNav();
   initContactActions();
+  initReveal();
+  initSpotlight();
+  initHeroCanvas();
+  initPortraitTilt();
+  initLocalClock();
+  initCounters();
+  initEmbedViz();
+
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
 /* ==========================================================================
-   Terminal Simulation
+   Shared icons
    ========================================================================== */
-const terminalTabsData = {
-  whoami: `
-<span class="t-prompt">george@workstation</span>:<span class="t-comment">~</span>$ whoami --verbose
-<span class="t-comment"># Identity & Engineering Profile</span>
-{
-  <span class="t-key">"name"</span>: <span class="t-val">"George Moussa"</span>,
-  <span class="t-key">"role"</span>: <span class="t-val">"Software Engineer & AI Systems Builder"</span>,
-  <span class="t-key">"location"</span>: <span class="t-val">"London, Ontario, Canada 🇨🇦"</span>,
-  <span class="t-key">"focus"</span>: [
-    <span class="t-val">"Local-First AI Agents"</span>,
-    <span class="t-val">"AST Static Code Analysis"</span>,
-    <span class="t-val">"Calm Tech & Full-Stack Systems"</span>
-  ],
-  <span class="t-key">"status"</span>: <span class="t-val">"Available for High-Impact Roles"</span>
-}
-`,
-  documind: `
-<span class="t-prompt">george@workstation</span>:<span class="t-comment">~/projects/documind</span>$ ts-node run-ast-map.ts
-<span class="t-comment">[INFO] Initializing AST Engine via ts-morph...</span>
-<span class="t-val">✔</span> Parsed 142 source files without regex heuristics.
-<span class="t-val">✔</span> Resolved import graphs and cross-module boundaries.
-<span class="t-val">✔</span> LLM Role Contextualization: 0 architectural drift detected.
-<span class="t-key">→ Visual Blueprint rendered to:</span> <span class="t-val">blueprint.interactive.json</span>
-`,
-  agent: `
-<span class="t-prompt">george@workstation</span>:<span class="t-comment">~/projects/desktop_local_agent</span>$ python agent.py
-<span class="t-comment">[AI LOCAL ORCHESTRATOR] Initializing Ollama engine...</span>
-<span class="t-val">● Model:</span> <span class="t-key">llama3 / deepseek-r1 (Local GPU)</span>
-<span class="t-val">● Network:</span> <span class="t-tag">100% AIR-GAPPED / ZERO TELEMETRY</span>
-<span class="t-prompt">User Prompt ></span> <span class="t-cmd">"Analyze open ports and format as markdown table"</span>
-<span class="t-val">[Agent Plan]</span> Executing safe PowerShell command sequence...
-<span class="t-val">[Success]</span> Process completed in 320ms.
-`,
-  stats: `
-<span class="t-prompt">george@workstation</span>:<span class="t-comment">~</span>$ curl -s https://api.github.com/users/gogmoussa | jq .
-<span class="t-comment"># Live GitHub Identity Matrix</span>
-{
-  <span class="t-key">"login"</span>: <span class="t-val">"gogmoussa"</span>,
-  <span class="t-key">"public_repos"</span>: <span class="t-val">20</span>,
-  <span class="t-key">"primary_languages"</span>: [<span class="t-val">"TypeScript"</span>, <span class="t-val">"Python"</span>, <span class="t-val">"C#"</span>, <span class="t-val">"JavaScript"</span>],
-  <span class="t-key">"hireable"</span>: <span class="t-val">true</span>
-}
-`
+const ICONS = {
+  github: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.420-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>',
+  check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+  arrow: '<svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  chevron: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'
 };
 
-function initTerminal() {
-  const terminalBody = document.getElementById('terminal-body');
-  const tabButtons = document.querySelectorAll('.terminal-tab-btn');
-
-  if (!terminalBody) return;
-
-  // Set default tab
-  terminalBody.innerHTML = terminalTabsData.whoami.trim();
-
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const tabKey = btn.getAttribute('data-tab');
-      if (terminalTabsData[tabKey]) {
-        terminalBody.style.opacity = '0';
-        setTimeout(() => {
-          terminalBody.innerHTML = terminalTabsData[tabKey].trim();
-          terminalBody.style.opacity = '1';
-        }, 120);
-      }
-    });
-  });
-}
+const FLAGSHIP_PIPELINES = {
+  'documind': {
+    color: '167, 139, 250',
+    steps: [
+      ['AST static analysis', 'ts-morph compiler API'],
+      ['Dependency graph', 'zonal folder grouping'],
+      ['LLM contextualization', 'semantic role mapping'],
+      ['Zero-drift blueprint', 'synced on every commit']
+    ]
+  },
+  'inner-compass': {
+    color: '52, 211, 153',
+    steps: [
+      ['Expo mobile core', 'React Native engine'],
+      ['Encrypted offline store', 'reflection journal'],
+      ['AI-assisted clarity', 'decision matrix'],
+      ['Calm adaptive UI', 'micro-interactions']
+    ]
+  }
+};
 
 /* ==========================================================================
    Projects Rendering
    ========================================================================== */
 function initProjects() {
+  if (typeof projectsData === 'undefined') return;
   renderFlagships();
   renderProjectGrid(projectsData);
+
+  const statEl = document.getElementById('stat-projects');
+  if (statEl) statEl.dataset.count = String(projectsData.length);
 }
 
 function renderFlagships() {
   const container = document.getElementById('flagship-container');
   if (!container) return;
 
-  // Select top 2 flagship projects: DocuMind and Inner Compass
-  const flagships = projectsData.filter(p => p.id === 'documind' || p.id === 'inner-compass');
+  const flagships = ['documind', 'inner-compass']
+    .map(id => projectsData.find(p => p.id === id))
+    .filter(Boolean);
 
-  container.innerHTML = flagships.map(p => `
-    <article class="flagship-card" data-project-id="${p.id}">
+  container.innerHTML = flagships.map((p, idx) => {
+    const pipe = FLAGSHIP_PIPELINES[p.id];
+    const num = String(idx + 1).padStart(2, '0');
+    return `
+    <article class="flagship-card reveal" data-project-id="${p.id}">
       <div class="flagship-content">
         <div>
           <div class="flagship-meta">
+            <span class="flagship-index">${num} /</span>
             <span class="badge ${p.id === 'documind' ? 'badge-purple' : 'badge-emerald'}">${p.badge}</span>
-            <span class="badge">${p.metrics}</span>
+            <span class="badge badge-ghost">${p.metrics}</span>
           </div>
           <h3 class="flagship-title">${p.title}</h3>
           <p class="flagship-tagline">${p.tagline}</p>
           <p class="flagship-desc">${p.shortDescription}</p>
 
           <ul class="flagship-highlights">
-            ${p.highlights.map(h => `
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                <span>${h}</span>
-              </li>
-            `).join('')}
+            ${p.highlights.map(h => `<li>${ICONS.check}<span>${h}</span></li>`).join('')}
           </ul>
 
           <div class="tech-tag-group">
@@ -127,49 +99,39 @@ function renderFlagships() {
         </div>
 
         <div class="card-actions">
-          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
-            View Repository
-          </a>
-          <button class="btn btn-secondary btn-sm inspect-btn" data-project-id="${p.id}">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            Deep Dive
+          <button class="btn btn-primary btn-sm inspect-btn" data-project-id="${p.id}">
+            <span>Deep dive</span>${ICONS.arrow}
           </button>
+          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            ${ICONS.github}<span>Repository</span>
+          </a>
         </div>
       </div>
 
-      <div class="flagship-visual">
-        <div class="blueprint-box">
-          <div class="blueprint-header">
-            <span>Architecture Breakdown</span>
-            <span>// ${p.id.toUpperCase()}</span>
-          </div>
-          <div class="blueprint-step">
-            <span class="blueprint-num">01</span>
-            <span>${p.id === 'documind' ? 'AST Static Analysis (ts-morph parser)' : 'Expo Mobile Core + React Native Engine'}</span>
-          </div>
-          <div class="blueprint-step">
-            <span class="blueprint-num">02</span>
-            <span>${p.id === 'documind' ? 'Dependency Graph & Zonal Grouping' : 'Encrypted Offline Store & Reflection Journal'}</span>
-          </div>
-          <div class="blueprint-step">
-            <span class="blueprint-num">03</span>
-            <span>${p.id === 'documind' ? 'LLM Semantic Contextualization' : 'AI-Assisted Clarity & Decision Matrix'}</span>
-          </div>
-          <div class="blueprint-step">
-            <span class="blueprint-num">04</span>
-            <span>${p.id === 'documind' ? 'Zero-Drift Synchronized Blueprint' : 'Calm Adaptive UI & Micro-interactions'}</span>
-          </div>
+      <div class="flagship-visual" style="--fc: ${pipe ? pipe.color : '167, 139, 250'}">
+        <span class="flagship-bignum" aria-hidden="true">${num}</span>
+        <div class="pipeline">
+          <div class="pipeline-head"><span>Architecture</span><span>${p.id}</span></div>
+          ${(pipe ? pipe.steps : []).map((s, i) => `
+            <div class="pipeline-step">
+              <span class="pipeline-num">${i + 1}</span>
+              <span>${s[0]}<span class="pipeline-sub">${s[1]}</span></span>
+            </div>
+          `).join('')}
         </div>
       </div>
     </article>
-  `).join('');
+  `;
+  }).join('');
+
+  // Size the flowing pulse to the pipeline height
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.pipeline').forEach(pl => {
+      pl.style.setProperty('--flow-h', `${Math.max(120, pl.offsetHeight - 80)}px`);
+    });
+  });
+
+  observeReveals(container);
 }
 
 function renderProjectGrid(projects) {
@@ -178,31 +140,29 @@ function renderProjectGrid(projects) {
 
   if (projects.length === 0) {
     grid.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-        <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">No projects match your filter criteria.</p>
-        <button class="btn btn-outline btn-sm" id="reset-filter-btn">Reset Filters</button>
+      <div class="empty-state">
+        <p>No projects match that filter.</p>
+        <button class="btn btn-secondary btn-sm" id="reset-filter-btn">Reset filters</button>
       </div>
     `;
     const resetBtn = document.getElementById('reset-filter-btn');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
-        document.querySelector('[data-filter="all"]').click();
         const searchInput = document.getElementById('project-search');
         if (searchInput) searchInput.value = '';
+        document.querySelector('[data-filter="all"]').click();
       });
     }
     return;
   }
 
-  grid.innerHTML = projects.map(p => `
-    <article class="project-card" data-category="${p.category}" data-project-id="${p.id}">
+  grid.innerHTML = projects.map((p, i) => `
+    <article class="project-card spotlight" style="--i:${i}" data-category="${p.category}" data-project-id="${p.id}" tabindex="0" aria-label="Inspect ${p.title}">
       <div class="card-top">
         <div class="card-header-row">
           <span class="badge ${getCategoryBadgeClass(p.category)}">${p.badge}</span>
-          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View Code on GitHub">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
+          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View code on GitHub" aria-label="View ${p.title} on GitHub">
+            ${ICONS.github}
           </a>
         </div>
         <h3 class="project-card-title">${p.title}</h3>
@@ -215,18 +175,13 @@ function renderProjectGrid(projects) {
       </div>
 
       <div class="card-footer-row">
-        <span style="font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-muted);">${p.metrics}</span>
+        <span class="card-metrics">${p.metrics.split('·')[0].trim()}</span>
         <button class="details-btn inspect-btn" data-project-id="${p.id}">
-          <span>Inspect Architecture</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          <span>Inspect</span>${ICONS.chevron}
         </button>
       </div>
     </article>
   `).join('');
-
-  attachInspectHandlers();
 }
 
 function getCategoryBadgeClass(category) {
@@ -234,16 +189,25 @@ function getCategoryBadgeClass(category) {
     case 'ai': return 'badge-purple';
     case 'mobile': return 'badge-emerald';
     case 'data': return 'badge-amber';
+    case 'systems': return 'badge-pink';
     default: return '';
   }
 }
 
 /* ==========================================================================
-   Filter & Search Functionality
+   Filter & Search
    ========================================================================== */
 function initFilters() {
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
   const searchInput = document.getElementById('project-search');
+  if (!filterBtns.length || typeof projectsData === 'undefined') return;
+
+  // Add counts to each pill
+  filterBtns.forEach(btn => {
+    const key = btn.getAttribute('data-filter');
+    const n = key === 'all' ? projectsData.length : projectsData.filter(p => p.category === key).length;
+    btn.insertAdjacentHTML('beforeend', `<span class="count">${n}</span>`);
+  });
 
   let activeCategory = 'all';
   let searchTerm = '';
@@ -257,7 +221,7 @@ function initFilters() {
 
     if (searchTerm.trim() !== '') {
       const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(p => 
+      filtered = filtered.filter(p =>
         p.title.toLowerCase().includes(term) ||
         p.tagline.toLowerCase().includes(term) ||
         p.shortDescription.toLowerCase().includes(term) ||
@@ -288,16 +252,12 @@ function initFilters() {
 /* ==========================================================================
    Project Deep-Dive Modal
    ========================================================================== */
+let lastFocusedEl = null;
+
 function initModal() {
   const backdrop = document.getElementById('project-modal');
   const closeBtn = document.getElementById('modal-close-btn');
-
   if (!backdrop) return;
-
-  function closeModal() {
-    backdrop.classList.remove('open');
-    document.body.style.overflow = '';
-  }
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
@@ -306,168 +266,162 @@ function initModal() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && backdrop.classList.contains('open')) {
-      closeModal();
+    if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
+  });
+
+  // Event delegation: inspect buttons + whole project cards
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return; // let real links work
+    const trigger = e.target.closest('.inspect-btn, .project-card');
+    if (!trigger) return;
+    const id = trigger.getAttribute('data-project-id');
+    const project = typeof projectsData !== 'undefined' && projectsData.find(p => p.id === id);
+    if (project) showProjectModal(project, trigger);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const card = e.target.closest && e.target.closest('.project-card');
+    if (card && e.target === card) {
+      const project = projectsData.find(p => p.id === card.dataset.projectId);
+      if (project) showProjectModal(project, card);
     }
   });
-
-  attachInspectHandlers();
 }
 
-function attachInspectHandlers() {
-  const inspectBtns = document.querySelectorAll('.inspect-btn');
-  inspectBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-project-id');
-      const project = projectsData.find(p => p.id === id);
-      if (project) {
-        showProjectModal(project);
-      }
-    });
-  });
-}
-
-function showProjectModal(p) {
+function closeModal() {
   const backdrop = document.getElementById('project-modal');
-  const titleEl = document.getElementById('modal-title');
-  const taglineEl = document.getElementById('modal-tagline');
-  const badgeEl = document.getElementById('modal-badge');
-  const descEl = document.getElementById('modal-desc');
-  const highlightsEl = document.getElementById('modal-highlights');
-  const techEl = document.getElementById('modal-tech');
-  const archEl = document.getElementById('modal-arch');
-  const githubLink = document.getElementById('modal-github-link');
-
   if (!backdrop) return;
+  backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocusedEl) lastFocusedEl.focus({ preventScroll: true });
+}
 
-  if (titleEl) titleEl.textContent = p.title;
-  if (taglineEl) taglineEl.textContent = p.tagline;
-  if (badgeEl) {
-    badgeEl.textContent = p.badge;
-    badgeEl.className = `badge ${getCategoryBadgeClass(p.category)}`;
-  }
-  if (descEl) descEl.textContent = p.fullDescription;
+function showProjectModal(p, trigger) {
+  const backdrop = document.getElementById('project-modal');
+  if (!backdrop) return;
+  lastFocusedEl = trigger || null;
 
-  if (highlightsEl) {
-    highlightsEl.innerHTML = p.highlights.map(h => `
-      <li style="display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.6rem; color: #cbd5e1; font-size: 0.92rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" style="flex-shrink:0; margin-top:3px;">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>${h}</span>
-      </li>
-    `).join('');
-  }
+  const $ = (id) => document.getElementById(id);
 
-  if (techEl) {
-    techEl.innerHTML = p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
-  }
+  $('modal-title').textContent = p.title;
+  $('modal-tagline').textContent = p.tagline;
+  const badgeEl = $('modal-badge');
+  badgeEl.textContent = p.badge;
+  badgeEl.className = `badge ${getCategoryBadgeClass(p.category)}`;
+  const metricsEl = $('modal-metrics');
+  if (metricsEl) metricsEl.textContent = p.metrics;
+  $('modal-desc').textContent = p.fullDescription;
 
-  if (archEl) {
-    archEl.textContent = p.architecture || 'Direct Service Integration & Processing Flow';
-  }
+  $('modal-highlights').innerHTML = p.highlights
+    .map(h => `<li>${ICONS.check}<span>${h}</span></li>`)
+    .join('');
 
-  if (githubLink) {
-    githubLink.href = p.github;
-  }
+  $('modal-tech').innerHTML = p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+  const archEl = $('modal-arch');
+  const arch = p.architecture || 'Direct Service Integration ──> Processing Flow';
+  const nodes = arch.split(/\s*(?:──>|->|→)\s*/).filter(Boolean);
+  archEl.innerHTML = nodes
+    .map(n => `<span class="arch-node">${n.trim()}</span>`)
+    .join('<span class="arch-arrow">→</span>');
+
+  $('modal-github-link').href = p.github;
 
   backdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
+  backdrop.querySelector('.modal-content').scrollTop = 0;
+  setTimeout(() => $('modal-close-btn').focus({ preventScroll: true }), 50);
 }
 
 /* ==========================================================================
-   Mobile Nav & Smooth Scrolling
+   Navigation: mobile drawer, scroll-spy, hide-on-scroll, scrolled state
    ========================================================================== */
 function initMobileNav() {
   const toggleBtn = document.querySelector('.mobile-toggle');
   const navLinks = document.querySelector('.nav-links');
   const links = document.querySelectorAll('.nav-link');
-
-  if (!toggleBtn || !navLinks) return;
-
-  toggleBtn.addEventListener('click', () => {
-    toggleBtn.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      toggleBtn.classList.remove('open');
-      navLinks.classList.remove('open');
-    });
-  });
-
-  // Smart hide-on-scroll navbar for mobile
-  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-  let scrollUpDistance = 0;
   const navbar = document.querySelector('.navbar');
+
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener('click', () => {
+      const open = !navLinks.classList.contains('open');
+      toggleBtn.classList.toggle('open', open);
+      navLinks.classList.toggle('open', open);
+      toggleBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.classList.remove('open');
+        navLinks.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Scroll-spy via IntersectionObserver
+  const sections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window && sections.length) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => spy.observe(s));
+  }
+
+  // Smart hide-on-scroll (mobile) + scrolled styling
+  let lastScrollY = window.scrollY || 0;
+  let scrollUpDistance = 0;
   const downThreshold = 8;
   const upThreshold = 25;
   let ticking = false;
 
-  // Active section spy and smart navbar hide on scroll
   window.addEventListener('scroll', () => {
-    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 140;
-      const sectionId = current.getAttribute('id');
-      const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-      if (currentScrollY >= sectionTop && currentScrollY < sectionTop + sectionHeight) {
-        links.forEach(l => l.classList.remove('active'));
-        if (activeLink) activeLink.classList.add('active');
-      }
-    });
-
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        if (navbar && (!navLinks || !navLinks.classList.contains('open'))) {
-          const scrollDelta = currentScrollY - lastScrollY;
-
-          if (currentScrollY <= 50) {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const y = window.scrollY || 0;
+      if (navbar) {
+        navbar.classList.toggle('scrolled', y > 24);
+        if (!navLinks || !navLinks.classList.contains('open')) {
+          const delta = y - lastScrollY;
+          if (y <= 50) {
             navbar.classList.remove('nav-hidden');
             scrollUpDistance = 0;
-          } else if (scrollDelta > downThreshold) {
+          } else if (delta > downThreshold) {
             navbar.classList.add('nav-hidden');
             scrollUpDistance = 0;
-          } else if (scrollDelta < 0) {
-            scrollUpDistance += Math.abs(scrollDelta);
-            if (scrollUpDistance >= upThreshold) {
-              navbar.classList.remove('nav-hidden');
-            }
-          } else {
-            scrollUpDistance = 0;
+          } else if (delta < 0) {
+            scrollUpDistance += Math.abs(delta);
+            if (scrollUpDistance >= upThreshold) navbar.classList.remove('nav-hidden');
           }
         }
-        lastScrollY = Math.max(0, currentScrollY);
-        ticking = false;
-      });
-      ticking = true;
-    }
+      }
+      lastScrollY = Math.max(0, y);
+      ticking = false;
+    });
   }, { passive: true });
 }
 
 /* ==========================================================================
-   Contact & Toast Notifications
+   Contact & Toast
    ========================================================================== */
 function initContactActions() {
-  const copyBtns = document.querySelectorAll('[data-copy]');
   const toast = document.getElementById('toast');
 
-  copyBtns.forEach(btn => {
+  document.querySelectorAll('[data-copy]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const textToCopy = btn.getAttribute('data-copy');
       if (!textToCopy) return;
 
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast(`Copied to clipboard: ${textToCopy}`);
-      }).catch(() => {
-        showToast(`Selected: ${textToCopy}`);
-      });
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => showToast('✓ Link copied to clipboard'))
+        .catch(() => showToast(textToCopy));
     });
   });
 
@@ -475,8 +429,267 @@ function initContactActions() {
     if (!toast) return;
     toast.textContent = message;
     toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3200);
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 2800);
   }
+}
+
+/* ==========================================================================
+   Scroll reveal
+   ========================================================================== */
+let revealObserver = null;
+
+function initReveal() {
+  if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    return;
+  }
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  observeReveals(document);
+}
+
+function observeReveals(root) {
+  const els = root.querySelectorAll('.reveal:not(.in)');
+  if (!revealObserver) {
+    if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+      els.forEach(el => el.classList.add('in'));
+    }
+    return;
+  }
+  els.forEach(el => revealObserver.observe(el));
+}
+
+/* ==========================================================================
+   Spotlight cards — cursor-following glow
+   ========================================================================== */
+function initSpotlight() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  document.addEventListener('pointermove', (e) => {
+    const card = e.target.closest && e.target.closest('.spotlight');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    card.style.setProperty('--my', `${e.clientY - r.top}px`);
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   Hero canvas — "embedding constellation"
+   Drifting nodes in a pseudo-3D space, linked by proximity; the cursor
+   acts as a query vector that lights up its nearest neighbours.
+   ========================================================================== */
+function initHeroCanvas() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const hero = canvas.parentElement;
+
+  const COLORS = [[103, 232, 249], [167, 139, 250], [240, 171, 252]];
+  let w = 0, h = 0, dpr = 1, nodes = [], raf = null, visible = true;
+  const mouse = { x: -9999, y: -9999, active: false };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = hero.clientWidth;
+    h = hero.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.round(Math.min(110, Math.max(40, (w * h) / 14000)));
+    nodes = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      z: Math.random() * 0.8 + 0.2,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      c: COLORS[Math.floor(Math.random() * COLORS.length)]
+    }));
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, w, h);
+    const linkDist = Math.min(150, w / 8);
+
+    for (const n of nodes) {
+      n.x += n.vx * n.z;
+      n.y += n.vy * n.z;
+      if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+      if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+
+      if (mouse.active) {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y;
+        const d = Math.hypot(dx, dy);
+        if (d < 180 && d > 0.1) {
+          n.x += (dx / d) * 0.35 * n.z;
+          n.y += (dy / d) * 0.35 * n.z;
+        }
+      }
+    }
+
+    // links
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < linkDist * linkDist) {
+          const t = 1 - Math.sqrt(d2) / linkDist;
+          ctx.strokeStyle = `rgba(${a.c[0]}, ${a.c[1]}, ${a.c[2]}, ${t * 0.22 * Math.min(a.z, b.z)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // query-vector links from cursor
+    if (mouse.active) {
+      for (const n of nodes) {
+        const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        if (d < 200) {
+          const t = 1 - d / 200;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${t * 0.35})`;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(n.x, n.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // nodes
+    for (const n of nodes) {
+      const r = 0.6 + n.z * 1.6;
+      ctx.fillStyle = `rgba(${n.c[0]}, ${n.c[1]}, ${n.c[2]}, ${0.35 + n.z * 0.6})`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (visible && !prefersReducedMotion) raf = requestAnimationFrame(step);
+  }
+
+  resize();
+  step();
+
+  let resizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => { resize(); if (prefersReducedMotion) step(); }, 150);
+  });
+
+  hero.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+    mouse.active = true;
+  }, { passive: true });
+  hero.addEventListener('pointerleave', () => { mouse.active = false; });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !prefersReducedMotion) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(step);
+      }
+    }).observe(hero);
+  }
+}
+
+/* ==========================================================================
+   Portrait 3D tilt
+   ========================================================================== */
+function initPortraitTilt() {
+  const el = document.getElementById('portrait');
+  if (!el || prefersReducedMotion || window.matchMedia('(hover: none)').matches) return;
+  const wrap = el.parentElement;
+
+  wrap.addEventListener('pointermove', (e) => {
+    const r = wrap.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(900px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`;
+  });
+  wrap.addEventListener('pointerleave', () => {
+    el.style.transform = '';
+  });
+}
+
+/* ==========================================================================
+   Local clock (London, Ontario — America/Toronto)
+   ========================================================================== */
+function initLocalClock() {
+  const el = document.getElementById('local-time');
+  if (!el) return;
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric', minute: '2-digit', timeZone: 'America/Toronto', timeZoneName: 'short'
+  });
+  const tick = () => { el.textContent = fmt.format(new Date()); };
+  tick();
+  setInterval(tick, 30000);
+}
+
+/* ==========================================================================
+   Count-up stats
+   ========================================================================== */
+function initCounters() {
+  const els = document.querySelectorAll('[data-count]');
+  if (!els.length) return;
+
+  const run = (el) => {
+    const target = parseInt(el.dataset.count, 10) || 0;
+    if (prefersReducedMotion || target === 0) { el.textContent = target; return; }
+    const start = performance.now();
+    const dur = 1400;
+    const frame = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 4);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+
+  if (!('IntersectionObserver' in window)) { els.forEach(run); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.6 });
+  els.forEach(el => io.observe(el));
+}
+
+/* ==========================================================================
+   Writing card visual — scattered "embedding" dots
+   ========================================================================== */
+function initEmbedViz() {
+  const g = document.getElementById('embed-dots');
+  if (!g) return;
+  const colors = ['#67e8f9', '#a78bfa', '#f0abfc'];
+  let seed = 7;
+  const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  let html = '';
+  for (let i = 0; i < 70; i++) {
+    const cluster = i % 3;
+    const cx = [440, 170, 220][cluster];
+    const cy = [80, 70, 195][cluster];
+    const x = cx + (rand() - 0.5) * 160;
+    const y = cy + (rand() - 0.5) * 90;
+    const r = 1 + rand() * 1.8;
+    html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${colors[cluster]}" opacity="${(0.25 + rand() * 0.5).toFixed(2)}"/>`;
+  }
+  g.innerHTML = html;
 }
