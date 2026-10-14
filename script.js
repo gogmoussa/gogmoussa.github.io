@@ -646,6 +646,17 @@ function initLocalClock() {
    Count-up stats
    ========================================================================== */
 function initCounters() {
+  // Dynamically calculate years on the job from career start date (Jan 2020) and round
+  const yearsEl = document.getElementById('stat-years');
+  if (yearsEl) {
+    const careerStart = new Date(2020, 0, 1);
+    const now = new Date();
+    const diffYears = (now - careerStart) / (365.25 * 24 * 60 * 60 * 1000);
+    const roundedYears = Math.round(diffYears);
+    yearsEl.dataset.count = roundedYears;
+    yearsEl.textContent = roundedYears;
+  }
+
   const els = document.querySelectorAll('[data-count]');
   if (!els.length) return;
 
