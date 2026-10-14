@@ -71,7 +71,7 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent-cyan);
+      color: var(--accent-purple);
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -150,15 +150,15 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: var(--gradient-btn);
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
       border: 2px solid #ffffff;
-      box-shadow: 0 0 12px rgba(103, 232, 249, 0.55);
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
       cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.15);
-      box-shadow: 0 0 18px rgba(167, 139, 250, 0.85);
+      box-shadow: 0 0 18px rgba(167, 139, 250, 0.95);
     }
 
     .btn-row {
@@ -185,10 +185,10 @@
       transform: translateY(-1px);
     }
     button.btn.active {
-      background: rgba(103, 232, 249, 0.12);
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-      box-shadow: 0 0 20px -5px rgba(103, 232, 249, 0.35);
+      background: rgba(167, 139, 250, 0.14);
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+      box-shadow: 0 0 20px -5px rgba(167, 139, 250, 0.45);
     }
 
     .readout-card {
@@ -216,14 +216,14 @@
     }
     .readout-label { color: var(--text-muted); font-size: 0.82rem; }
     .readout-val { color: var(--accent-emerald); font-weight: 600; }
-    .readout-val.cyan { color: var(--accent-cyan); }
+    .readout-val.purple { color: var(--accent-purple); }
     .readout-val.rose { color: var(--accent-rose); }
     .readout-val.amber { color: var(--accent-amber); }
 
     .callout {
-      background: radial-gradient(400px circle at 0% 0%, rgba(103, 232, 249, 0.08), transparent 60%), rgba(255, 255, 255, 0.025);
+      background: radial-gradient(400px circle at 0% 0%, rgba(167, 139, 250, 0.10), transparent 60%), rgba(255, 255, 255, 0.025);
       border: 1px solid var(--border-card);
-      border-left: 3px solid var(--accent-cyan);
+      border-left: 3px solid var(--accent-purple);
       border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
       padding: 1.4rem 1.6rem;
       margin: 2.25rem 0;
@@ -259,9 +259,9 @@
       <a href="../index.html" class="nav-brand" aria-label="George Moussa Portfolio Home">
         <span class="brand-badge" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#67e8f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 17L12 22L22 17" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 17L22 12" stroke="#67e8f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
           </svg>
         </span>
         <div class="brand-text">
@@ -383,7 +383,7 @@
         <div class="readout-card">
           <div class="readout-row">
             <span class="readout-label">Your Embedding:</span>
-            <span class="readout-val cyan" id="toy1-coord">[7.5, 8.0]</span>
+            <span class="readout-val purple" id="toy1-coord">[7.5, 8.0]</span>
           </div>
           <div class="readout-row">
             <span class="readout-label">Closest Match:</span>
@@ -537,7 +537,7 @@
         <div class="readout-card">
           <div class="readout-row">
             <span class="readout-label">Current Step:</span>
-            <span class="readout-val cyan" id="toy3-eq">King</span>
+            <span class="readout-val purple" id="toy3-eq">King</span>
           </div>
           <div class="readout-row">
             <span class="readout-label">Coordinate Math:</span>
@@ -595,15 +595,15 @@ const response = await openai.embeddings.create({
           <h4>Running a local AI agent on Windows without cloud telemetry</h4>
           <p>How I built Desktop Local Agent using Ollama, Python, and PowerShell without sending terminal data to remote clouds.</p>
         </div>
-        <span style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Deep Dive &rarr;</span>
+        <span style="color: var(--accent-purple); font-size: 0.85rem; font-weight: 600;">Read Deep Dive &rarr;</span>
       </a>
       <a href="energy-forecasting-lstm-lessons.html" class="article-related-card">
         <div>
-          <span class="badge badge-cyan" style="font-size: 0.72rem; margin-bottom: 0.75rem;">Deep Learning &bull; PyTorch</span>
+          <span class="badge badge-purple" style="font-size: 0.72rem; margin-bottom: 0.75rem;">Deep Learning &bull; PyTorch</span>
           <h4>Predicting energy grid load with PyTorch: What worked and what broke</h4>
           <p>Practical lessons in time-series forecasting, avoiding lookahead data leakage, and why simpler recurrent architectures often win.</p>
         </div>
-        <span style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Read Deep Dive &rarr;</span>
+        <span style="color: var(--accent-purple); font-size: 0.85rem; font-weight: 600;">Read Deep Dive &rarr;</span>
       </a>
     </div>
 
@@ -649,7 +649,7 @@ const response = await openai.embeddings.create({
         { name: 'Apple', x: 8.0, y: 9.0, color: '#f0abfc' },
         { name: 'Pear', x: 7.0, y: 7.0, color: '#34d399' },
         { name: 'Ice Cream', x: 9.0, y: 1.0, color: '#fbbf24' },
-        { name: 'Potato Chip', x: 1.5, y: 9.5, color: '#818cf8' },
+        { name: 'Potato Chip', x: 1.5, y: 9.5, color: '#c084fc' },
         { name: 'Steak', x: 1.0, y: 2.0, color: '#fb7185' }
       ];
 
@@ -756,20 +756,20 @@ const response = await openai.embeddings.create({
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(userPos.sx, userPos.sy);
-        ctx.strokeStyle = '#67e8f9';
+        ctx.strokeStyle = '#a78bfa';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
         // Draw User Node
         ctx.beginPath();
         ctx.arc(userPos.sx, userPos.sy, 9, 0, Math.PI * 2);
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#a78bfa';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#a78bfa';
         ctx.font = 'bold 13px var(--font-sans)';
         ctx.fillText(`YOUR FOOD [${userX.toFixed(1)}, ${userY.toFixed(1)}]`, userPos.sx + 14, userPos.sy - 8);
 
@@ -926,7 +926,7 @@ const response = await openai.embeddings.create({
         const midRx = (pTweet.sx + pBook.sx) / 2;
         const midRy = (pTweet.sy + pBook.sy) / 2;
 
-        // Shift perpendicular ABOVE the line so it never touches the blue/purple vector or labels
+        // Shift perpendicular ABOVE the line so it never touches the purple/violet vector or labels
         const offsetPx = 18;
         const nx = lineLen > 0 ? (dy / lineLen) * offsetPx : 0;
         const ny = lineLen > 0 ? (-dx / lineLen) * offsetPx : -offsetPx;
@@ -939,43 +939,43 @@ const response = await openai.embeddings.create({
         ctx.fillText(`Ruler Dist = ${euclidDist.toFixed(2)}`, midRx + nx, midRy + ny);
         ctx.restore();
 
-        // 4. Draw Book Vector (Purple)
+        // 4. Draw Book Vector (Violet)
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pBook.sx, pBook.sy);
-        ctx.strokeStyle = '#818cf8';
+        ctx.strokeStyle = '#c084fc';
         ctx.lineWidth = 3.5;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pBook.sx, pBook.sy, 8, 0, Math.PI * 2);
-        ctx.fillStyle = '#818cf8';
+        ctx.fillStyle = '#c084fc';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.fillStyle = '#c7d2fe';
+        ctx.fillStyle = '#e9d5ff';
         ctx.font = 'bold 12px var(--font-sans)';
         ctx.fillText(`Medical Book [${bookX.toFixed(1)}, ${bookY.toFixed(1)}]`, pBook.sx + 14, pBook.sy - 4);
 
-        // 5. Draw Tweet Vector (Cyan)
+        // 5. Draw Tweet Vector (Purple)
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pTweet.sx, pTweet.sy);
-        ctx.strokeStyle = '#67e8f9';
+        ctx.strokeStyle = '#a78bfa';
         ctx.lineWidth = 3.5;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pTweet.sx, pTweet.sy, 7, 0, Math.PI * 2);
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#a78bfa';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#a78bfa';
         ctx.font = 'bold 12px var(--font-sans)';
         ctx.fillText(`Short Tweet [${tweetX.toFixed(1)}, ${tweetY.toFixed(1)}]`, pTweet.sx + 12, pTweet.sy + 22);
 
@@ -1010,7 +1010,7 @@ const response = await openai.embeddings.create({
       let currentStep = 1;
 
       const pts = {
-        King:    { x: -5, y: 9, color: '#67e8f9', label: 'King [-5, 9]' },
+        King:    { x: -5, y: 9, color: '#a78bfa', label: 'King [-5, 9]' },
         Man:     { x: -5, y: 1, color: '#7a7a91', label: 'Man [-5, 1]' },
         Neutral: { x:  0, y: 8, color: '#fbbf24', label: 'King - Man = [0, 8] (Pure Monarch)' },
         Woman:   { x:  5, y: 1, color: '#a6a6bb', label: 'Woman [+5, 1]' },
@@ -1098,13 +1098,13 @@ const response = await openai.embeddings.create({
         ctx.beginPath();
         ctx.moveTo(origin.sx, origin.sy);
         ctx.lineTo(pKing.sx, pKing.sy);
-        ctx.strokeStyle = '#67e8f9';
+        ctx.strokeStyle = '#a78bfa';
         ctx.lineWidth = 3;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(pKing.sx, pKing.sy, 10, 0, Math.PI * 2);
-        ctx.strokeStyle = '#67e8f9';
+        ctx.strokeStyle = '#a78bfa';
         ctx.lineWidth = 2;
         ctx.stroke();
 

@@ -2812,10 +2812,16 @@ p { text-wrap: pretty; }
 }
 
 .article-content a, .article-body a {
-  color: var(--accent-cyan);
+  color: var(--accent-purple);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(103, 232, 249, 0.4);
+  text-decoration-color: rgba(167, 139, 250, 0.4);
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+.article-content a:hover, .article-body a:hover {
+  color: #ffffff;
+  text-decoration-color: var(--accent-purple);
 }
 
 .article-footer-box {
