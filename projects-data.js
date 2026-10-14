@@ -3,9 +3,49 @@
 
 const projectsData = [
   {
+    id: "enterprise-edp-migration",
+    title: "Enterprise EDP Modernization & CI/CD Pipeline",
+    badge: "Enterprise Production · Banking",
+    category: "systems",
+    tagline: "Zero-Downtime Modernization of 8 Core Banking Services Across 50+ Stakeholders",
+    shortDescription: "Architected and executed end-to-end modernization and pipeline migration for 8 mission-critical banking services into TD's Enterprise Data Platform (EDP), establishing automated CI/CD and zero-downtime release runbooks.",
+    fullDescription: "At enterprise banking scale, deploying updates to services serving thousands of users requires rigorous orchestration. George led the migration of 8 standalone services into TD's modern EDP CI/CD infrastructure. The project encompassed requirements engineering, technical design, containerized deployment orchestration, test automation, and authoring comprehensive operational runbooks. Crucially, it required aligning technical and business roadmaps across 50+ cross-functional stakeholders, delivering 4 end-to-end migrations with 100% release stability.",
+    tech: ["Java", "Spring Boot", "Enterprise EDP", "CI/CD Pipelines", "Docker", "REST APIs", "Runbooks"],
+    github: null,
+    liveDemo: null,
+    metrics: "8 Services · 50+ Stakeholders · Zero Downtime Releases",
+    highlights: [
+      "Led migration of 8 critical microservices to enterprise EDP CI/CD pipeline",
+      "Delivered 4 end-to-end releases supporting ~25 customer-facing features",
+      "Authored comprehensive architectural runbooks and zero-downtime deployment guides",
+      "Aligned technical execution across 50+ business and engineering stakeholders"
+    ],
+    architecture: "Legacy Monolith Service ──> Dockerized Microservice ──> EDP CI/CD Automated Test Suite ──> Blue/Green Zero-Downtime Deployment"
+  },
+  {
+    id: "deterministic-data-automation",
+    title: "Deterministic XML Automation & Data Validation Pipeline",
+    badge: "Production Automation · Reliability",
+    category: "data",
+    tagline: "Slashing 60-Minute Manual Bank Data Entry Down to Seconds with 0% Error",
+    shortDescription: "Engineered a resilient Python automated validation engine to parse, sanitize, and verify complex XML banking payloads, replacing an error-prone 60-minute manual workflow with instant, deterministic execution.",
+    fullDescription: "Critical financial transactions frequently involve high-variance, multi-nested XML data structures where human copy-paste errors can trigger cascading validation failures. George architected a custom Python data automation pipeline that ingests, parses, structurally audits, and verifies complex XML documents in seconds. By enforcing schema validation, data sanitation, and automated regression checks, the pipeline eliminated operational bottlenecking and achieved a verified 0% error rate.",
+    tech: ["Python", "XML/XSD Schema Validation", "Data Pipelines", "Automated Testing", "Systems Automation"],
+    github: null,
+    liveDemo: null,
+    metrics: "60m ➔ Seconds · 0% Error Rate · 100% Automated",
+    highlights: [
+      "Replaced a 60-minute error-prone manual validation process with instant automation",
+      "Enforced strict schema verification, data sanitation, and error boundary isolation",
+      "Eliminated human data discrepancies across complex multi-branch banking payloads",
+      "Designed with idempotent execution and detailed audit logging for compliance"
+    ],
+    architecture: "Raw XML Payload ──> Schema Validation (XSD) ──> Python Sanitization Engine ──> Idempotent Production Ingestion"
+  },
+  {
     id: "documind",
     title: "DocuMind",
-    badge: "Flagship / AI Engineering",
+    badge: "AST Compiler Intelligence",
     category: "ai",
     tagline: "Architectural Intelligence & Visual Logic Mapping for Codebases",
     shortDescription: "Transforms complex, opaque codebases into interactive blueprints using AST-native static analysis (ts-morph) and LLM reasoning, eliminating architectural drift.",

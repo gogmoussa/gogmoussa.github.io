@@ -544,6 +544,7 @@ p { text-wrap: pretty; }
 }
 
 .badge-emerald { background: rgba(52, 211, 153, 0.08); color: #6ee7b7; border-color: rgba(52, 211, 153, 0.24); }
+.badge-cyan    { background: rgba(56, 189, 248, 0.08); color: #7dd3fc; border-color: rgba(56, 189, 248, 0.24); }
 .badge-purple  { background: rgba(167, 139, 250, 0.1); color: #c4b5fd; border-color: rgba(167, 139, 250, 0.28); }
 .badge-amber   { background: rgba(251, 191, 36, 0.08); color: #fcd34d; border-color: rgba(251, 191, 36, 0.24); }
 .badge-pink    { background: rgba(240, 171, 252, 0.08); color: #f5d0fe; border-color: rgba(240, 171, 252, 0.26); }
@@ -1140,8 +1141,8 @@ p { text-wrap: pretty; }
 }
 
 .bento-intro {
-  grid-column: span 7;
-  padding: 2.5rem;
+  grid-column: span 12;
+  padding: clamp(2.5rem, 4.5vw, 3.75rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1158,11 +1159,12 @@ p { text-wrap: pretty; }
 .bento-principle { grid-column: span 3; display: flex; flex-direction: column; }
 
 .about-intro {
-  font-size: clamp(1.25rem, 2.1vw, 1.7rem);
-  line-height: 1.45;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  line-height: 1.65;
+  letter-spacing: -0.015em;
   color: var(--text-secondary);
   font-weight: 400;
+  max-width: 980px;
 }
 
 .about-intro strong {

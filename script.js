@@ -33,22 +33,22 @@ const ICONS = {
 };
 
 const FLAGSHIP_PIPELINES = {
-  'documind': {
-    color: '167, 139, 250',
-    steps: [
-      ['AST static analysis', 'ts-morph compiler API'],
-      ['Dependency graph', 'zonal folder grouping'],
-      ['LLM contextualization', 'semantic role mapping'],
-      ['Zero-drift blueprint', 'synced on every commit']
-    ]
-  },
-  'inner-compass': {
+  'enterprise-edp-migration': {
     color: '52, 211, 153',
     steps: [
-      ['Expo mobile core', 'React Native engine'],
-      ['Encrypted offline store', 'reflection journal'],
-      ['AI-assisted clarity', 'decision matrix'],
-      ['Calm adaptive UI', 'micro-interactions']
+      ['Service containerization', 'Spring Boot & Docker'],
+      ['Enterprise EDP CI/CD', 'Automated security & tests'],
+      ['Stakeholder alignment', '50+ cross-functional partners'],
+      ['Zero-downtime release', 'Blue/green deployment & runbooks']
+    ]
+  },
+  'deterministic-data-automation': {
+    color: '56, 189, 248',
+    steps: [
+      ['Raw XML payload ingestion', 'High-variance banking data'],
+      ['Schema parsing & validation', 'Strict XSD structural checks'],
+      ['Python sanitation engine', 'Deterministic transformation'],
+      ['Instant zero-defect entry', 'Slashing 60m to seconds']
     ]
   }
 };
@@ -69,7 +69,7 @@ function renderFlagships() {
   const container = document.getElementById('flagship-container');
   if (!container) return;
 
-  const flagships = ['documind', 'inner-compass']
+  const flagships = ['enterprise-edp-migration', 'deterministic-data-automation']
     .map(id => projectsData.find(p => p.id === id))
     .filter(Boolean);
 
@@ -82,7 +82,7 @@ function renderFlagships() {
         <div>
           <div class="flagship-meta">
             <span class="flagship-index">${num} /</span>
-            <span class="badge ${p.id === 'documind' ? 'badge-purple' : 'badge-emerald'}">${p.badge}</span>
+            <span class="badge ${p.id === 'enterprise-edp-migration' ? 'badge-emerald' : 'badge-cyan'}">${p.badge}</span>
             <span class="badge badge-ghost">${p.metrics}</span>
           </div>
           <h3 class="flagship-title">${p.title}</h3>
@@ -100,18 +100,25 @@ function renderFlagships() {
 
         <div class="card-actions">
           <button class="btn btn-primary btn-sm inspect-btn" data-project-id="${p.id}">
-            <span>Deep dive</span>${ICONS.arrow}
+            <span>Inspect architecture</span>${ICONS.arrow}
           </button>
-          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            ${ICONS.github}<span>Repository</span>
-          </a>
+          ${p.github ? `
+            <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              ${ICONS.github}<span>Repository</span>
+            </a>
+          ` : `
+            <a href="#contact" class="btn btn-secondary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+              <span>Discuss architecture</span>
+            </a>
+          `}
         </div>
       </div>
 
-      <div class="flagship-visual" style="--fc: ${pipe ? pipe.color : '167, 139, 250'}">
+      <div class="flagship-visual" style="--fc: ${pipe ? pipe.color : '52, 211, 153'}">
         <span class="flagship-bignum" aria-hidden="true">${num}</span>
         <div class="pipeline">
-          <div class="pipeline-head"><span>Architecture</span><span>${p.id}</span></div>
+          <div class="pipeline-head"><span>Production Flow</span><span>${p.id}</span></div>
           ${(pipe ? pipe.steps : []).map((s, i) => `
             <div class="pipeline-step">
               <span class="pipeline-num">${i + 1}</span>
@@ -161,9 +168,15 @@ function renderProjectGrid(projects) {
       <div class="card-top">
         <div class="card-header-row">
           <span class="badge ${getCategoryBadgeClass(p.category)}">${p.badge}</span>
-          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View code on GitHub" aria-label="View ${p.title} on GitHub">
-            ${ICONS.github}
-          </a>
+          ${p.github ? `
+            <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View code on GitHub" aria-label="View ${p.title} on GitHub">
+              ${ICONS.github}
+            </a>
+          ` : `
+            <span class="btn-icon" style="opacity: 0.6; cursor: default;" title="Production Enterprise Architecture" aria-label="Production Enterprise Architecture">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+          `}
         </div>
         <h3 class="project-card-title">${p.title}</h3>
         <p class="project-card-tagline">${p.tagline}</p>
@@ -326,7 +339,18 @@ function showProjectModal(p, trigger) {
     .map(n => `<span class="arch-node">${n.trim()}</span>`)
     .join('<span class="arch-arrow">→</span>');
 
-  $('modal-github-link').href = p.github;
+  const ghLink = $('modal-github-link');
+  if (p.github) {
+    ghLink.href = p.github;
+    ghLink.target = '_blank';
+    ghLink.innerHTML = `${ICONS.github}<span>View source on GitHub</span>`;
+    ghLink.onclick = null;
+  } else {
+    ghLink.href = '#contact';
+    ghLink.removeAttribute('target');
+    ghLink.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg><span>Discuss this architecture</span>`;
+    ghLink.onclick = () => closeModal();
+  }
 
   backdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
