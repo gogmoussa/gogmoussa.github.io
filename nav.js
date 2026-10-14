@@ -1,4 +1,4 @@
-// Smart Navigation Behavior: Smooth Hide-on-Scroll for Mobile View
+// Smart Navigation & Site Polish Behavior for Subpages (Blog, Articles, 404)
 (function () {
   let lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
   let scrollUpDistance = 0;
@@ -6,22 +6,56 @@
   const upThreshold = 25;
   let ticking = false;
 
-  function updateNavbar() {
-    const navbar = document.querySelector('.navbar') || document.querySelector('header');
-    if (!navbar) {
-      ticking = false;
-      return;
-    }
+  const progressBar = document.getElementById('read-progress');
+  const navbar = document.querySelector('.navbar');
+  const toggleBtn = document.querySelector('.mobile-toggle');
+  const navLinks = document.querySelector('.nav-links');
 
-    // Never hide if mobile navigation drawer is open
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks && navLinks.classList.contains('open')) {
+  // Mobile menu toggle
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener('click', () => {
+      const open = !navLinks.classList.contains('open');
+      toggleBtn.classList.toggle('open', open);
+      navLinks.classList.toggle('open', open);
+      toggleBtn.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  // Cursor spotlight support
+  if (!window.matchMedia('(hover: none)').matches) {
+    document.addEventListener('pointermove', (e) => {
+      const card = e.target.closest && e.target.closest('.spotlight');
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
+
+  function updateNavbar() {
+    if (!navbar) {
       ticking = false;
       return;
     }
 
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     const scrollDelta = currentScrollY - lastScrollY;
+
+    // Scrolled styling
+    navbar.classList.toggle('scrolled', currentScrollY > 24);
+
+    // Reading progress
+    if (progressBar) {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = total > 0 ? (currentScrollY / total) : 0;
+      progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+    }
+
+    // Never hide if mobile navigation drawer is open
+    if (navLinks && navLinks.classList.contains('open')) {
+      ticking = false;
+      return;
+    }
 
     // At or near top of page: always show
     if (currentScrollY <= 50) {
