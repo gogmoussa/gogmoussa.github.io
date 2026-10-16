@@ -1,0 +1,72 @@
+# George Moussa — Software Engineer, Technical Communicator & Systems Builder
+
+> George Moussa is a Software Engineer, Technical Communicator, and Systems Builder based in London, Ontario, Canada. With 7+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Available for senior engineering, technical advisory & consulting, speaking engagements, and educational workshops.
+
+- **Website**: https://gogmoussa.github.io/
+- **Writing**: https://gogmoussa.github.io/blog.html
+- **GitHub**: https://github.com/gogmoussa
+- **LinkedIn**: https://www.linkedin.com/in/gogmoussa/
+- **Email**: georgemoussa19197@gmail.com
+- **Location**: London, Ontario, Canada (Eastern Time Zone, UTC-4 / UTC-5)
+
+---
+
+## Core Specializations & Focus Areas
+
+1. **Enterprise Backends & Large-Scale Migrations**: Modernizing complex monolithic systems into high-throughput, fault-tolerant microservices (Java, Spring Boot, Angular, Apache Kafka, Red Hat OpenShift, Jenkins CI/CD, Oracle DB).
+2. **Code Intelligence & AST Static Analysis**: Compiler APIs (`ts-morph`), Abstract Syntax Trees, dependency graph extraction, and architectural drift detection across codebases exceeding 50k+ lines of code.
+3. **Local AI & Private Autonomous Agents**: Edge LLM execution, zero-cloud telemetry, autonomous terminal agents (Python, Ollama, PowerShell, Win32/macOS automation), and VRAM-optimized multi-modal pipelines.
+4. **Interactive Explorable Technical Education**: High-performance HTML5 canvas mathematical simulators (high-dimensional geometry, vector embeddings, cosine similarity) built from first principles.
+5. **Technical Communication & Alignment**: Bridging deep technical engineering with interpersonal clarity; advising leadership and engineering teams on architecture, migrations, and AI adoption.
+
+---
+
+## Production Case Studies & Featured Work
+
+### 1. Modernizing Enterprise Card Origination Platform — TD Bank
+- **Role**: Software Engineer
+- **Domain**: Enterprise Financial Infrastructure & Large-Scale Systems Migration
+- **Stack**: Java, Spring Boot, Angular, Microservices, Apache Kafka, Red Hat OpenShift, Jenkins CI/CD, Oracle DB
+- **Overview**: Migrated legacy monolithic credit card origination systems to resilient, containerized microservices on OpenShift. Designed decoupled event-driven architectures with Apache Kafka, built secure RESTful services under strict SOC2 financial compliance, and cut manual deployment cycles from days to minutes with automated Jenkins CI/CD pipelines.
+
+### 2. DocuMind — Static Code Intelligence Engine & Architecture Graph
+- **Role**: Creator & Systems Architect
+- **Stack**: TypeScript, AST Analysis (`ts-morph`), Web Workers, Graphology, D3-Force
+- **Overview**: An in-browser code intelligence and architecture drift visualizer. Parses massive TypeScript repositories using compiler AST APIs rather than regex heuristics. Renders real-time interactive dependency graphs at 60 FPS using off-thread Web Workers, identifying circular dependencies and uncoupling risks before code hits production.
+- **Repository**: https://github.com/gogmoussa
+
+### 3. Desktop Local Agent — Privacy-First Autonomous AI System
+- **Role**: Creator & Systems Architect
+- **Stack**: Python, Ollama, Local LLMs, Win32 & macOS Automation, Zero-Cloud Telemetry
+- **Overview**: Autonomous system management agent executing multi-step desktop workflows completely on local hardware. Performs log analysis, system diagnostics, and shell tasks without streaming sensitive tokens or terminal logs to external cloud APIs.
+
+### 4. Inner Compass — Offline-First Calm Tech Reflection App
+- **Role**: Mobile Architect & Full-Stack Developer
+- **Stack**: React Native, Expo, SQLite, TypeScript, AES-256 Encryption
+- **Overview**: A privacy-first mobile reflection platform rejecting anxious gamification mechanics (streaks, badges). Implemented zero-knowledge client-side encryption and an offline-first SQLite synchronization engine.
+
+---
+
+## Interactive Explorable Guides & Technical Writing
+
+### Flagship Explorable Simulators
+- [Why LLMs Think in Geometry: Visualizing Vector Embeddings from First Principles](https://gogmoussa.github.io/articles/vector_embeddings_guide.html) (April 2026)
+  *Features 3 live interactive simulators: Trait coordinate sliders, Cosine projections, and Semantic vector arithmetic (`King - Man + Woman = Queen`).*
+
+### Technical Articles & Architecture Notes
+- [Why I Stopped Using Regex to Understand TypeScript Codebases](https://gogmoussa.github.io/articles/why-ast-parsing-beats-regex.html) (March 2026)
+  *Lessons learned building DocuMind on ts-morph compiler APIs, AST node traversal, and the limitations of regex heuristics in large codebases.*
+- [Running a Local AI Agent on Windows Without Cloud Telemetry](https://gogmoussa.github.io/articles/running-local-llms-on-windows.html) (January 2026)
+  *Engineering autonomous terminal agents with Ollama, Python, and PowerShell with complete data sovereignty.*
+- [Chaining Ollama, SD-Turbo, and MoviePy on a Consumer GPU](https://gogmoussa.github.io/articles/local-video-generation-pipeline.html) (January 2026)
+  *Overcoming VRAM bottlenecks and audio synchronization to run end-to-end video pipelines entirely on a local machine.*
+- [The Engineering Behind "Calm Tech": Building Inner Compass](https://gogmoussa.github.io/articles/engineering-calm-technology.html) (November 2025)
+  *Why dopamine counters harm user reflection and how to architect offline-first, encrypted mobile software grounded in Self-Determination Theory.*
+- [Predicting Energy Grid Load with PyTorch: What Worked and What Broke](https://gogmoussa.github.io/articles/energy-forecasting-lstm-lessons.html) (September 2025)
+  *Lessons in time-series forecasting, preventing lookahead data leakage, and evaluating recurrent LSTM architectures on real grid data.*
+
+---
+
+## Education & Academic Background
+- **Fanshawe College** — Computer Programmer Analyst (Advanced Diploma, CPA), London, Ontario
+- **Tishreen University** — Civil Engineering (Foundational studies in structural mechanics, vector calculus, and physics)

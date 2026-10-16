@@ -7,16 +7,28 @@
   <meta name="description" content="Portfolio of George Moussa, Software Engineer &amp; Technical Communicator in London, Ontario. Bridging deep technical systems with real-world clarity across enterprise software, speaking, advising, and explorable education.">
   <meta name="author" content="George Moussa">
 
+  <!-- Geographic / Geotargeting Meta Tags (GEO) -->
+  <meta name="geo.region" content="CA-ON">
+  <meta name="geo.placename" content="London, Ontario, Canada">
+  <meta name="geo.position" content="42.9849;-81.2453">
+  <meta name="ICBM" content="42.9849, -81.2453">
+
   <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:site_name" content="George Moussa">
+  <meta property="og:locale" content="en_CA">
   <meta property="og:title" content="George Moussa — Software Engineer, Technical Communicator &amp; Systems Builder">
   <meta property="og:description" content="Bridging deep tech with real-world clarity. 7+ years across enterprise migrations, production systems, technical speaking, advising, and explorable education.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gogmoussa.github.io/">
   <meta property="og:image" content="https://gogmoussa.github.io/assets/profile.jpg">
+  <meta property="og:image:width" content="675">
+  <meta property="og:image:height" content="900">
+  <meta property="og:image:alt" content="Portrait of George Moussa, Software Engineer &amp; Technical Communicator">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="George Moussa — Software Engineer, Technical Communicator &amp; Systems Builder">
   <meta name="twitter:description" content="Bridging deep tech with real-world clarity. 7+ years across enterprise migrations, production systems, technical speaking, advising, and explorable education.">
   <meta name="twitter:image" content="https://gogmoussa.github.io/assets/profile.jpg">
+  <meta name="twitter:image:alt" content="Portrait of George Moussa, Software Engineer &amp; Technical Communicator">
   <meta name="theme-color" content="#05060a">
   <link rel="canonical" href="https://gogmoussa.github.io/">
 
@@ -32,53 +44,102 @@
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js');</script>
 
-  <!-- JSON-LD Structured Data for Search & AI Crawlers -->
+  <!-- JSON-LD Structured Data for Search & Generative AI Crawlers (GEO / SEO) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "George Moussa",
-    "jobTitle": "Software Engineer & Technical Communicator",
-    "alumniOf": [
+    "@graph": [
       {
-        "@type": "EducationalOrganization",
-        "name": "Fanshawe College"
+        "@type": "ProfilePage",
+        "@id": "https://gogmoussa.github.io/#webpage",
+        "url": "https://gogmoussa.github.io/",
+        "name": "George Moussa — Software Engineer, Technical Communicator & Systems Builder",
+        "description": "Portfolio of George Moussa, Software Engineer & Technical Communicator in London, Ontario. Bridging deep technical systems with real-world clarity across enterprise software, speaking, advising, and explorable education.",
+        "inLanguage": "en",
+        "mainEntity": {
+          "@id": "https://gogmoussa.github.io/#person"
+        },
+        "dateModified": "2026-10-14T15:30:00-04:00"
       },
       {
-        "@type": "EducationalOrganization",
-        "name": "Tishreen University"
+        "@type": "WebSite",
+        "@id": "https://gogmoussa.github.io/#website",
+        "url": "https://gogmoussa.github.io/",
+        "name": "George Moussa",
+        "publisher": {
+          "@id": "https://gogmoussa.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://gogmoussa.github.io/#person",
+        "name": "George Moussa",
+        "jobTitle": "Software Engineer & Technical Communicator",
+        "description": "Software engineer, technical communicator, and systems builder in London, Ontario with 7+ years of experience across enterprise application migrations, distributed backends, local AI tooling, and explorable educational content.",
+        "url": "https://gogmoussa.github.io/",
+        "image": "https://gogmoussa.github.io/assets/profile.jpg",
+        "email": "mailto:georgemoussa19197@gmail.com",
+        "sameAs": [
+          "https://github.com/gogmoussa",
+          "https://www.linkedin.com/in/gogmoussa/"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "London",
+          "addressRegion": "Ontario",
+          "addressCountry": "Canada"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "London, Ontario, Canada",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 42.9849,
+            "longitude": -81.2453
+          }
+        },
+        "alumniOf": [
+          {
+            "@type": "EducationalOrganization",
+            "name": "Fanshawe College"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Tishreen University"
+          }
+        ],
+        "knowsAbout": [
+          "Enterprise Application Migrations",
+          "Technical Communication & Alignment",
+          "Technical Speaking & Advising",
+          "Explorable Educational Content",
+          "CoreXY Kinematics & Motion Control",
+          "Vector Embeddings & High-Dimensional Geometry",
+          "AST Static Analysis & Code Intelligence",
+          "Local LLMs & Private Autonomous Agents",
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "Angular",
+          "TypeScript",
+          "Python",
+          "PyTorch",
+          "Apache Kafka",
+          "Red Hat OpenShift",
+          "CI/CD Pipelines",
+          "Jenkins",
+          "C#",
+          ".NET Core",
+          "React Native",
+          "Calm Technology"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Software Engineer & Technical Communicator",
+          "occupationalCategory": "15-1252.00",
+          "skills": "Enterprise Architecture, Microservices Modernization, Code Intelligence, Local AI Agents, Technical Writing & Speaking"
+        }
       }
-    ],
-    "url": "https://gogmoussa.github.io/",
-    "sameAs": [
-      "https://github.com/gogmoussa",
-      "https://www.linkedin.com/in/gogmoussa/"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "London",
-      "addressRegion": "Ontario",
-      "addressCountry": "Canada"
-    },
-    "knowsAbout": [
-      "Enterprise Application Migrations",
-      "Technical Communication & Alignment",
-      "Technical Speaking & Advising",
-      "Explorable Educational Content",
-      "CI/CD Pipelines",
-      "Java",
-      "Spring Boot",
-      "Angular",
-      "TypeScript",
-      "Python",
-      "C#",
-      ".NET Core",
-      "AST Static Analysis",
-      "Artificial Intelligence",
-      "Local LLMs",
-      "React Native",
-      "PyTorch",
-      "Calm Technology"
     ]
   }
   </script>

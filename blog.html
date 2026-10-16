@@ -4,16 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explorable Writing &amp; Architecture Notes — George Moussa</title>
-  <meta name="description" content="Interactive explainers and architecture deep dives by George Moussa, bridging deep engineering with intuitive understanding across kinematics, vector embeddings, and AI systems.">
+  <meta name="description" content="Interactive explainers and architecture deep dives by George Moussa, bridging deep engineering with intuitive understanding across vector embeddings, compiler ASTs, and local AI systems.">
   <meta name="author" content="George Moussa">
 
-  <!-- OpenGraph -->
+  <!-- Geographic / Geotargeting Meta Tags (GEO) -->
+  <meta name="geo.region" content="CA-ON">
+  <meta name="geo.placename" content="London, Ontario, Canada">
+  <meta name="geo.position" content="42.9849;-81.2453">
+  <meta name="ICBM" content="42.9849, -81.2453">
+
+  <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:site_name" content="George Moussa">
+  <meta property="og:locale" content="en_CA">
   <meta property="og:title" content="Explorable Writing &amp; Architecture Notes — George Moussa">
   <meta property="og:description" content="Interactive explainers and architecture deep dives bridging deep tech with intuitive understanding.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gogmoussa.github.io/blog.html">
   <meta property="og:image" content="https://gogmoussa.github.io/assets/profile.jpg">
+  <meta property="og:image:width" content="675">
+  <meta property="og:image:height" content="900">
+  <meta property="og:image:alt" content="Explorable Writing &amp; Architecture Notes — George Moussa">
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Explorable Writing &amp; Architecture Notes — George Moussa">
+  <meta name="twitter:description" content="Interactive explainers and architecture deep dives bridging deep tech with intuitive understanding.">
+  <meta name="twitter:image" content="https://gogmoussa.github.io/assets/profile.jpg">
+  <meta name="twitter:image:alt" content="Explorable Writing &amp; Architecture Notes — George Moussa">
   <meta name="theme-color" content="#05060a">
   <link rel="canonical" href="https://gogmoussa.github.io/blog.html">
 
@@ -24,19 +39,71 @@
   
   <link rel="stylesheet" href="styles.css">
 
-  <!-- JSON-LD Blog Schema -->
+  <!-- JSON-LD Blog Schema (GEO / SEO) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "George Moussa's Technical Blog",
-    "description": "Technical write-ups and architecture notes on AST static analysis, local AI agents, and systems engineering.",
+    "name": "Explorable Writing & Architecture Notes — George Moussa",
+    "description": "Interactive explainers and architecture deep dives by George Moussa, bridging deep engineering with intuitive understanding across vector embeddings, compiler ASTs, and local AI systems.",
     "url": "https://gogmoussa.github.io/blog.html",
+    "inLanguage": "en",
     "author": {
       "@type": "Person",
+      "@id": "https://gogmoussa.github.io/#person",
       "name": "George Moussa",
       "url": "https://gogmoussa.github.io/"
-    }
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://gogmoussa.github.io/#person",
+      "name": "George Moussa",
+      "url": "https://gogmoussa.github.io/"
+    },
+    "blogPost": [
+      {
+        "@type": "TechArticle",
+        "headline": "Why LLMs Think in Geometry: Visualizing Vector Embeddings from First Principles",
+        "url": "https://gogmoussa.github.io/articles/vector_embeddings_guide.html",
+        "datePublished": "2026-04-01",
+        "description": "A hands-on, first-principles explorable explainer with 3 live interactive simulators showing how machines turn messy human ideas into coordinates and why angles beat rulers."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why I stopped using regex to understand TypeScript codebases",
+        "url": "https://gogmoussa.github.io/articles/why-ast-parsing-beats-regex.html",
+        "datePublished": "2026-03-01",
+        "description": "What building DocuMind taught me about architectural drift, ts-morph compiler APIs, and the limits of token search in codebases exceeding 50,000 lines."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Running a local AI agent on Windows without cloud telemetry",
+        "url": "https://gogmoussa.github.io/articles/running-local-llms-on-windows.html",
+        "datePublished": "2026-01-15",
+        "description": "How I built Desktop Local Agent using Ollama, Python, and PowerShell without sending terminal data or filesystem tokens to remote clouds."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Chaining Ollama, SD-Turbo, and MoviePy on a consumer GPU",
+        "url": "https://gogmoussa.github.io/articles/local-video-generation-pipeline.html",
+        "datePublished": "2026-01-28",
+        "description": "Overcoming VRAM bottlenecks and audio desync to generate cinematic videos entirely on a local machine using open-source models and CUDA."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "The engineering behind 'Calm Tech': Building Inner Compass",
+        "url": "https://gogmoussa.github.io/articles/engineering-calm-technology.html",
+        "datePublished": "2025-11-20",
+        "description": "Why streak counters and notification badges create anxiety, and how we engineered an offline-first journaling app in React Native grounded in Self-Determination Theory."
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Predicting energy grid load with PyTorch: What worked and what broke",
+        "url": "https://gogmoussa.github.io/articles/energy-forecasting-lstm-lessons.html",
+        "datePublished": "2025-09-10",
+        "description": "Practical lessons in time-series forecasting, avoiding lookahead data leakage, and why simpler recurrent architectures often win."
+      }
+    ]
   }
   </script>
 
