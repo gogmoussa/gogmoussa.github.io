@@ -1,6 +1,6 @@
-# George Moussa — AI-Native Developer & Freelance Engineer
+# George Moussa — AI-Native Developer, Speaker & Freelance Engineer
 
-> George Moussa is an AI-native developer and freelance engineer based in London, Ontario, Canada. He left TD Bank in November 2026 to go independent. With 6+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Taking on freelance jobs and gigs from early 2027 (AI-powered products, automation, backend work, technical advising). Currently building a campfire game as a creative side project.
+> George Moussa is an AI-native developer and freelance engineer based in London, Ontario, Canada. He left TD Bank in November 2026 to go independent. With 6+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Booking from early 2027 for: (1) freelance AI-powered builds and automation, (2) talks and workshops that explain AI in plain English, (3) interactive AI and educational explainers, games, and training content. Currently building "Campfire Classroom" (working title), an educational game set around a campfire.
 
 - **Website**: https://gogmoussa.github.io/
 - **Writing**: https://gogmoussa.github.io/blog.html
