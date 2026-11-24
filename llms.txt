@@ -1,6 +1,6 @@
 # George Moussa — Software Engineer, Technical Communicator & Systems Builder
 
-> George Moussa is a Software Engineer, Technical Communicator, and Systems Builder based in London, Ontario, Canada. With 7+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Available for senior engineering, technical advisory & consulting, speaking engagements, and educational workshops.
+> George Moussa is a Software Engineer, Technical Communicator, and Systems Builder based in London, Ontario, Canada. With 6+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Available for senior engineering, technical advisory & consulting, speaking engagements, and educational workshops.
 
 - **Website**: https://gogmoussa.github.io/
 - **Writing**: https://gogmoussa.github.io/blog.html

@@ -1,81 +1,60 @@
-# George Moussa — Software Engineering Portfolio
+# gogmoussa.github.io
 
-> **Public-facing developer portfolio website engineered for high performance, zero build dependencies, and seamless GitHub Pages deployment.**
+Personal site for George Moussa: portfolio, experience, projects and writing.
 
-Live Deployment Target: **[https://gogmoussa.github.io/](https://gogmoussa.github.io/)**  
-GitHub Profile: **[github.com/gogmoussa](https://github.com/gogmoussa)**  
-LinkedIn: **[linkedin.com/in/gogmoussa](https://www.linkedin.com/in/gogmoussa/)**
+Live at **https://gogmoussa.github.io/**
 
----
+## How it's built
 
-## 🌟 Highlights & Features
+Hand-written HTML, CSS and plain JavaScript. There is no framework, bundler or build step. GitHub Pages serves the `main` branch as is, and `.nojekyll` stops it from running Jekyll. Every push to `main` goes live within a minute or two.
 
-- **Flagship Project Spotlights**: Deep dives into **DocuMind** (AST-native static analysis with `ts-morph` and LLMs) and **Inner Compass** (calm React Native reflection app).
-- **Interactive REPL Terminal**: Live interactive terminal simulator showcasing engineering profiles, AST mapping outputs, local Ollama execution logs, and live GitHub stats.
-- **Dynamic Project Filtering**: Filter across AI & Agents, Full-Stack Web, Mobile Apps, Data & ML, and Distributed Systems, with instantaneous keyword search.
-- **Inspect Architecture Modals**: Detailed architectural breakdowns, data pipeline diagrams, and engineering challenges for each project.
-- **Live GitHub Telemetry**: Real-time stats integration with GitHub REST API (`https://api.github.com/users/gogmoussa`) with baseline offline fallback.
-- **Calm & Deep-Tech Aesthetic**: Obsidian dark theme (`#07090e`), electric cyan/indigo accents, glassmorphic cards, and responsive mobile-first navigation.
-- **Zero Build Friction**: Pure modern HTML5, CSS3, and ES6 JavaScript. No bundling, Webpack, or npm build steps required to run or deploy.
+Page views are counted with [GoatCounter](https://gogmoussa.goatcounter.com/).
 
----
-
-## 📁 Repository Structure
+## Files
 
 ```text
-├── .nojekyll              # Prevents GitHub Pages from running Jekyll transformations
-├── index.html             # Semantic, SEO-optimized markup & OpenGraph tags
-├── styles.css             # High-craft CSS design system & glassmorphism
-├── script.js              # Project rendering, filters, modal inspector, & terminal logic
-├── projects-data.js       # Curated repository dataset with architecture specs
-├── assets/
-│   ├── avatar.jpg         # Profile photo
-│   └── favicon.svg        # Custom vector brand mark
-└── README.md              # Deployment guide & documentation
+index.html              Home page: hero, about, experience, featured work, writing, projects, stack, contact
+blog.html               Writing index, rendered from blog-data.js
+404.html                Not-found page
+articles/               One standalone HTML page per article (articles/index.html redirects to blog.html)
+
+styles.css              All styles for every page
+script.js               Home page behaviour: project grid and filters, project modal, terminal, counters
+nav.js                  Shared navigation for blog.html and 404.html
+
+career-data.js          Job start and end dates; the one place the years-of-experience figure comes from
+projects-data.js        Project cards and modal content shown on the home page
+blog-data.js            Article list and content shown on blog.html
+
+assets/profile.jpg      Profile photo
+assets/favicon.svg      Site icon
+
+llms.txt                Plain-text summary of the site for AI assistants and crawlers
+sitemap.xml, robots.txt Search engine files
+googleac1396fc70c1a97a.html  Google Search Console ownership check (keep it)
+scripts/sync-years.js   Updates the years figure in places that can't run JavaScript
 ```
 
----
+## Common edits
 
-## 🚀 How to Deploy to GitHub Pages
+**Add or change a project.** Edit `projects-data.js`. Each entry has a `category` that drives the filter buttons on the home page.
 
-You can publish this portfolio to the web in less than 2 minutes using either of the following two options:
+**Publish an article.** Add the page under `articles/`, add an entry to `blog-data.js`, and add its URL to `sitemap.xml`. If it should appear on the home page, update the writing section in `index.html` too.
 
-### Option 1: Dedicated User Site (`https://gogmoussa.github.io/`) [Recommended]
+**Change jobs or the years of experience.** Edit `career-data.js`. The figure is the time actually worked across all roles, rounded down, so gaps between jobs don't count. In the browser, `script.js` fills in the stat counter and every `<span data-years>` on the home page. Meta tags, structured data and `llms.txt` can't run JavaScript, so after changing dates (or about once a year as the number ticks over) run:
 
-1. Create a new public repository on GitHub named:
-   ```text
-   gogmoussa.github.io
-   ```
-2. In your terminal inside this folder (`c:\Projects\George's_Portfolio`), initialize git, commit, and push:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial portfolio release"
-   git branch -M main
-   git remote add origin https://github.com/gogmoussa/gogmoussa.github.io.git
-   git push -u origin main
-   ```
-3. GitHub Pages automatically publishes repositories named `<username>.github.io` to the web! Within 1–2 minutes, your website is live at `https://gogmoussa.github.io/`.
+```bash
+node scripts/sync-years.js
+```
 
----
+It rewrites every "N+ years" in `index.html` and `llms.txt` to match, then commit the result.
 
-### Option 2: Project Repository (e.g., `portfolio` or `george-portfolio`)
+## Preview locally
 
-If you want to keep the repository named `portfolio`:
-1. Push this folder to `https://github.com/gogmoussa/portfolio`
-2. Go to your repository on GitHub: **Settings** ➔ **Pages**
-3. Under **Branch**, select `main` and folder `/ (root)`
-4. Click **Save**. Your site will be live at `https://gogmoussa.github.io/portfolio/`.
+Any static file server works. From the repo root:
 
----
+```bash
+python -m http.server 8000
+```
 
-## 💻 Local Preview
-
-You can preview the site locally anytime:
-- Simply double-click `index.html` to open it in your default web browser, or
-- Run a lightweight local HTTP server:
-  ```bash
-  # Python
-  python -m http.server 8000
-  ```
-  Then navigate to `http://localhost:8000`.
+Then open http://localhost:8000. Opening `index.html` directly works too, but `404.html` uses root-relative paths that only resolve through a server.
