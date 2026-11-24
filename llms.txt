@@ -1,6 +1,6 @@
-# George Moussa — Software Engineer, Technical Communicator & Systems Builder
+# George Moussa — AI-Native Developer & Freelance Engineer
 
-> George Moussa is a Software Engineer, Technical Communicator, and Systems Builder based in London, Ontario, Canada. With 6+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Available for senior engineering, technical advisory & consulting, speaking engagements, and educational workshops.
+> George Moussa is an AI-native developer and freelance engineer based in London, Ontario, Canada. He left TD Bank in November 2026 to go independent. With 6+ years of experience across enterprise backend systems, distributed architectures, local AI tooling, and interactive educational content, he specializes in translating complex technical systems into clear, actionable architecture for engineering teams and business stakeholders. Taking on freelance jobs and gigs from early 2027 (AI-powered products, automation, backend work, technical advising). Currently building a campfire game as a creative side project.
 
 - **Website**: https://gogmoussa.github.io/
 - **Writing**: https://gogmoussa.github.io/blog.html

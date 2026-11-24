@@ -4,7 +4,7 @@
 
 const careerRoles = [
   { title: "Software Programmer", start: { year: 2020, month: 1 }, end: { year: 2021, month: 9 } },
-  { title: "Software Engineer I", start: { year: 2022, month: 5 }, end: null }
+  { title: "Software Engineer I", start: { year: 2022, month: 5 }, end: { year: 2026, month: 11 } }
 ];
 
 // Whole years actually worked (gaps between roles are not counted), rounded down.
