@@ -4,23 +4,23 @@
 const projectsData = [
   {
     id: "enterprise-edp-migration",
-    title: "Enterprise EDP Modernization & CI/CD Pipeline",
+    title: "Enterprise Service Modernization & CI/CD Pipeline",
     badge: "Enterprise Production · Banking",
     category: "systems",
-    tagline: "Zero-Downtime Modernization of 8 Core Banking Services Across 50+ Stakeholders",
-    shortDescription: "Architected and executed end-to-end modernization and pipeline migration for 8 mission-critical banking services into TD's Enterprise Data Platform (EDP), establishing automated CI/CD and zero-downtime release runbooks.",
-    fullDescription: "At enterprise banking scale, deploying updates to services serving thousands of users requires rigorous orchestration. George led the migration of 8 standalone services into TD's modern EDP CI/CD infrastructure. The project encompassed requirements engineering, technical design, containerized deployment orchestration, test automation, and authoring comprehensive operational runbooks. Crucially, it required aligning technical and business roadmaps across 50+ cross-functional stakeholders, delivering 4 end-to-end migrations with 100% release stability.",
-    tech: ["Java", "Spring Boot", "Enterprise EDP", "CI/CD Pipelines", "Docker", "REST APIs", "Runbooks"],
+    tagline: "Zero-Downtime Modernization of 8 Banking Services",
+    shortDescription: "Architected and executed end-to-end modernization and pipeline migration for 8 banking services onto the bank's enterprise CI/CD platform, establishing automated CI/CD and zero-downtime release runbooks.",
+    fullDescription: "At enterprise banking scale, deploying updates to services serving thousands of users requires rigorous orchestration. George led the migration of 8 standalone services onto the bank's enterprise CI/CD platform. The project encompassed requirements engineering, technical design, containerized deployment orchestration, test automation, and authoring comprehensive operational runbooks. Crucially, it required aligning technical and business roadmaps across several business and engineering teams, delivering 4 end-to-end migrations with 100% release stability.",
+    tech: ["Java", "Spring Boot", "Enterprise CI/CD", "CI/CD Pipelines", "Docker", "REST APIs", "Runbooks"],
     github: null,
     liveDemo: null,
-    metrics: "8 Services · 50+ Stakeholders · Zero Downtime Releases",
+    metrics: "8 Services · 4 Migrations · Zero-Downtime Releases",
     highlights: [
-      "Led migration of 8 critical microservices to enterprise EDP CI/CD pipeline",
+      "Led migration of 8 critical microservices to the enterprise CI/CD pipeline",
       "Delivered 4 end-to-end releases supporting ~25 customer-facing features",
       "Authored comprehensive architectural runbooks and zero-downtime deployment guides",
-      "Aligned technical execution across 50+ business and engineering stakeholders"
+      "Aligned technical execution across business and engineering teams"
     ],
-    architecture: "Legacy Monolith Service ──> Dockerized Microservice ──> EDP CI/CD Automated Test Suite ──> Blue/Green Zero-Downtime Deployment"
+    architecture: "Legacy Monolith Service ──> Dockerized Microservice ──> Enterprise CI/CD Automated Test Suite ──> Blue/Green Zero-Downtime Deployment"
   },
   {
     id: "deterministic-data-automation",
