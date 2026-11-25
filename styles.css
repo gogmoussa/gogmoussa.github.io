@@ -3078,6 +3078,8 @@ p { text-wrap: pretty; }
   gap: 1rem;
 }
 
+.offer-card-wide { grid-column: 1 / -1; }
+
 .offer-card {
   display: flex;
   flex-direction: column;
