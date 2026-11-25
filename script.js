@@ -33,8 +33,12 @@ const ICONS = {
   chevron: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'
 };
 
+// Case studies shown in their own section; left out of the Projects grid.
+const FLAGSHIP_IDS = ['enterprise-cicd-modernization', 'deterministic-data-automation'];
+const isFlagship = (p) => FLAGSHIP_IDS.includes(p.id);
+
 const FLAGSHIP_PIPELINES = {
-  'enterprise-edp-migration': {
+  'enterprise-cicd-modernization': {
     color: '52, 211, 153',
     steps: [
       ['Service containerization', 'Spring Boot & Docker'],
@@ -49,7 +53,7 @@ const FLAGSHIP_PIPELINES = {
       ['Raw XML payload ingestion', 'High-variance banking data'],
       ['Schema parsing & validation', 'Strict XSD structural checks'],
       ['Python sanitation engine', 'Deterministic transformation'],
-      ['Instant zero-defect entry', 'Slashing 60m to seconds']
+      ['Error-free entry in seconds', 'Was a 60-minute manual job']
     ]
   }
 };
@@ -60,17 +64,18 @@ const FLAGSHIP_PIPELINES = {
 function initProjects() {
   if (typeof projectsData === 'undefined') return;
   renderFlagships();
-  renderProjectGrid(projectsData);
+  const gridProjects = projectsData.filter(p => !isFlagship(p));
+  renderProjectGrid(gridProjects);
 
   const statEl = document.getElementById('stat-projects');
-  if (statEl) statEl.dataset.count = String(projectsData.length);
+  if (statEl) statEl.dataset.count = String(gridProjects.length);
 }
 
 function renderFlagships() {
   const container = document.getElementById('flagship-container');
   if (!container) return;
 
-  const flagships = ['enterprise-edp-migration', 'deterministic-data-automation']
+  const flagships = FLAGSHIP_IDS
     .map(id => projectsData.find(p => p.id === id))
     .filter(Boolean);
 
@@ -83,7 +88,7 @@ function renderFlagships() {
         <div>
           <div class="flagship-meta">
             <span class="flagship-index">${num} /</span>
-            <span class="badge ${p.id === 'enterprise-edp-migration' ? 'badge-emerald' : 'badge-cyan'}">${p.badge}</span>
+            <span class="badge ${p.id === 'enterprise-cicd-modernization' ? 'badge-emerald' : 'badge-cyan'}">${p.badge}</span>
             <span class="badge badge-ghost">${p.metrics}</span>
           </div>
           <h3 class="flagship-title">${p.title}</h3>
@@ -101,7 +106,7 @@ function renderFlagships() {
 
         <div class="card-actions">
           <button class="btn btn-primary btn-sm inspect-btn" data-project-id="${p.id}">
-            <span>Inspect architecture</span>${ICONS.arrow}
+            <span>See how it works</span>${ICONS.arrow}
           </button>
           ${p.github ? `
             <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
@@ -110,7 +115,7 @@ function renderFlagships() {
           ` : `
             <a href="#contact" class="btn btn-secondary btn-sm">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
-              <span>Discuss architecture</span>
+              <span>Ask about this</span>
             </a>
           `}
         </div>
@@ -119,7 +124,7 @@ function renderFlagships() {
       <div class="flagship-visual" style="--fc: ${pipe ? pipe.color : '52, 211, 153'}">
         <span class="flagship-bignum" aria-hidden="true">${num}</span>
         <div class="pipeline">
-          <div class="pipeline-head"><span>Production Flow</span><span>${p.id}</span></div>
+          <div class="pipeline-head"><span>How it worked</span><span>Case study ${num}</span></div>
           ${(pipe ? pipe.steps : []).map((s, i) => `
             <div class="pipeline-step">
               <span class="pipeline-num">${i + 1}</span>
@@ -220,10 +225,12 @@ function initFilters() {
   const searchInput = document.getElementById('project-search');
   if (!filterBtns.length || typeof projectsData === 'undefined') return;
 
+  const gridProjects = projectsData.filter(p => !isFlagship(p));
+
   // Add counts to each pill
   filterBtns.forEach(btn => {
     const key = btn.getAttribute('data-filter');
-    const n = key === 'all' ? projectsData.length : projectsData.filter(p => p.category === key).length;
+    const n = key === 'all' ? gridProjects.length : gridProjects.filter(p => p.category === key).length;
     btn.insertAdjacentHTML('beforeend', `<span class="count">${n}</span>`);
   });
 
@@ -231,7 +238,7 @@ function initFilters() {
   let searchTerm = '';
 
   function applyFilter() {
-    let filtered = projectsData;
+    let filtered = gridProjects;
 
     if (activeCategory !== 'all') {
       filtered = filtered.filter(p => p.category === activeCategory);
