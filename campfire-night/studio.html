@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<!-- © 2026 George Moussa. All rights reserved. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Campfire Night: keep a fire going by a lake until dawn. Gather wood, toast marshmallows, skip stones, fish, and learn the real night sky." />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Campfire Night" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A5%3C/text%3E%3C/svg%3E" />
+  <title>Inner Work 3D Cinema Studio · The Human & The Astral Witness — Polymath Lab</title>
+  <script src="lib/three.min.js"></script>
+  <script src="lib/GLTFLoader.js"></script>
+  <script src="lib/OrbitControls.js"></script>
+  <script src="models/sanctuary_models.js?v=nosoldier"></script>
+  <style>
+    :root {
+      --bg: #020409;
+      --glass: rgba(8, 12, 23, 0.74);
+      --card: rgba(255, 255, 255, 0.05);
+      --card-hi: rgba(255, 255, 255, 0.10);
+      --border: rgba(255, 255, 255, 0.10);
+      --ink: #f8fafc;
+      --dim: #94a3b8;
+      --gold: #fbbf24;
+      --cyan: #38bdf8;
+      --violet: #a78bfa;
+      --emerald: #34d399;
+      --rose: #fb7185;
+      --pad: 12px;
+      --left-w: 320px;
+      --right-w: 344px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    /* ---------- Full-bleed stage: the scene owns the whole window ---------- */
+    #workspace { position: fixed; inset: 0; }
+    #stage-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #080d1e 0%, #020307 100%);
+    }
+    #frame-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #020409;
+    }
+    body.vertical #frame-container {
+      width: auto;
+      height: 100%;
+      aspect-ratio: 9 / 16;
+      max-width: 100%;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 28px 80px rgba(0, 0, 0, 0.9);
+    }
+    #three-canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+    #three-canvas, #overlay-canvas { transition: opacity 0.45s ease; }
+    body.booting #three-canvas, body.booting #overlay-canvas { opacity: 0; } /* the scene fades in once the camera and mode are set (16) */
+    #three-canvas:active { cursor: grabbing; }
+
+    /* ---------- Floating glass side panels ---------- */
+    .panel {
+      position: absolute;
+      top: var(--pad);
+      bottom: var(--pad);
+      display: flex;
+      flex-direction: column;
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+      z-index: 20;
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s;
+    }
+    #panel-left  { left: var(--pad);  width: var(--left-w); }
+    #panel-right { right: var(--pad); width: var(--right-w); }
+    body.left-collapsed  #panel-left  { transform: translateX(calc(-100% - 24px)); opacity: 0; pointer-events: none; }
+    body.right-collapsed #panel-right { transform: translateX(calc(100% + 24px));  opacity: 0; pointer-events: none; }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      flex: 0 0 auto;
+    }
+    .panel-body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.18) transparent;
+    }
+
+    /* Reopen handles, visible only while their panel is collapsed */
+    .handle {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 72px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 13px;
+      cursor: pointer;
+      z-index: 19;
+      transition: color 0.15s, background 0.15s;
+    }
+    .handle:hover { color: #fff; background: rgba(20, 28, 50, 0.9); }
+    #handle-left  { left: 0;  border-left: none;  border-radius: 0 10px 10px 0; }
+    #handle-right { right: 0; border-right: none; border-radius: 10px 0 0 10px; }
+    body.left-collapsed  #handle-left  { display: flex; }
+    body.right-collapsed #handle-right { display: flex; }
+
+    /* ---------- Section primitives ---------- */
+    .sec { display: flex; flex-direction: column; gap: 8px; }
+    .sec-title {
+      font: 700 10px "SF Mono", Menlo, monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .stack { display: flex; flex-direction: column; gap: 6px; }
+
+    .brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .brand-back {
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .brand-back:hover { color: #fff; background: var(--card-hi); }
+    .brand-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn {
+      background: var(--card);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font: 600 11.5px system-ui, sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .btn:hover { border-color: rgba(255, 255, 255, 0.3); background: var(--card-hi); }
+    .btn.on      { background: rgba(56, 189, 248, 0.18); color: var(--cyan);    border-color: rgba(56, 189, 248, 0.55); }
+    .btn.gold    { background: rgba(251, 191, 36, 0.14); color: var(--gold);    border-color: rgba(251, 191, 36, 0.45); }
+    .btn.emerald { background: rgba(52, 211, 153, 0.14); color: var(--emerald); border-color: rgba(52, 211, 153, 0.45); }
+    .btn.icon { padding: 5px 9px; font-size: 12px; }
+
+    /* Episode list */
+    .ep-btn {
+      text-align: left;
+      justify-content: flex-start;
+      background: var(--card);
+      color: var(--dim);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font: 600 11.5px system-ui, sans-serif;
+      cursor: pointer;
+      line-height: 1.3;
+      white-space: normal;
+      transition: all 0.15s;
+    }
+    .ep-btn:hover { color: #fff; background: var(--card-hi); }
+    .ep-btn.active {
+      color: var(--gold);
+      background: rgba(251, 191, 36, 0.10);
+      border-color: rgba(251, 191, 36, 0.5);
+    }
+
+    /* Beat progress + telemetry */
+    #reel-progress { display: flex; gap: 4px; pointer-events: none; }
+    .reel-seg { flex: 1; height: 3.5px; background: rgba(255, 255, 255, 0.16); border-radius: 99px; overflow: hidden; }
+    .reel-seg-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--cyan));
+      border-radius: 99px;
+      transition: width 0.1s linear;
+    }
+    #scene-hud { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; pointer-events: none; }
+    .hud-pill {
+      padding: 4px 9px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      font: 600 10.5px "SF Mono", Menlo, monospace;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot-pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+
+    /* Dialogue card (lives in the left panel, never over the scene) */
+    .dialogue-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .dialogue-card.speaker-human  { border-left: 3px solid var(--gold); }
+    .dialogue-card.speaker-spirit { border-left: 3px solid var(--cyan); }
+    .speaker-header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 7px; }
+    .speaker-tag {
+      font: 700 10.5px "SF Mono", Menlo, monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .speaker-human .speaker-tag  { color: var(--gold); }
+    .speaker-spirit .speaker-tag { color: var(--cyan); }
+    .beat-camera-tag { font: 500 10px "SF Mono", Menlo, monospace; color: var(--dim); }
+    #dialogue-text { font-size: 15px; line-height: 1.5; font-weight: 500; color: #f8fafc; letter-spacing: -0.01em; }
+    #dialogue-sub { margin-top: 8px; font: 500 10px "SF Mono", Menlo, monospace; color: var(--dim); line-height: 1.5; }
+
+    .transport { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 6px; }
+
+    /* Camera cut buttons */
+    .cam-btn {
+      background: var(--card);
+      color: var(--dim);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 6px;
+      font: 600 11px system-ui, sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cam-btn:hover { color: #fff; background: var(--card-hi); }
+    .cam-btn.active { background: rgba(56, 189, 248, 0.16); color: var(--cyan); border-color: rgba(56, 189, 248, 0.5); }
+    #cam-auto { grid-column: 1 / -1; }
+
+    /* Sliders */
+    .slider-row { display: grid; grid-template-columns: 6.6rem 1fr; align-items: center; gap: 8px; }
+    .group-label { font: 600 11px "SF Mono", Menlo, monospace; color: #cbd5e1; white-space: nowrap; }
+    .slider-row input[type="range"] { width: 100%; min-width: 0; accent-color: var(--cyan); cursor: pointer; }
+    .slider-row input[type="range"]:disabled { opacity: 0.35; cursor: default; }
+    details.sec > summary { list-style: none; }
+    details.sec > summary::-webkit-details-marker { display: none; }
+    details.sec > summary::before { content: "▸ "; }
+    details.sec[open] > summary::before { content: "▾ "; }
+
+    /* Right-panel tabs */
+    .tabs { display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 3px; border-radius: 10px; border: 1px solid var(--border); }
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      color: var(--dim);
+      border: none;
+      border-radius: 7px;
+      padding: 6px 8px;
+      font: 700 11px system-ui, sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active { background: var(--card-hi); color: #fff; }
+    .tab-pane { display: none; flex-direction: column; gap: 14px; }
+    .tab-pane.active { display: flex; }
+
+    /* Journal studio */
+    .drawer-hint {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--dim);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 9px 11px;
+      border-radius: 10px;
+    }
+    .drawer-hint code { color: var(--cyan); font-family: "SF Mono", Menlo, monospace; font-size: 11px; }
+    .field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      color: #e2e8f0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font: 12px/1.55 "SF Mono", Menlo, monospace;
+      resize: vertical;
+      user-select: text;
+    }
+    .field:focus { outline: none; border-color: var(--cyan); }
+    select.field { font-family: system-ui, sans-serif; padding: 7px 9px; }
+    #raw-journal-input { min-height: 72px; }
+    #script-textarea { min-height: 260px; }
+
+    kbd {
+      font: 600 10px "SF Mono", Menlo, monospace;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: #cbd5e1;
+    }
+    .keys { font-size: 11px; color: var(--dim); line-height: 1.9; }
+
+    /* ---------- Reel overlay, safe zones, recording ---------- */
+    #overlay-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+    body.frame169:not(.vertical) #frame-container { width: 100%; height: auto; aspect-ratio: 16 / 9; max-height: 100%; }
+    #safe-guides { position: absolute; inset: 0; pointer-events: none; z-index: 3; display: none; }
+    body.guides #safe-guides { display: block; }
+    .sz { position: absolute; background: rgba(251, 113, 133, 0.13); border: 1px dashed rgba(251, 113, 133, 0.6);
+          font: 600 10px "SF Mono", Menlo, monospace; color: rgba(255, 228, 230, 0.85); padding: 4px 6px; }
+    .sz-top { left: 0; right: 0; top: 0; height: 12%; border-top: none; border-left: none; border-right: none; }
+    .sz-bottom { left: 0; right: 0; bottom: 0; height: 21%; border-bottom: none; border-left: none; border-right: none; }
+    .sz-right { right: 0; top: 40%; bottom: 21%; width: 14%; border-right: none; border-bottom: none; text-align: right; }
+    body:not(.vertical) .sz-right { display: none; }
+    body:not(.vertical) .sz-top { height: 8%; }
+    body:not(.vertical) .sz-bottom { height: 12%; }
+    .sz-center { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed rgba(255,255,255,0.18); }
+    .sz-third { position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(255,255,255,0.12); }
+    #rec-hud {
+      position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 60; display: none;
+      align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px;
+      background: rgba(127, 29, 29, 0.85); border: 1px solid rgba(248, 113, 113, 0.7);
+      font: 700 11px "SF Mono", Menlo, monospace; color: #fee2e2; pointer-events: none;
+    }
+    body.recording .panel { opacity: 0.55; }
+    body.recording .panel:hover { opacity: 1; }
+
+    /* ---------- Form controls ---------- */
+    .row { display: grid; grid-template-columns: 6.6rem 1fr auto; align-items: center; gap: 8px; }
+    .row .val { font: 600 10px "SF Mono", Menlo, monospace; color: var(--dim); min-width: 2.6rem; text-align: right; }
+    .row input[type="range"] { width: 100%; min-width: 0; accent-color: var(--cyan); cursor: pointer; }
+    .row select, .row input[type="text"], .row input[type="number"] { grid-column: 2 / -1; }
+    .mini {
+      width: 100%; background: rgba(0, 0, 0, 0.35); color: #e2e8f0; border: 1px solid var(--border);
+      border-radius: 8px; padding: 5px 7px; font: 12px system-ui, sans-serif; user-select: text; min-width: 0;
+    }
+    .mini:focus { outline: none; border-color: var(--cyan); }
+    textarea.mini { font-size: 12.5px; line-height: 1.45; resize: vertical; }
+    .check { display: flex; align-items: center; gap: 7px; font: 600 11px system-ui, sans-serif; color: #cbd5e1; cursor: pointer; }
+    .check input { accent-color: var(--cyan); }
+    .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+    .seg { display: flex; gap: 3px; background: rgba(0,0,0,0.3); padding: 3px; border-radius: 9px; border: 1px solid var(--border); grid-column: 2 / -1; }
+    .seg button { flex: 1; background: transparent; color: var(--dim); border: none; border-radius: 6px; padding: 4px 6px; font: 700 10.5px system-ui, sans-serif; cursor: pointer; }
+    .seg button.active { background: var(--card-hi); color: #fff; }
+    .status { font: 500 10.5px "SF Mono", Menlo, monospace; color: var(--dim); line-height: 1.5; min-height: 1.5em; }
+    .btn.rose { background: rgba(251, 113, 133, 0.14); color: var(--rose); border-color: rgba(251, 113, 133, 0.45); }
+    .btn.rose.on { background: rgba(251, 113, 133, 0.35); color: #fff; }
+    .hint { font-size: 10.5px; color: var(--dim); line-height: 1.45; }
+
+    /* ---------- Beat editor ---------- */
+    .beat-card { background: rgba(255,255,255,0.035); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 11px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .beat-card.spirit { border-left-color: var(--cyan); }
+    .beat-card.current { box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.55); background: rgba(251, 191, 36, 0.06); }
+    .beat-card.spirit.current { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6); background: rgba(56, 189, 248, 0.06); }
+    .beat-head { display: flex; align-items: center; gap: 4px; }
+    .beat-num { font: 800 10.5px "SF Mono", Menlo, monospace; color: var(--dim); min-width: 1.6rem; }
+    .beat-who { font: 800 10px "SF Mono", Menlo, monospace; letter-spacing: 0.06em; padding: 3px 7px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--gold); }
+    .spirit .beat-who { color: var(--cyan); }
+    .beat-secs { font: 600 10px "SF Mono", Menlo, monospace; color: var(--dim); margin-left: auto; }
+    .ib { background: transparent; border: 1px solid transparent; color: var(--dim); border-radius: 6px; padding: 2px 5px; font-size: 11px; cursor: pointer; }
+    .ib:hover { color: #fff; border-color: var(--border); background: var(--card-hi); }
+    .beat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .beat-grid label { display: flex; flex-direction: column; gap: 2px; font: 600 9.5px "SF Mono", Menlo, monospace; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
+    .beat-grid select, .beat-grid input { font-size: 11px; padding: 4px 5px; }
+    .beat-coh { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: center; font: 600 9.5px "SF Mono", Menlo, monospace; color: var(--dim); }
+    .beat-coh input { accent-color: var(--violet); }
+    .beat-cues { display: flex; flex-direction: column; gap: 4px; }
+    .cue-head { display: flex; justify-content: space-between; align-items: center; font: 600 9.5px "SF Mono", Menlo, monospace; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
+    .cue-row { display: grid; grid-template-columns: 1fr 1fr 56px 28px; gap: 4px; align-items: center; }
+    .cue-row input[data-cue="at"] { grid-column: 1 / 4; }
+    .cue-row .ib { grid-column: 4; grid-row: 1; }
+    .cue-row select, .cue-row input { font-size: 11px; padding: 3px 4px; min-width: 0; }
+    .cue-row.bad input[data-cue="at"] { border-color: #fb7185; }
+    .cue-extra { grid-column: 1 / -1; font: 600 9px "SF Mono", Menlo, monospace; color: var(--dim); }
+    .cue-warn { font: 600 10px "SF Mono", Menlo, monospace; color: #fbbf24; }
+    .beat-pin { display: flex; gap: 5px; align-items: center; }
+    .beat-pin .pinned { font: 600 10px "SF Mono", Menlo, monospace; color: var(--emerald); }
+
+    /* ---------- Clean mode: only the scene ---------- */
+    body.clean .panel, body.clean .handle { display: none !important; }
+    #clean-exit-pill {
+      display: none;
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.75);
+      color: var(--dim);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font: 11px "SF Mono", Menlo, monospace;
+      cursor: pointer;
+    }
+    body.clean #clean-exit-pill { display: block; opacity: 0.25; transition: opacity 0.2s; }
+    body.clean #clean-exit-pill:hover { opacity: 1; color: #fff; }
+
+    /* ---------- Explore mode: the world, a small dock, nothing else (Tab switches to the studio) ---------- */
+    body.explore .panel, body.explore .handle, body.explore #safe-guides { display: none !important; }
+    body.explore.vertical #frame-container { width: 100%; aspect-ratio: auto; box-shadow: none; }
+    #explore-dock {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      z-index: 20;
+      width: max-content; /* left: 50% would otherwise cap the dock at half the window and wrap its rows */
+      max-width: calc(100vw - 24px);
+      padding: 6px 9px;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+    #explore-dock:hover, #explore-dock:focus-within { opacity: 1; }
+    body.explore #explore-dock { display: flex; }
+    body.clean #explore-dock, body.recording #explore-dock { display: none; }
+    .xd-row { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; align-items: center; }
+    .xd-group { display: inline-flex; flex-wrap: nowrap; gap: 5px; align-items: center; } /* previous / play / next stay together */
+    #explore-dock .btn { flex: 0 0 auto; width: auto; padding: 4px 8px; font-size: 11.5px; white-space: nowrap; }
+    #explore-dock select.mini { width: auto; max-width: 132px; padding: 3px 6px; font-size: 11.5px; }
+    #xd-beat, #xd-fps { font: 500 10.5px "SF Mono", Menlo, monospace; color: var(--dim); }
+    .xd-hint { display: none; font: 500 10px "SF Mono", Menlo, monospace; color: var(--dim); text-align: center; line-height: 1.5; }
+    #explore-dock:hover .xd-hint, #explore-dock:focus-within .xd-hint { display: block; } /* key hints only while the dock is in use */
+    .xd-hint kbd { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      :root { --left-w: calc(100vw - 24px); --right-w: calc(100vw - 24px); }
+      body:not(.left-collapsed)  #panel-right { display: none; }
+    }
+  </style>
+</head>
+<body class="booting">
+  <script>
+    // Pick explore vs studio before anything draws, so a refresh never flashes the other layout (same rule as the boot in js/16_explore_api.js).
+    (function () {
+      if (!new URLSearchParams(location.search).has("camp")) { location.replace(location.pathname + "?camp" + location.hash); return; }
+      var q = new URLSearchParams(location.search), saved = null;
+      try { saved = localStorage.getItem('innerwork.ui'); } catch (e) {}
+      var deep = q.has('beat') || q.has('cam') || q.has('snap') || q.has('clean');
+      if ((q.get('ui') || (deep ? 'studio' : saved) || 'explore') !== 'studio') document.body.classList.add('explore');
+      window.addEventListener('load', function () { setTimeout(function () { document.body.classList.remove('booting'); }, 1500); }); // fallback if 16 never runs
+      // Camp mode (js/21_camp.js): registered first, so it swallows every key before the studio's own handlers see it.
+      if (q.has('camp')) {
+        document.body.classList.add('explore', 'camp');
+        var campKeys = function (e) { e.stopImmediatePropagation(); if (window.campKey) window.campKey(e); };
+        window.addEventListener('keydown', campKeys, true);
+        window.addEventListener('keyup', campKeys, true);
+        // No WebGL (old browser, or hardware acceleration off): say so instead of a black page.
+        var gl = null; try { var cv = document.createElement('canvas'); gl = cv.getContext('webgl2') || cv.getContext('webgl'); } catch (e) {}
+        if (!gl) document.addEventListener('DOMContentLoaded', function () {
+          var d = document.createElement('div');
+          d.setAttribute('style', 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0b1020;color:#e8e2d4;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px');
+          d.innerHTML = '<div><h1 style="font-weight:500">Campfire Night</h1><p>This browser can\'t draw 3D (WebGL is off or not supported).<br>Try a recent Chrome, Safari, Firefox or Edge, with hardware acceleration on.</p></div>';
+          document.body.appendChild(d);
+        });
+      }
+    })();
+  </script>
+
+  <button id="clean-exit-pill" onclick="toggleCleanMode()">Exit Clean Mode (H)</button>
+
+  <div id="workspace">
+    <!-- ==================== FULL-BLEED 3D STAGE ==================== -->
+    <div id="stage-wrap">
+      <div id="frame-container">
+        <canvas id="three-canvas"></canvas>
+        <canvas id="overlay-canvas"></canvas>
+        <div id="safe-guides" aria-hidden="true">
+          <div class="sz sz-top">app UI (top)</div>
+          <div class="sz sz-right">like · comment · share</div>
+          <div class="sz sz-bottom">caption · audio · profile (keep text above)</div>
+          <div class="sz-center"></div>
+          <div class="sz-third" style="top:33.3%"></div>
+          <div class="sz-third" style="top:66.6%"></div>
+        </div>
+      </div>
+      <div id="rec-hud"></div>
+    </div>
+
+    <!-- ==================== EXPLORE DOCK (explore mode only; built by js/16_explore_api.js) ==================== -->
+    <div id="explore-dock">
+      <div class="xd-row">
+        <select class="mini" id="xd-place" title="Views: fly to a place in the clearing (1-6)"></select>
+        <select class="mini" id="xd-part" title="Characters: pick a part of George to see in the clearing (V plays the Avoider's moment)"></select>
+        <select class="mini" id="xd-mood" title="World mood (L)"></select>
+        <select class="mini" id="xd-episode" title="Episode"></select>
+      </div>
+      <div class="xd-row">
+        <span class="xd-group">
+          <button class="btn" onclick="prevBeat()" title="Previous line (←)">⏮</button>
+          <button class="btn gold" id="xd-play" onclick="IW.toggle()" title="Play the story while you roam (Space)">▶ Play story</button>
+          <button class="btn" onclick="nextBeat()" title="Next line (→)">⏭</button>
+          <span id="xd-beat">1 / 1</span>
+        </span>
+        <button class="btn" id="xd-follow" onclick="IW.follow()" title="Let the story's director move the camera (F)">🎬 Director cam: Off</button>
+        <button class="btn" id="xd-sound" onclick="toggleAudio(); syncDock()" title="Voice + ambience (M)">🔇 Sound</button>
+        <button class="btn" onclick="IW.ui('studio')" title="Open the full studio panels (Tab)">⚙ Studio</button>
+      </div>
+      <div class="xd-hint"><kbd>drag</kbd> look · <kbd>W A S D</kbd> fly · <kbd>Q</kbd>/<kbd>E</kbd> down/up · <kbd>Shift</kbd> fast · <kbd>scroll</kbd> zoom · <kbd>1</kbd>–<kbd>6</kbd> places · <kbd>J</kbd> map · <kbd>H</kbd> hide · <span id="xd-fps"></span></div>
+    </div>
+
+    <button class="handle" id="handle-left" onclick="togglePanel('left')" title="Show story panel ( [ )">&#9656;</button>
+    <button class="handle" id="handle-right" onclick="togglePanel('right')" title="Show studio panel ( ] )">&#9666;</button>
+
+    <!-- ==================== LEFT PANEL: STORY ==================== -->
+    <aside class="panel" id="panel-left">
+      <div class="panel-head">
+        <div class="brand">
+          <a href="../../index.html" class="brand-back" title="Back to Polymath Lab HQ">&larr; Lab</a>
+          <span class="brand-title">The Human &amp; The Astral Witness</span>
+        </div>
+        <button class="btn icon" onclick="IW.ui('explore')" title="Explore mode: just the world (Tab)">🧭</button>
+        <button class="btn icon" onclick="togglePanel('left')" title="Hide panel ( [ )">&laquo;</button>
+      </div>
+      <div class="panel-body">
+        <div class="sec">
+          <div class="sec-title">Episode</div>
+          <div class="stack" id="episode-list"></div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Now Playing</div>
+          <div id="reel-progress"></div>
+          <div id="scene-hud">
+            <div class="hud-pill">
+              <span class="dot-pulse" id="hud-dot"></span>
+              <span id="hud-beat-label">BEAT 1 / 6</span>
+            </div>
+            <div class="hud-pill" id="hud-runtime" title="Estimated reel length (reading time; voice lines may run a little longer)">≈ 0:00</div>
+            <div class="hud-pill" id="hud-state-pill">State: Reflective Inquiry</div>
+          </div>
+          <div id="dialogue-overlay">
+            <div class="dialogue-card speaker-human" id="dialogue-card">
+              <div class="speaker-header">
+                <span class="speaker-tag" id="speaker-name">👤 THE SEEKER (THE HUMAN)</span>
+                <span class="beat-camera-tag" id="camera-shot-label">🎥 Shot: Over-the-Shoulder</span>
+              </div>
+              <div id="dialogue-text">"Every time I get excited about a new curiosity—like 3D printing, drones, or shaders—my brain immediately ruins it."</div>
+              <div id="dialogue-sub">Drag the scene to orbit</div>
+            </div>
+          </div>
+          <div class="transport">
+            <button class="btn" onclick="prevBeat()" title="Previous Line (Left Arrow)">&larr; Prev</button>
+            <button class="btn gold" id="btn-autoplay" onclick="toggleAutoPlay()" title="Auto-advance beats">▶ Auto-Play: Off</button>
+            <button class="btn on" onclick="nextBeat()" title="Next Line (Space or Right Arrow)">Next &rarr;</button>
+          </div>
+          <div class="grid2">
+            <button class="btn" onclick="playFromStart()" title="Play the whole reel from beat 1 (P)">⏮ Rehearse (P)</button>
+            <button class="btn rose" id="btn-take" onclick="startTake(true)" title="Record the whole reel from beat 1 with captions and voice (R)">🔴 Record Take (R)</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== RIGHT PANEL: STUDIO ==================== -->
+    <aside class="panel" id="panel-right">
+      <div class="panel-head">
+        <div class="tabs" style="flex:1;">
+          <button class="tab-btn active" id="tab-direct" onclick="setRightTab('direct')">Direct</button>
+          <button class="tab-btn" id="tab-beats" onclick="setRightTab('beats')">Beats</button>
+          <button class="tab-btn" id="tab-reel" onclick="setRightTab('reel')">Reel</button>
+          <button class="tab-btn" id="tab-journal" onclick="setRightTab('journal')">Script</button>
+        </div>
+        <button class="btn icon" onclick="togglePanel('right')" title="Hide panel ( ] )">&raquo;</button>
+      </div>
+      <div class="panel-body">
+
+        <!-- Direct tab: camera, look, grade, lens, scene -->
+        <div class="tab-pane active" id="pane-direct">
+          <div class="sec">
+            <div class="sec-title">🎥 Camera</div>
+            <div class="grid2">
+              <button class="cam-btn active" id="cam-auto" onclick="setCameraCut('auto')">0 · Auto-Director</button>
+              <button class="cam-btn" id="cam-wide" onclick="setCameraCut('wide')">1 · Across Flames</button>
+              <button class="cam-btn" id="cam-human" onclick="setCameraCut('human')">2 · George CU</button>
+              <button class="cam-btn" id="cam-spirit" onclick="setCameraCut('spirit')">3 · Witness CU</button>
+              <button class="cam-btn" id="cam-top" onclick="setCameraCut('top')">4 · High Halo</button>
+            </div>
+            <div class="row" title="Hard cut = jump straight to each new shot (snappy, reel style). Glide = swoop between shots.">
+              <span class="group-label">Cuts</span>
+              <div class="seg" data-seg="cam.cut"><button data-v="cut">Hard cut</button><button data-v="glide">Glide</button></div>
+            </div>
+            <div class="row" title="How fast the camera swoops between shots in Glide mode"><span class="group-label">Glide speed</span><input type="range" data-bind="cam.glide" min="1" max="8" step="0.25" /><span class="val" data-val="cam.glide"></span></div>
+            <div class="row" title="Strength of the slow push / pull / orbit drift inside each shot (0 = locked off)"><span class="group-label">Move</span><input type="range" data-bind="cam.moveAmt" min="0" max="2.5" step="0.05" /><span class="val" data-val="cam.moveAmt"></span></div>
+            <div class="row" title="Tighter or looser than the authored framing, for every shot"><span class="group-label">Framing</span><input type="range" data-bind="cam.frame" min="0.7" max="1.6" step="0.02" /><span class="val" data-val="cam.frame"></span></div>
+            <div class="row" title="9:16 only: how far down the frame the speaker's face sits (0.36 = upper third, clear of captions; 0 = authored framing)"><span class="group-label">Face height</span><input type="range" data-bind="cam.faceY" min="0" max="0.6" step="0.01" /><span class="val" data-val="cam.faceY"></span></div>
+            <div class="row" title="Focal length. Longer lenses flatten the background and feel more cinematic; framing is kept."><span class="group-label">Lens</span><input type="range" data-bind="cam.lens" min="20" max="100" step="1" /><span class="val" data-val="cam.lens"></span></div>
+            <div class="row" title="Handheld camera sway during director moves (0 = tripod)"><span class="group-label">Handheld</span><input type="range" data-bind="lens.handheld" min="0" max="3" step="0.05" /><span class="val" data-val="lens.handheld"></span></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">🎨 Look</div>
+            <div class="row"><span class="group-label">Preset</span><select class="mini" id="look-select" onchange="applyLookPreset(this.value)"></select></div>
+            <div class="grid2">
+              <button class="btn" onclick="saveCustomLook()" title="Save the current grade, bloom, exposure and lens as a named look">💾 Save look</button>
+              <button class="btn" onclick="deleteCustomLook()" title="Delete the selected custom look">🗑 Delete look</button>
+            </div>
+            <div class="row" title="World lighting (L cycles)"><span class="group-label">Mood (L)</span><select class="mini" id="mood-select" onchange="setMoodFromUI(this.value)"></select></div>
+            <div class="row" title="Atmosphere from storm (0) to luminous coherence (100). Beats set this; the slider overrides until the next beat.">
+              <span class="group-label" id="coherence-label">Coherence 65%</span>
+              <input type="range" id="coherence-slider" min="0" max="100" value="65" oninput="onCoherenceSlider(this.value)" /><span class="val"></span>
+            </div>
+            <div class="row" title="HDR bloom glow (each mood sets its own; this trims it)"><span class="group-label">Bloom</span><input type="range" id="bloom-slider" data-bind="look.bloom" min="0" max="150" step="1" /><span class="val" data-val="look.bloom"></span></div>
+            <div class="row" title="Brightness trim on top of the mood"><span class="group-label">Exposure</span><input type="range" id="exposure-slider" data-bind="look.exposure" min="50" max="150" step="1" /><span class="val" data-val="look.exposure"></span></div>
+          </div>
+
+          <details class="sec" open>
+            <summary class="sec-title" style="cursor:pointer;">🎞 Grade</summary>
+            <div class="row"><span class="group-label">Saturation</span><input type="range" data-bind="grade.sat" min="0" max="1.6" step="0.01" /><span class="val" data-val="grade.sat"></span></div>
+            <div class="row"><span class="group-label">Contrast</span><input type="range" data-bind="grade.contrast" min="0" max="0.8" step="0.01" /><span class="val" data-val="grade.contrast"></span></div>
+            <div class="row" title="White balance: cool (−) to warm (+)"><span class="group-label">Warmth</span><input type="range" data-bind="grade.warmth" min="-1" max="1" step="0.01" /><span class="val" data-val="grade.warmth"></span></div>
+            <div class="row" title="Green (−) to magenta (+)"><span class="group-label">Tint</span><input type="range" data-bind="grade.tint" min="-1" max="1" step="0.01" /><span class="val" data-val="grade.tint"></span></div>
+            <div class="row" title="Matte film fade: lifts the blacks"><span class="group-label">Fade</span><input type="range" data-bind="grade.lift" min="0" max="1" step="0.01" /><span class="val" data-val="grade.lift"></span></div>
+            <div class="row" title="Cool shadows / warm highlights"><span class="group-label">Split-tone</span><input type="range" data-bind="grade.split" min="0" max="3" step="0.05" /><span class="val" data-val="grade.split"></span></div>
+            <div class="row"><span class="group-label">Vignette</span><input type="range" data-bind="grade.vignette" min="0" max="2" step="0.02" /><span class="val" data-val="grade.vignette"></span></div>
+            <div class="row"><span class="group-label">Grain</span><input type="range" data-bind="grade.grain" min="0" max="0.09" step="0.002" /><span class="val" data-val="grade.grain"></span></div>
+            <div class="row" title="Chromatic aberration toward the frame edges"><span class="group-label">Lens fringe</span><input type="range" data-bind="grade.ca" min="0" max="3" step="0.05" /><span class="val" data-val="grade.ca"></span></div>
+          </details>
+
+          <details class="sec" open>
+            <summary class="sec-title" style="cursor:pointer;">🎯 Focus</summary>
+            <div class="grid2">
+              <button class="btn on" id="btn-dof" onclick="toggleDof(); studioChanged()" title="Toggle depth of field (focus follows the subject)">🎯 DOF: On</button>
+              <button class="btn" id="btn-letterbox" onclick="toggleLetterbox(); studioChanged()" title="Cinematic 2.39:1 bars (16:9 only)">🎞 Letterbox: Off</button>
+            </div>
+            <div class="row" title="Depth-of-field blur strength"><span class="group-label">DOF blur</span><input type="range" id="dof-slider" data-bind="lens.dofAmt" min="0" max="2" step="0.01" /><span class="val" data-val="lens.dofAmt"></span></div>
+          </details>
+
+          <details class="sec">
+            <summary class="sec-title" style="cursor:pointer;">🌲 Scene</summary>
+            <div class="row"><span class="group-label">Fire light</span><input type="range" data-bind="scene.fire" min="0" max="2" step="0.02" /><span class="val" data-val="scene.fire"></span></div>
+            <div class="row"><span class="group-label">Fireflies</span><input type="range" data-bind="scene.flies" min="0" max="2" step="0.02" /><span class="val" data-val="scene.flies"></span></div>
+            <div class="row"><span class="group-label">Witness glow</span><input type="range" data-bind="scene.glow" min="0" max="2" step="0.02" /><span class="val" data-val="scene.glow"></span></div>
+            <div class="checks">
+              <label class="check"><input type="checkbox" data-bind="scene.swarm" /> Thought swarm</label>
+              <label class="check"><input type="checkbox" data-bind="scene.stream" /> Light stream</label>
+              <label class="check"><input type="checkbox" data-bind="scene.birds" /> Eagles</label>
+              <label class="check"><input type="checkbox" data-bind="scene.embers" /> Embers</label>
+            </div>
+          </details>
+
+          <details class="sec">
+            <summary class="sec-title" style="cursor:pointer;">⌨️ Shortcuts</summary>
+            <div class="keys" style="margin-top:8px;">
+              <kbd>Space</kbd> <kbd>&rarr;</kbd> next · <kbd>&larr;</kbd> prev · <kbd>P</kbd> rehearse<br />
+              <kbd>R</kbd> record take · <kbd>Esc</kbd> stop · <kbd>C</kbd> captions · <kbd>G</kbd> safe zones<br />
+              <kbd>0</kbd>–<kbd>4</kbd> camera · <kbd>L</kbd> mood · <kbd>V</kbd> 9:16 · <kbd>M</kbd> sound<br />
+              <kbd>[</kbd> <kbd>]</kbd> panels · <kbd>B</kbd> beats · <kbd>E</kbd> script · <kbd>H</kbd> clean
+            </div>
+          </details>
+        </div>
+
+        <!-- Beats tab: per-beat shot, move, mood, emote, timing -->
+        <div class="tab-pane" id="pane-beats">
+          <div class="grid2">
+            <button class="btn" onclick="addBeat()">＋ Add beat</button>
+            <button class="btn emerald" onclick="saveScript()" title="Write episodes/scripts/epN.json (edits also autosave)">💾 Save</button>
+          </div>
+          <div class="status" id="beats-status">Edits autosave to episodes/scripts/</div>
+          <div class="hint">▶ plays a beat. 📌 pins the camera you've framed by dragging the scene to that beat (per 9:16 / 16:9).</div>
+          <div class="stack" id="beat-list" style="gap:8px;"></div>
+        </div>
+
+        <!-- Reel tab: format, text, captions, sound, pace, export -->
+        <div class="tab-pane" id="pane-reel">
+          <div class="sec">
+            <div class="sec-title">📱 Format</div>
+            <div class="grid2">
+              <button class="btn" id="btn-vertical" onclick="toggleVertical()" title="Toggle 9:16 vertical reel vs 16:9 cinema">📱 9:16 Reel (V)</button>
+              <button class="btn" id="btn-guides" onclick="toggleGuides()" title="Show where Instagram / TikTok UI covers the frame (never recorded)">📐 Safe zones (G)</button>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">✍️ Reel Text</div>
+            <input class="mini" id="meta-title" placeholder="Episode title" oninput="setEpisodeMeta('title', this.value)" />
+            <input class="mini" id="meta-hook" placeholder="Hook: big on-screen text over the first seconds" oninput="setEpisodeMeta('hook', this.value)" />
+            <textarea class="mini" id="meta-caption" rows="3" placeholder="Post caption + hashtags" oninput="setEpisodeMeta('caption', this.value)"></textarea>
+            <button class="btn" onclick="copySocialCaption()" id="btn-copy-caption">📋 Copy Caption</button>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">💬 Captions</div>
+            <div class="row"><span class="group-label">Style (C)</span><div class="seg" data-seg="cap.style"><button data-v="karaoke">Karaoke</button><button data-v="line">Line</button><button data-v="off">Off</button></div></div>
+            <div class="row"><span class="group-label">Position</span><div class="seg" data-seg="cap.pos"><button data-v="upper">Upper</button><button data-v="middle">Middle</button><button data-v="lower">Lower</button></div></div>
+            <div class="row"><span class="group-label">Size</span><input type="range" data-bind="cap.size" min="0.6" max="1.6" step="0.02" /><span class="val" data-val="cap.size"></span></div>
+            <div class="row"><span class="group-label">Hook secs</span><input type="range" data-bind="cap.hookSecs" min="1" max="6" step="0.25" /><span class="val" data-val="cap.hookSecs"></span></div>
+            <div class="checks">
+              <label class="check"><input type="checkbox" data-bind="cap.speaker" /> Speaker tag</label>
+              <label class="check"><input type="checkbox" data-bind="cap.hook" /> Hook title</label>
+            </div>
+            <div class="row"><span class="group-label">Handle</span><input class="mini" type="text" data-bind="cap.handle" placeholder="@yourhandle (optional)" /></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">🔊 Sound</div>
+            <button class="btn" id="btn-audio" onclick="toggleAudio()" title="Voice + ambience (M)">🔇 Sound (M)</button>
+            <div class="row"><span class="group-label">Voice</span><input type="range" data-bind="audio.voice" min="0" max="1.5" step="0.05" /><span class="val" data-val="audio.voice"></span></div>
+            <div class="row"><span class="group-label">Ambience</span><div class="seg" data-seg="audio.bed"><button data-v="fire">Fire</button><button data-v="bowl">Wind</button><button data-v="both">Both</button><button data-v="off">Off</button></div></div>
+            <div class="row"><span class="group-label">Amb. level</span><input type="range" data-bind="audio.amb" min="0" max="2" step="0.05" /><span class="val" data-val="audio.amb"></span></div>
+            <label class="check"><input type="checkbox" data-bind="audio.chime" /> Chime on each line</label>
+            <div class="status" id="voice-status"></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">⏱ Pace</div>
+            <div class="row" title="Speeds up or slows down every beat"><span class="group-label">Speed</span><input type="range" data-bind="pace.speed" min="0.6" max="1.8" step="0.05" /><span class="val" data-val="pace.speed"></span></div>
+            <div class="row" title="Silence after each voice line before the next beat"><span class="group-label">Gap</span><input type="range" data-bind="pace.gap" min="0" max="2.5" step="0.05" /><span class="val" data-val="pace.gap"></span></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">🎬 Export</div>
+            <div class="row"><span class="group-label">Quality</span><div class="seg" data-seg="export.quality"><button data-v="1080">1080p</button><button data-v="720">720p</button><button data-v="screen">Screen</button></div></div>
+            <div class="row"><span class="group-label">FPS</span><div class="seg" data-seg="export.fps"><button data-v="30">30</button><button data-v="60">60</button></div></div>
+            <div class="row"><span class="group-label">File</span><div class="seg" data-seg="export.fmt"><button data-v="mp4">MP4</button><button data-v="webm">WebM</button></div></div>
+            <label class="check"><input type="checkbox" data-bind="export.sound" /> Voice + ambience in the take</label>
+            <div class="grid2">
+              <button class="btn" onclick="playFromStart()">⏮ Rehearse (P)</button>
+              <button class="btn rose" id="btn-take-2" onclick="startTake(true)">🔴 Record Take (R)</button>
+              <button class="btn" onclick="capturePosterPNG()" title="Save this frame with captions (.png)">📸 Snap PNG</button>
+              <button class="btn" id="btn-record" onclick="toggleReelRecording()" title="Record whatever you do until pressed again">⏺ Free Record</button>
+            </div>
+            <div class="status" id="reel-status">Takes save to episodes/takes/ (or download).</div>
+          </div>
+
+          <div class="grid2">
+            <button class="btn" onclick="saveSettingsToDisk()" title="Write all studio settings (incl. sound on/off) to episodes/studio.json">💾 Save settings</button>
+            <button class="btn" onclick="loadSettingsFromDisk(true)" title="Load settings from episodes/studio.json">📂 Load settings</button>
+          </div>
+          <div class="status" id="settings-status">Settings also auto-save in this browser.</div>
+          <button class="btn" onclick="resetStudio()" title="Back to the studio defaults (keeps your custom looks and scripts)">↺ Reset studio settings</button>
+        </div>
+
+        <!-- Journal tab -->
+        <div class="tab-pane" id="pane-journal">
+          <div class="drawer-hint">
+            <strong>1. Journal-to-Dialogue:</strong> paste any raw thought and auto-convert it into a 6-beat directed scene.
+          </div>
+          <textarea class="field" id="raw-journal-input" rows="3" placeholder="Paste a raw journal thought here (e.g. 'Today I kept comparing my progress to everyone online and lost my creative joy...')"></textarea>
+          <select class="field" id="journal-lens-select">
+            <option value="socratic">🪞 Lens: Socratic Mirror</option>
+            <option value="zen">🪷 Lens: Zen Stillness (Chitta)</option>
+            <option value="shadow">🌗 Lens: Shadow Integration</option>
+            <option value="maker">🔥 Lens: Pure Maker's Flow</option>
+          </select>
+          <button class="btn gold" onclick="generateSceneFromRawJournal()">✨ Auto-Build Scene</button>
+
+          <div class="drawer-hint">
+            <strong>2. Paste your script:</strong> one line per beat, <code>GEORGE:</code> / <code>WITNESS:</code> prefixes (a line without one continues the line above). Optional top lines <code>TITLE:</code> <code>HOOK:</code> <code>CAPTION:</code>.<br />
+            Tags (all optional, the director fills sensible defaults): <code>[cam:human|spirit|wide|top]</code> <code>[move:push|pull|orbit|orbitL|crane|none]</code> <code>[mood:golden|dawn|dusk|astral|night]</code> <code>[emote:idle|agree|headShake|sad_pose]</code> <code>[focus:george|witness|fire]</code> <code>[coherence:0-100]</code> <code>[hold:seconds]</code>
+          </div>
+          <textarea class="field" id="script-textarea" spellcheck="false"></textarea>
+          <div class="grid2">
+            <button class="btn emerald" onclick="applyCustomScript()">▶ Load &amp; Save</button>
+            <button class="btn" onclick="copySocialCaption()">📋 Copy Caption</button>
+            <button class="btn" onclick="resetScript()" style="grid-column:1 / -1;">↺ Revert to built-in script</button>
+          </div>
+          <div class="drawer-hint" id="save-status">Load &amp; Save writes to projects/inner_work_3d/episodes/scripts/</div>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ==================== CINEMA PBR + MOCAP HUMANOID 3D ENGINE ==================== -->
+  <script src="js/01_episodes.js?v=ep1hook1"></script>
+  <script src="js/02_textures.js?v=reel2"></script>
+  <script src="js/03_renderer_bloom.js?v=perf2"></script>
+  <script src="js/04_sky.js?v=perf4"></script>
+  <script src="js/05_camera_lighting.js?v=hearth2"></script>
+  <script src="js/05b_lake.js?v=pond1"></script>
+  <script src="js/06_water_island.js?v=hearth1"></script>
+  <script src="js/07_hearth_fire.js?v=hearth2"></script>
+  <script src="js/09_godray_dais.js?v=reel2"></script>
+  <script src="js/10f_procedural_bodies.js?v=thumb6b"></script>
+  <script src="js/10g_stylized_george.js?v=nose5"></script>
+  <script src="js/10h_cosmic_spirit.js?v=hearth1"></script>
+  <script src="js/10i_multitool.js?v=bake1"></script>
+  <script src="js/10_characters.js?v=nose4"></script>
+  <script src="js/11_resonance_stream.js?v=reel2"></script>
+  <script src="js/11b_natural_world.js?v=ring1"></script>
+  <script src="js/11c_capture_reel.js?v=perf2"></script>
+  <script src="js/12_audio.js?v=off1"></script>
+  <script src="js/13_ui_controls.js?v=camp404"></script>
+  <script src="js/14_animation_loop.js?v=v1rel"></script>
+  <script src="js/15_reel_studio.js?v=camp404"></script>
+  <script src="js/16_explore_api.js?v=mirror1"></script>
+  <script src="js/17_offline_take.js?v=4k2"></script>
+  <script src="js/18_parts.js?v=judge1"></script>
+  <script src="js/19_process.js?v=camp404"></script>
+  <script src="js/20_moments.js?v=ns2"></script>
+  <script src="js/20f_fist_latitude.js?v=fist9"></script>
+  <script src="js/20g_sky_catalogue.js?v=ns2"></script>
+  <script src="js/20n_night_skills.js?v=ns4"></script>
+  <script src="js/20o_skill_overlays.js?v=ns3"></script>
+  <!-- Campfire Night (?camp): core + one file per pastime; see js/camp/README.md -->
+  <script src="js/camp/00_core.js?v=v1rel"></script>
+  <script src="js/camp/03_touch.js?v=card2"></script>
+  <script src="js/camp/05_tent.js?v=card1"></script>
+  <script src="js/camp/12_field_guide.js?v=v1rel"></script>
+  <script src="js/camp/13_lessons_camp.js?v=audit1"></script>
+  <script src="js/camp/14_lessons_sky.js?v=lt1"></script>
+  <script src="js/camp/10_fire_tending.js?v=card1"></script>
+  <script src="js/camp/20_wood.js?v=wood2"></script>
+  <script src="js/camp/30_thoughts.js?v=card1"></script>
+  <script src="js/camp/35_witness.js?v=card1"></script>
+  <script src="js/camp/40_marshmallow.js?v=card1"></script>
+  <script src="js/camp/50_stones.js?v=card1"></script>
+  <script src="js/camp/55_fishing.js?v=card1"></script>
+  <script src="js/camp/60_night_life.js?v=card1"></script>
+  <script src="js/camp/62_star_finder.js?v=card1"></script>
+  <script src="js/camp/70_soundscape.js?v=wit1"></script>
+  <script src="js/camp/75_smoke.js?v=wit1"></script>
+  <script src="js/camp/80_night_air.js?v=audit1"></script>
+  <script src="js/camp/90_third_person.js?v=fv1"></script>
+  <script src="js/camp/92_free_view.js?v=fv1"></script>
+</body>
+</html>
