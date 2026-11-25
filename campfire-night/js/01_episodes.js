@@ -1,0 +1,1443 @@
+// © 2026 George Moussa. All rights reserved.
+// ============================================================================
+// 1. EPISODE SCRIPTS (generated from episodes/scripts/epN.json by tools/sync_episodes.py)
+// ============================================================================
+const EPISODES = [
+  {
+    "title": "Reel 01: What's Left When the Noise Stops",
+    "hook": "I've been drowning out one sound for years.",
+    "caption": "Something in me kept knocking. Tonight I stopped drowning it out. What would you hear if the noise stopped? #innerwork #healingjourney #intuition #stillness #spiritual",
+    "scene": {
+      "witnessAt": 4,
+      "reveal": "fade",
+      "hookSecs": 2.0,
+      "hookY": 0.6,
+      "hookSolo": true,
+      "coldOpen": {
+        "secs": 3.6,
+        "from": 0.6
+      },
+      "outro": "What would you hear if the noise stopped?",
+      "outroAt": 7.2,
+      "loop": {
+        "ask": "What sound?",
+        "steps": [
+          {
+            "from": 4,
+            "ask": "Who's knocking?"
+          },
+          {
+            "from": 6,
+            "ask": "What does it want?"
+          },
+          {
+            "from": 9,
+            "ask": "What if it's too big?"
+          },
+          {
+            "from": 11,
+            "ask": "Will I answer?"
+          }
+        ],
+        "answer": "This time I answer.",
+        "answerAt": 5.4
+      }
+    },
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "across",
+        "move": "push",
+        "mood": 2,
+        "moodSnap": true,
+        "coherence": 15,
+        "emote": "anxious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "There's a knock inside me. I've never answered. I turn up anything loud enough to drown it.",
+        "cues": [
+          {
+            "at": "me. I've",
+            "cam": "humanFace",
+            "move": "push"
+          },
+          {
+            "at": "I've never answered",
+            "gesture": "lookAway"
+          },
+          {
+            "at": "turn up anything",
+            "cam": "human",
+            "move": "orbit"
+          },
+          {
+            "at": "drown it",
+            "emote": "frustration@0.25",
+            "cam": "humanFace",
+            "move": "push"
+          }
+        ],
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "wide",
+        "move": "orbitL",
+        "coherence": 18,
+        "emote": "grief@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Tonight there's nothing left to turn up.",
+        "hold": 3.6,
+        "direction": "The fire dips.",
+        "cues": [
+          {
+            "at": "turn up",
+            "fire": -0.5,
+            "fireSecs": 2.2,
+            "cam": "across",
+            "move": "push"
+          }
+        ],
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 22,
+        "emote": "resolve@0.5",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I'm listening. Say it to my face.",
+        "move": "push",
+        "gap": 0.15
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "across",
+        "move": "push",
+        "coherence": 35,
+        "emote": "surprise@0.25",
+        "stateLabel": "State: Astral Witness",
+        "text": "Finally.",
+        "voiceDelay": 0.5,
+        "hold": 3,
+        "direction": "Appears across the fire.",
+        "cues": [
+          {
+            "at": "Finally",
+            "react": true,
+            "reactDelay": 1.0,
+            "cam": "spirit",
+            "move": "orbit"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 40,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "What are you?",
+        "move": "push"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "move": "push",
+        "coherence": 50,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Astral Witness",
+        "text": "What's left when the noise stops.",
+        "cues": [
+          {
+            "at": "What's left",
+            "gesture": "tilt"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 55,
+        "emote": "anxious@0.5",
+        "stateLabel": "State: Journal Reflection",
+        "text": "What do you want?",
+        "move": "orbitL"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 60,
+        "emote": "anxious@0.4",
+        "stateLabel": "State: Astral Witness",
+        "text": "What did you walk out here for?",
+        "cues": [
+          {
+            "at": "What did you",
+            "gesture": "lean-in"
+          }
+        ],
+        "move": "orbit"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 70,
+        "emote": "hope@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "To hear it. ...What if it's bigger than me?",
+        "cues": [
+          {
+            "at": "bigger than me",
+            "emote": "anxious@0.7"
+          }
+        ],
+        "move": "push"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 80,
+        "emote": "anxious@0.5",
+        "stateLabel": "State: Astral Witness",
+        "text": "It is. Has drowning it made you any bigger?",
+        "cues": [
+          {
+            "at": "It is",
+            "gesture": "open-hands"
+          },
+          {
+            "at": "any bigger",
+            "emote": "shame@0.5",
+            "react": true,
+            "reactDelay": 1.2
+          }
+        ],
+        "move": "orbitL"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "top",
+        "move": "crane",
+        "coherence": 100,
+        "emote": "peace",
+        "stateLabel": "State: Journal Reflection",
+        "text": "No. ...Knock again. This time I'll answer.",
+        "hold": 10.2,
+        "direction": "George looks up. The fire rises. The stars come out.",
+        "cues": [
+          {
+            "t": 0,
+            "gesture": "lookUp",
+            "gestureSecs": 8
+          },
+          {
+            "at": "knock again",
+            "fire": 0.4,
+            "fireSecs": 2.5
+          },
+          {
+            "at": "I'll answer",
+            "mood": 3,
+            "moodSecs": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Reel 02: The Compass Under the Ribs",
+    "hook": "My head said stay. My intuition said go.",
+    "caption": "My head wanted proof. My ribs already knew. Which road have you been pretending not to feel? #innerwork #intuition #trustyourself #decisions #spiritual",
+    "scene": {
+      "witnessAt": 5,
+      "reveal": "fade",
+      "outro": "Which road are you pretending not to feel?",
+      "outroAt": 4.6,
+      "hookSecs": 2.0,
+      "hookSolo": true,
+      "coldOpen": {
+        "secs": 1.9,
+        "from": 0.3
+      }
+    },
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "across",
+        "move": "push",
+        "mood": 2,
+        "moodSnap": true,
+        "coherence": 20,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Staying, I can explain to anyone. Going, I can't explain. It just pulls.",
+        "cues": [
+          {
+            "t": 0.02,
+            "fire": 0.35,
+            "fireSecs": 1.6
+          },
+          {
+            "at": "to anyone",
+            "cam": "humanFace",
+            "move": "orbit"
+          },
+          {
+            "at": "Going",
+            "cam": "across",
+            "move": "push"
+          },
+          {
+            "at": "It just pulls",
+            "cam": "human",
+            "move": "push",
+            "gesture": "lookAway"
+          }
+        ],
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 24,
+        "emote": "frustration@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I always pick the one I can explain.",
+        "move": "push",
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "top",
+        "coherence": 26,
+        "emote": "anxious@0.6",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Give me a sign. Anything.",
+        "cues": [
+          {
+            "at": "Give me a sign",
+            "gesture": "lookUp",
+            "gestureSecs": 2.5
+          }
+        ],
+        "move": "crane",
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "move": "push",
+        "coherence": 30,
+        "emote": "peace@0.4",
+        "stateLabel": "State: Journal Reflection",
+        "text": "",
+        "hold": 2.5,
+        "direction": "Nothing. He sits. Breathes. A hand to his ribs. Then the Witness is there, across the fire.",
+        "cues": [
+          {
+            "t": 0.04,
+            "gesture": "touchChest",
+            "gestureSecs": 3.5
+          },
+          {
+            "t": 0.5,
+            "cam": "across",
+            "move": "push",
+            "fire": 0.4,
+            "fireSecs": 2.0,
+            "reveal": true,
+            "minCut": 1.2
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "across",
+        "coherence": 40,
+        "emote": "surprise@0.25",
+        "stateLabel": "State: Astral Witness",
+        "text": "There. Feel that?",
+        "voiceDelay": 0.3,
+        "direction": "Already there, where the paths split.",
+        "cues": [
+          {
+            "at": "Feel that",
+            "cam": "spirit",
+            "move": "push",
+            "gesture": "tilt"
+          }
+        ],
+        "move": "none"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 45,
+        "emote": "anxious@0.6",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Feel what? Fear and the pull feel the same."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "move": "push",
+        "coherence": 55,
+        "emote": "anxious@0.4",
+        "stateLabel": "State: Astral Witness",
+        "text": "Which one makes you smaller?",
+        "cues": [
+          {
+            "at": "Which one",
+            "gesture": "lean-in"
+          }
+        ],
+        "hold": 4.0
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 65,
+        "emote": "shame@0.5",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Fear shrinks me. The pull... opens me.",
+        "cues": [
+          {
+            "at": "opens me",
+            "emote": "hope@0.6",
+            "gesture": "open",
+            "gestureSecs": 3.2,
+            "cam": "wide",
+            "move": "pull",
+            "mood": 3,
+            "moodSecs": 4
+          }
+        ],
+        "hold": 7.5
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 75,
+        "emote": "hope@0.5",
+        "stateLabel": "State: Astral Witness",
+        "text": "And which one have you been obeying?",
+        "cues": [
+          {
+            "at": "And which",
+            "gesture": "open-hands",
+            "gestureSecs": 1.4
+          }
+        ],
+        "move": "push"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 85,
+        "emote": "resolve@0.7",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Fear. I called it being careful. Now I have no excuse.",
+        "direction": "Takes the dark road, no map.",
+        "cues": [
+          {
+            "at": "Fear",
+            "gesture": "nod"
+          },
+          {
+            "at": "no excuse",
+            "cam": "across",
+            "move": "pull"
+          }
+        ],
+        "hold": 8.5
+      }
+    ]
+  },
+  {
+    "title": "Reel 03: Stones in the Pond",
+    "hook": "Everyone I love told me to stay.",
+    "caption": "Their doubt only stung because it was already mine. Whose certainty are you still waiting for? #innerwork #selftrust #healingjourney #courage #spiritual",
+    "scene": {
+      "witnessAt": 4,
+      "reveal": "rise",
+      "hookSecs": 2.0,
+      "hookY": 0.6,
+      "hookSolo": true,
+      "outro": "Whose certainty are you still waiting for?",
+      "outroAt": 5.0,
+      "coldOpen": {
+        "secs": 2.2,
+        "from": 0.45
+      },
+      "loop": {
+        "ask": "Did I stay?",
+        "steps": [
+          {
+            "from": 4,
+            "ask": "What just came up?"
+          },
+          {
+            "from": 6,
+            "ask": "Whose doubt was it?"
+          },
+          {
+            "from": 8,
+            "ask": "Then why did it hurt?"
+          },
+          {
+            "from": 10,
+            "ask": "So... stay or go?"
+          }
+        ],
+        "answer": "I'm going anyway.",
+        "answerAt": 2.7
+      }
+    },
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "pond",
+        "move": "push",
+        "mood": 2,
+        "moodSnap": true,
+        "coherence": 20,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "People I love think I'm making the wrong choice.",
+        "cues": [
+          {
+            "at": "think",
+            "cam": "humanFace",
+            "move": "orbit"
+          }
+        ],
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "pond",
+        "coherence": 24,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "They told me to stay. It hurt more than I showed them.",
+        "cues": [
+          {
+            "t": 0,
+            "ripple": "pond"
+          },
+          {
+            "at": "It hurt",
+            "cam": "humanFace",
+            "move": "push"
+          },
+          {
+            "at": "showed them",
+            "emote": "shame@0.25",
+            "gesture": "lookAway"
+          }
+        ],
+        "move": "push",
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 26,
+        "emote": "frustration@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I don't want to stay. I'm miserable here. ...But what if they're right?",
+        "hold": 5.8,
+        "direction": "Throws a stone into the pond.",
+        "cues": [
+          {
+            "at": "miserable here",
+            "emote": "frustration@0.25",
+            "cam": "humanFace",
+            "move": "push"
+          },
+          {
+            "at": "they're right",
+            "emote": "anxious@0.7",
+            "stone": true,
+            "cam": "pond",
+            "move": "crane",
+            "gesture": "toss",
+            "gestureSecs": 1.0
+          }
+        ],
+        "move": "orbitL"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "pond",
+        "move": "push",
+        "coherence": 35,
+        "emote": "surprise@0.25",
+        "stateLabel": "State: Astral Witness",
+        "text": "There it is.",
+        "voiceDelay": 0.8,
+        "hold": 3.6,
+        "direction": "Rising from the ripples.",
+        "cues": [
+          {
+            "at": "There it is",
+            "cam": "spirit",
+            "move": "orbit"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 40,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "There what is?",
+        "move": "push"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 50,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Astral Witness",
+        "text": "The voice you lent them.",
+        "cues": [
+          {
+            "at": "The voice",
+            "gesture": "tilt"
+          }
+        ],
+        "move": "orbitL"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "move": "push",
+        "coherence": 60,
+        "emote": "curious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "They didn't plant it. It was already there.",
+        "cues": [
+          {
+            "at": "already there",
+            "emote": "surprise@0.25",
+            "gesture": "touchChest",
+            "gestureSecs": 2.5
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 65,
+        "emote": "anxious@0.4",
+        "stateLabel": "State: Astral Witness",
+        "text": "So why did it hurt?",
+        "cues": [
+          {
+            "at": "why did it hurt",
+            "gesture": "lean-in"
+          }
+        ],
+        "move": "orbit"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "move": "push",
+        "coherence": 72,
+        "emote": "grief@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Because I wanted them to be sure for me.",
+        "hold": 5,
+        "cues": [
+          {
+            "at": "sure for me",
+            "cam": "spirit",
+            "gesture": "bow",
+            "gestureSecs": 1.4,
+            "move": "crane"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 80,
+        "emote": "resolve@0.4",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I'm not sure. I'm going anyway.",
+        "direction": "Walks past the pond.",
+        "cues": [
+          {
+            "at": "going anyway",
+            "emote": "resolve@0.7",
+            "cam": "wide",
+            "move": "pull",
+            "mood": 3,
+            "moodSecs": 4
+          }
+        ],
+        "hold": 8.5,
+        "move": "orbitL"
+      }
+    ]
+  },
+  {
+    "title": "Reel 04: The Spark in My Pocket",
+    "hook": "There's one thing I've never shown anyone.",
+    "caption": "I kept my fist closed for years. What are you still holding shut? #innerwork #beingseen #creativity #healingjourney #spiritual",
+    "scene": {
+      "witnessAt": 4,
+      "reveal": "fade",
+      "spark": {
+        "fistUntil": 10,
+        "base": 0.35
+      },
+      "hookSecs": 2.0,
+      "hookY": 0.6,
+      "hookSolo": true,
+      "coldOpen": {
+        "secs": 1.9,
+        "from": 0.5
+      }
+    },
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "across",
+        "move": "push",
+        "mood": 4,
+        "moodSnap": true,
+        "coherence": 15,
+        "emote": "anxious@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Everyone knows what I do. Nobody knows what I'm holding.",
+        "direction": "His fist closed against his chest.",
+        "cues": [
+          {
+            "at": "I do",
+            "cam": "humanFace",
+            "move": "orbit"
+          },
+          {
+            "at": "what I'm holding",
+            "emote": "shame@0.5"
+          }
+        ],
+        "gap": 0.15
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 18,
+        "emote": "resolve@0.4",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I keep it shut. Shut is safe.",
+        "move": "push",
+        "gap": 0.15,
+        "cues": [
+          {
+            "at": "shut.",
+            "cam": "top",
+            "move": "crane"
+          },
+          {
+            "at": "Shut is safe",
+            "cam": "humanFace",
+            "move": "push"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "wide",
+        "coherence": 22,
+        "emote": "anxious@0.6",
+        "stateLabel": "State: Journal Reflection",
+        "text": "If anyone's there, don't look.",
+        "hold": 4.5,
+        "direction": "The fire leans toward his fist.",
+        "cues": [
+          {
+            "at": "don't look",
+            "fire": 0.2,
+            "fireLean": 1,
+            "fireSecs": 2.5
+          }
+        ],
+        "move": "orbit"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 30,
+        "emote": "anxious@0.6",
+        "stateLabel": "State: Astral Witness",
+        "text": "Your hand is shaking.",
+        "voiceDelay": 0.5,
+        "hold": 3.5,
+        "direction": "Appears across the fire.",
+        "cues": [
+          {
+            "at": "Your hand",
+            "gesture": "tilt"
+          },
+          {
+            "at": "shaking",
+            "tremble": 3,
+            "react": true,
+            "reactDelay": 0.5
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 32,
+        "emote": "anxious@0.7",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Stay back.",
+        "cues": [
+          {
+            "at": "Stay back",
+            "gesture": "lookAway",
+            "tremble": 1.5
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "move": "none",
+        "coherence": 40,
+        "emote": "anxious@0.5",
+        "stateLabel": "State: Astral Witness",
+        "text": "Why?",
+        "hold": 3
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 45,
+        "emote": "grief@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I showed someone once. They asked what it was good for.",
+        "cues": [
+          {
+            "at": "good for",
+            "emote": "shame@0.7",
+            "gesture": "lookAway"
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "move": "push",
+        "coherence": 55,
+        "emote": "shame@0.4",
+        "stateLabel": "State: Astral Witness",
+        "text": "Did the spark go out?",
+        "cues": [
+          {
+            "at": "Did the spark",
+            "gesture": "lean-in",
+            "spark": 0.7
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 70,
+        "emote": "grief@0.25",
+        "stateLabel": "State: Journal Reflection",
+        "text": "No. I went out. It kept burning in the dark.",
+        "cues": [
+          {
+            "at": "kept burning",
+            "emote": "hope@0.4"
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "wide",
+        "coherence": 90,
+        "emote": "hope@0.6",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Look.",
+        "hold": 6.5,
+        "direction": "Opens his hand across the fire.",
+        "cues": [
+          {
+            "t": 0,
+            "gesture": "offer",
+            "gestureSecs": 4.5,
+            "spark": 2,
+            "fire": 0.3,
+            "fireSecs": 2
+          },
+          {
+            "t": 0.3,
+            "emote": "joy@0.25"
+          },
+          {
+            "t": 0.55,
+            "cam": "spirit",
+            "gesture": "open-hands"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Reel 05: Are You Tired?",
+    "hook": "Are you tired?",
+    "caption": "Rest isn't giving up. It might be the first honest thing you say all year. What are you tired of carrying? #innerwork #healingjourney #rest #stillness #spiritual",
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 10,
+        "emote": "sad_pose",
+        "move": "push",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I don't know how to be anything but busy."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 27,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Are you tired?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 28,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "That's not a real question. Rest is for people who stopped."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 45,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Are you tired?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 46,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Yes. I've been pushing so long I forgot the ground was there."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 64,
+        "emote": "idle",
+        "mood": 3,
+        "stateLabel": "State: Astral Witness",
+        "text": "Who told you that rest means falling behind?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 65,
+        "emote": "idle",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Everyone. No one. Mostly the voice in my own head."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 82,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Then sit. The fire never hurries, and it still warms everything."
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 83,
+        "emote": "agree",
+        "stateLabel": "State: Journal Reflection",
+        "text": "And if I stop, what is left of me?"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "top",
+        "coherence": 100,
+        "emote": "idle",
+        "move": "crane",
+        "stateLabel": "State: Astral Witness",
+        "text": "The part that was never worn out. It was only waiting for you to sit down."
+      }
+    ]
+  },
+  {
+    "title": "Reel 06: The Child Who Read the Room",
+    "hook": "You call it overthinking. I call it reading the room.",
+    "caption": "Overthinking was once a child's way of staying safe. Thank it, then set it down. What did you learn to watch for? #innerwork #overthinking #innerchild #healingjourney #intuition",
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 10,
+        "emote": "sad_pose",
+        "move": "push",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I can't stop replaying every conversation."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 27,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "What are you looking for in them?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 28,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Whatever I did wrong. A tone. A pause. A look."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 45,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Where did you first learn to watch for that?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 46,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Early on. If I read the room right, things stayed calm."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 64,
+        "emote": "idle",
+        "mood": 3,
+        "stateLabel": "State: Astral Witness",
+        "text": "Then it was never overthinking. It was a child keeping the peace."
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 65,
+        "emote": "idle",
+        "stateLabel": "State: Journal Reflection",
+        "text": "So the habit was protecting me?"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 82,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "It did, back then. You are allowed to thank it, and tell it you are safe now."
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 83,
+        "emote": "agree",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I'm not sure I know how to feel safe."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "top",
+        "coherence": 100,
+        "emote": "idle",
+        "move": "crane",
+        "stateLabel": "State: Astral Witness",
+        "text": "One slow breath at a time. It learned to watch. It can learn to rest."
+      }
+    ]
+  },
+  {
+    "title": "Reel 07: You Can't Heal What You Won't Feel",
+    "hook": "You can't heal what you won't feel.",
+    "caption": "Hold a ball under water and it fights you the whole time. Let it rise. What are you holding down? #innerwork #healingjourney #shadowwork #feelyourfeelings #spiritual",
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 10,
+        "emote": "sad_pose",
+        "move": "push",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I'm holding something down. I can feel it pushing back."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 27,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "What does that feel like?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 28,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Like holding a ball under water. My arms are always tired."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 45,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "And if you let go, even for a moment?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 46,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "It shoots up. I'm scared of what it will do."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 64,
+        "emote": "idle",
+        "mood": 3,
+        "stateLabel": "State: Astral Witness",
+        "text": "Look at the pond. What does it do with whatever rises?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 65,
+        "emote": "idle",
+        "stateLabel": "State: Journal Reflection",
+        "text": "It ripples. Then it settles."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 82,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Feelings are the same. They move through you once you stop gripping them."
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 83,
+        "emote": "agree",
+        "stateLabel": "State: Journal Reflection",
+        "text": "So I don't have to fix it. I only have to let it come up."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "top",
+        "coherence": 100,
+        "emote": "idle",
+        "move": "crane",
+        "stateLabel": "State: Astral Witness",
+        "text": "Yes. Let it rise. The water will hold it."
+      }
+    ]
+  },
+  {
+    "title": "Reel 08: Younger Me by the Fire",
+    "hook": "What would you tell the kid you were?",
+    "caption": "The kid who sat alone and kept dreaming is still here. What would you tell him? #innerwork #innerchild #healingjourney #youngerself #campfire",
+    "beats": [
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 10,
+        "emote": "idle",
+        "move": "push",
+        "stateLabel": "State: Astral Witness",
+        "text": "Look across the fire. Who do you see?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 27,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Me, as a kid. Quiet. Waiting for someone to ask what he's thinking."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 28,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "What would you say to him?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 45,
+        "emote": "sad_pose",
+        "stateLabel": "State: Journal Reflection",
+        "text": "That I'm sorry I stopped asking."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 46,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "What did he want most?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 64,
+        "emote": "sad_pose",
+        "mood": 3,
+        "stateLabel": "State: Journal Reflection",
+        "text": "To make strange things, and have someone care that he made them."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 65,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Then tell him."
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 82,
+        "emote": "agree",
+        "stateLabel": "State: Journal Reflection",
+        "text": "I still make them. I still love the strange things. I just forgot to say I'm proud of him."
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "top",
+        "coherence": 83,
+        "emote": "idle",
+        "stateLabel": "State: Astral Witness",
+        "text": "Is he listening?"
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "top",
+        "coherence": 100,
+        "emote": "agree",
+        "move": "crane",
+        "stateLabel": "State: Journal Reflection",
+        "text": "He's smiling. He knew all along."
+      }
+    ]
+  },
+  {
+    "title": "Reel 09: Not Everything Needs Purpose",
+    "hook": "Not everything needs purpose.",
+    "caption": "Curiosity can't breathe while it's being questioned for usefulness. What did you stop doing because it wasn't productive? #innerwork #nonattachment #bhagavadgita #creativeprocess #polymath",
+    "beats": [
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "mood": 2,
+        "moodSnap": true,
+        "coherence": 10,
+        "emote": "curious",
+        "move": "push",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Every time I fall for something new, a voice asks what it's for.",
+        "cues": [
+          {
+            "at": "a voice asks",
+            "emote": "anxious@0.6"
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 27,
+        "emote": "anxious@0.5",
+        "stateLabel": "State: Astral Witness",
+        "text": "And what do you say?",
+        "cues": [
+          {
+            "at": "what do you say",
+            "gesture": "tilt",
+            "gestureSecs": 2.2
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 28,
+        "emote": "shame@0.7",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Nothing. I stop. It's hard to defend a spark.",
+        "cues": [
+          {
+            "at": "It's hard to defend",
+            "emote": "grief@0.4"
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 45,
+        "emote": "hope@0.3",
+        "stateLabel": "State: Astral Witness",
+        "text": "A spark is not asking to be defended. It is asking to burn.",
+        "cues": [
+          {
+            "at": "It is asking to burn",
+            "emote": "surprise@0.5",
+            "fire": 1.2,
+            "fireSecs": 1.8
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 46,
+        "emote": "anxious@0.7",
+        "stateLabel": "State: Journal Reflection",
+        "text": "But what if it leads nowhere?"
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "spirit",
+        "coherence": 48,
+        "emote": "curious@0.5",
+        "stateLabel": "State: Astral Witness",
+        "text": "Does a child ask where the stream goes before stepping in?",
+        "cues": [
+          {
+            "at": "before stepping in",
+            "mood": 3,
+            "coherence": 64,
+            "gesture": "radiate",
+            "gestureSecs": 1.8
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "humanFace",
+        "coherence": 65,
+        "emote": "curious@0.4",
+        "stateLabel": "State: Journal Reflection",
+        "text": "No. They get wet and laugh.",
+        "cues": [
+          {
+            "at": "They get wet",
+            "emote": "joy@0.8",
+            "gesture": "open",
+            "gestureSecs": 2
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "wide",
+        "coherence": 82,
+        "emote": "hope@0.4",
+        "stateLabel": "State: Astral Witness",
+        "text": "Then act for the joy of the act, and let the fruit fall where it falls.",
+        "cues": [
+          {
+            "at": "let the fruit fall",
+            "emote": "resolve@0.6",
+            "gesture": "open-hands",
+            "gestureSecs": 2.4
+          }
+        ]
+      },
+      {
+        "speaker": "HUMAN",
+        "cam": "human",
+        "coherence": 83,
+        "emote": "hope@0.6",
+        "stateLabel": "State: Journal Reflection",
+        "text": "Even if all I gain is understanding?",
+        "cues": [
+          {
+            "at": "understanding",
+            "gesture": "touchChest",
+            "gestureSecs": 2
+          }
+        ]
+      },
+      {
+        "speaker": "SPIRIT",
+        "cam": "top",
+        "coherence": 100,
+        "emote": "peace",
+        "move": "crane",
+        "stateLabel": "State: Astral Witness",
+        "text": "That is the one harvest nobody can take.",
+        "cues": [
+          {
+            "at": "is the one harvest",
+            "mood": 0,
+            "moodSecs": 4,
+            "gesture": "bow",
+            "gestureSecs": 2.4
+          }
+        ]
+      }
+    ]
+  }
+];
+
+let curEpisodeIdx = 0;
+let beats = EPISODES[0].beats;
+let curBeatIdx = 0;
+let autoPlay = false;
+let beatTimer = 0;
+let speechActive = false;
+// Pacing (Reel tab > Pace; persisted by 15_reel_studio.js). speed scales every beat; gap = silence after a voice line.
+const paceOpts = { speed: 1.0, gap: 0.55, wordSecs: 0.38, minSecs: 3.5 };
+// Reading-time beat length (used when no voice clip is playing): ~0.38s/word + a breath. A beat's `hold` (s) overrides it.
+function beatDuration(b) {
+  b = b || beats[curBeatIdx] || {};
+  if (b.hold > 0) return b.hold;
+  const words = (b.text || '').split(/\s+/).length;
+  return Math.max(paceOpts.minSecs, words * paceOpts.wordSecs + 1.1) / paceOpts.speed;
+}
+let cameraMode = 'auto';
+let targetCoherence = 0.25;
+let curCoherence = 0.25;
+let bloomStrength = 0.48;
+
+function b64ToBuffer(b64) {
+  const bin = atob(b64);
+  const len = bin.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes.buffer;
+}
