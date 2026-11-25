@@ -51,7 +51,7 @@ node scripts/sync-years.js
 
 It rewrites every "N+ years" in `index.html` and `llms.txt` to match, then commit the result.
 
-**Update Campfire Night.** The game is built in the private `polymath-lab` repo. Don't edit `campfire-night/` by hand: from the lab, run `projects/inner_work_3d/tools/package_camp.sh <this repo>/campfire-night`, delete the `campfire-night.zip` it leaves next to the folder, and commit. Its card is `campfire-night` in `projects-data.js`.
+**Update Campfire Night.** The game is built (and minified) in the private `polymath-lab` repo. Don't edit `campfire-night/` by hand: from the lab, run `projects/inner_work_3d/tools/package_camp.sh <this repo>/campfire-night`, delete the `campfire-night.zip` it leaves next to the folder, and commit. Its card is `campfire-night` in `projects-data.js`.
 
 ## Preview locally
 
