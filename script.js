@@ -37,8 +37,8 @@ const FLAGSHIP_PIPELINES = {
     color: '52, 211, 153',
     steps: [
       ['Service containerization', 'Spring Boot & Docker'],
-      ['Enterprise EDP CI/CD', 'Automated security & tests'],
-      ['Stakeholder alignment', '50+ cross-functional partners'],
+      ['Enterprise CI/CD', 'Automated security & tests'],
+      ['Stakeholder alignment', 'Business & engineering partners'],
       ['Zero-downtime release', 'Blue/green deployment & runbooks']
     ]
   },

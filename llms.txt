@@ -23,11 +23,11 @@
 
 ## Production Case Studies & Featured Work
 
-### 1. Modernizing Enterprise Card Origination Platform — TD Bank
+### 1. Modernizing Enterprise Banking Services — TD Bank
 - **Role**: Software Engineer
 - **Domain**: Enterprise Financial Infrastructure & Large-Scale Systems Migration
-- **Stack**: Java, Spring Boot, Angular, Microservices, Apache Kafka, Red Hat OpenShift, Jenkins CI/CD, Oracle DB
-- **Overview**: Migrated legacy monolithic credit card origination systems to resilient, containerized microservices on OpenShift. Designed decoupled event-driven architectures with Apache Kafka, built secure RESTful services under strict SOC2 financial compliance, and cut manual deployment cycles from days to minutes with automated Jenkins CI/CD pipelines.
+- **Stack**: Java, Spring Boot, Angular, TypeScript, Python, REST APIs, Docker, CI/CD
+- **Overview**: Migrated 8 banking services onto the bank's enterprise CI/CD platform with zero-downtime releases and operational runbooks. Owned 4 enterprise application migrations end to end, shipping ~25 features to thousands of users, and automated a 60-minute manual XML validation process down to seconds.
 
 ### 2. DocuMind — Static Code Intelligence Engine & Architecture Graph
 - **Role**: Creator & Systems Architect
