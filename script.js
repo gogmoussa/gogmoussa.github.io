@@ -29,6 +29,7 @@ const ICONS = {
   github: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.420-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>',
   check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
   arrow: '<svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  play: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>',
   chevron: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'
 };
 
@@ -168,7 +169,11 @@ function renderProjectGrid(projects) {
       <div class="card-top">
         <div class="card-header-row">
           <span class="badge ${getCategoryBadgeClass(p.category)}">${p.badge}</span>
-          ${p.github ? `
+          ${p.liveDemo ? `
+            <a href="${p.liveDemo}" class="btn-icon" title="Play it in your browser" aria-label="Play ${p.title}">
+              ${ICONS.play}
+            </a>
+          ` : p.github ? `
             <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View code on GitHub" aria-label="View ${p.title} on GitHub">
               ${ICONS.github}
             </a>
@@ -340,7 +345,12 @@ function showProjectModal(p, trigger) {
     .join('<span class="arch-arrow">→</span>');
 
   const ghLink = $('modal-github-link');
-  if (p.github) {
+  if (p.liveDemo) {
+    ghLink.href = p.liveDemo;
+    ghLink.removeAttribute('target');
+    ghLink.innerHTML = `${ICONS.play}<span>Play it in your browser</span>`;
+    ghLink.onclick = null;
+  } else if (p.github) {
     ghLink.href = p.github;
     ghLink.target = '_blank';
     ghLink.innerHTML = `${ICONS.github}<span>View source on GitHub</span>`;

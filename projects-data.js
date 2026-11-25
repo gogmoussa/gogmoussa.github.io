@@ -43,6 +43,26 @@ const projectsData = [
     architecture: "Raw XML Payload ──> Schema Validation (XSD) ──> Python Sanitization Engine ──> Idempotent Production Ingestion"
   },
   {
+    id: "campfire-night",
+    title: "Campfire Night",
+    badge: "Educational Game · v1",
+    category: "web",
+    tagline: "Keep a Fire Going by a Lake Until Dawn, and Learn the Night Sky",
+    shortDescription: "A quiet first-person 3D camping game that runs in the browser on a computer or a phone. Gather wood, tend the fire, toast marshmallows, skip stones, fish, and name the real constellations overhead.",
+    fullDescription: "Campfire Night is an educational game where the lesson is the night itself. You keep a fire alive from 9 PM to dawn while the sky turns, the air cools and mist rises off the lake. A field guide unlocks pages as you play, from how to build and safely put out a fire to Polaris, star colours and the constellations you find by looking up. Every fact in the guide was checked before release. It is hand-written three.js with no build step, and there is no score: dawn simply remembers a few moments from your night.",
+    tech: ["JavaScript", "three.js", "WebGL", "Web Audio", "Touch Controls", "AI-Native Development"],
+    github: null,
+    liveDemo: "campfire-night/",
+    metrics: "Browser & Phone · Real Night Sky · No Install",
+    highlights: [
+      "A field guide that teaches from what you do: fire craft, fire safety, wildlife and the real sky",
+      "Star finder that names 21 constellations from real star positions as you look at them",
+      "Plays with keyboard and mouse or on a phone with touch controls",
+      "Private by design: no accounts, no analytics, and nothing you write is ever stored"
+    ],
+    architecture: "Player Actions ──> Game Modules (Fire, Wood, Sky, Fishing) ──> Event Bus ──> Field Guide Pages ──> Dawn Moments"
+  },
+  {
     id: "documind",
     title: "DocuMind",
     badge: "AST Compiler Intelligence",
